@@ -450,6 +450,7 @@ defmodule SonaWeb.HomeLive do
                 new_request_open={@new_request_open}
                 request_errors={@request_errors}
                 departments={@departments}
+                staff_names={@staff_names}
               />
             <% "messages" -> %>
               <Messages.messages_view
@@ -568,6 +569,7 @@ defmodule SonaWeb.HomeLive do
       notifications: if(current_staff.notify_in_app, do: Coordination.recent_events(), else: []),
       notifications_muted: not current_staff.notify_in_app,
       departments: Coordination.departments(),
+      staff_names: Coordination.staff_names(),
       tasks: Coordination.list_tasks(current_staff),
       assignable_staff: Coordination.assignable_staff(current_staff)
     )

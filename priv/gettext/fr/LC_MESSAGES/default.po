@@ -567,3 +567,15 @@ msgstr "Pour"
 
 msgid "Change your language in Profile"
 msgstr "Changez votre langue dans Profil"
+
+msgid "How much can you cover?"
+msgstr "Quelle partie pouvez-vous couvrir ?"
+
+msgid "First half"
+msgstr "Première moitié"
+
+msgid "Second half"
+msgstr "Seconde moitié"
+
+msgid "No due time"
+msgstr "Sans heure limite"

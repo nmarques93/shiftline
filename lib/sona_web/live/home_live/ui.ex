@@ -330,6 +330,57 @@ defmodule SonaWeb.HomeLive.UI do
   def language_label("French"), do: "Français"
   def language_label(_), do: "English"
 
+  ## Time choices
+
+  @doc """
+  Half-hour options between two times, for constraining a picker to a shift.
+
+  A free-text time field lets someone enter a time outside the shift and then
+  be told off for it; offering only the valid times makes that error close to
+  unreachable.
+  """
+  def time_choices(%Time{} = from, %Time{} = to, step_minutes \\ 30) do
+    # Counted rather than generated-until-past-`to`: Time.add/3 wraps around
+    # midnight, so a comparison-based loop never terminates on a full day.
+    case Time.diff(to, from, :second) do
+      seconds when seconds < 0 ->
+        []
+
+      seconds ->
+        step = step_minutes * 60
+
+        Enum.map(0..div(seconds, step), fn index ->
+          from |> Time.add(index * step, :second) |> format_time()
+        end)
+    end
+  end
+
+  @doc "Half-hour options across a whole day, for a shift that has no window yet."
+  def day_time_choices(step_minutes \\ 30) do
+    time_choices(~T[00:00:00], ~T[23:30:00], step_minutes)
+  end
+
+  @doc """
+  The two obvious ways to split a shift, as `{label, from, to}`.
+
+  Most partial offers are "I can do the first half" or "the back end of it",
+  so those are one tap rather than two dropdowns.
+  """
+  def half_windows(request) do
+    minutes = Time.diff(request.end_time, request.start_time, :second) |> div(60)
+
+    if minutes >= 120 do
+      midpoint = Time.add(request.start_time, div(minutes, 60) * 30 * 60, :second)
+
+      [
+        {gettext("First half"), format_time(request.start_time), format_time(midpoint)},
+        {gettext("Second half"), format_time(midpoint), format_time(request.end_time)}
+      ]
+    else
+      []
+    end
+  end
+
   ## Shift tasks
 
   def task_row_class(%{status: "done"}), do: "task-row done"

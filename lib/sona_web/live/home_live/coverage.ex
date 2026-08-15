@@ -19,6 +19,7 @@ defmodule SonaWeb.HomeLive.Coverage do
   attr :new_request_open, :boolean, required: true
   attr :request_errors, :list, required: true
   attr :departments, :list, required: true
+  attr :staff_names, :list, required: true
 
   def coverage_view(assigns) do
     assigns =
@@ -52,6 +53,7 @@ defmodule SonaWeb.HomeLive.Coverage do
       :if={@role == "supervisor" and @new_request_open}
       request={@request}
       departments={@departments}
+      staff_names={@staff_names}
       request_errors={@request_errors}
     />
     <section class="coverage-board">
@@ -105,6 +107,7 @@ defmodule SonaWeb.HomeLive.Coverage do
 
   attr :request, :map, required: true
   attr :departments, :list, required: true
+  attr :staff_names, :list, required: true
   attr :request_errors, :list, required: true
 
   # Step 1 of the brief's primary scenario: the supervisor states who is
@@ -131,7 +134,16 @@ defmodule SonaWeb.HomeLive.Coverage do
       <form id="new-request-form" phx-submit="create_request" class="request-form">
         <label>
           <span>{gettext("Who is unavailable")}</span>
-          <input name="absent_name" required placeholder={gettext("Team member's name")} />
+          <input
+            name="absent_name"
+            list="staff-names"
+            autocomplete="off"
+            required
+            placeholder={gettext("Team member's name")}
+          />
+          <datalist id="staff-names">
+            <option :for={name <- @staff_names} value={name}></option>
+          </datalist>
         </label>
         <label>
           <span>{gettext("Department")}</span>
@@ -149,11 +161,19 @@ defmodule SonaWeb.HomeLive.Coverage do
         </label>
         <label>
           <span>{gettext("From")}</span>
-          <input type="time" name="start_time" required value="18:00" />
+          <select name="start_time">
+            <option :for={time <- day_time_choices()} value={time} selected={time == "18:00"}>
+              {time}
+            </option>
+          </select>
         </label>
         <label>
           <span>{gettext("Until")}</span>
-          <input type="time" name="end_time" required value="22:00" />
+          <select name="end_time">
+            <option :for={time <- day_time_choices()} value={time} selected={time == "22:00"}>
+              {time}
+            </option>
+          </select>
         </label>
         <label>
           <span>{gettext("Location")}</span>
@@ -223,22 +243,48 @@ defmodule SonaWeb.HomeLive.Coverage do
               <.icon name="close" /> {gettext("I can't cover it")}
             </button>
           </div>
-          <form
-            :if={@partial_open}
-            id="partial-cover-form"
-            class="partial-form"
-            phx-submit="respond_partial"
-          >
-            <label>
-              {gettext("From")}
-              <input type="time" name="from" value={format_time(@request.start_time)} required />
-            </label>
-            <label>
-              {gettext("Until")}
-              <input type="time" name="to" value={format_time(@request.end_time)} required />
-            </label>
-            <button class="primary-button">{gettext("Confirm partial coverage")}</button>
-          </form>
+          <div :if={@partial_open} class="partial-picker">
+            <div :if={half_windows(@request) != []} class="partial-presets">
+              <span class="partial-hint">{gettext("How much can you cover?")}</span>
+              <button
+                :for={{label, from, to} <- half_windows(@request)}
+                class="action-button"
+                phx-click="respond_partial"
+                phx-value-from={from}
+                phx-value-to={to}
+              >
+                {label} <em>{from}–{to}</em>
+              </button>
+            </div>
+
+            <form id="partial-cover-form" class="partial-form" phx-submit="respond_partial">
+              <label>
+                {gettext("From")}
+                <select name="from">
+                  <option
+                    :for={time <- time_choices(@request.start_time, @request.end_time)}
+                    value={time}
+                    selected={time == format_time(@request.start_time)}
+                  >
+                    {time}
+                  </option>
+                </select>
+              </label>
+              <label>
+                {gettext("Until")}
+                <select name="to">
+                  <option
+                    :for={time <- time_choices(@request.start_time, @request.end_time)}
+                    value={time}
+                    selected={time == format_time(@request.end_time)}
+                  >
+                    {time}
+                  </option>
+                </select>
+              </label>
+              <button class="primary-button">{gettext("Confirm partial coverage")}</button>
+            </form>
+          </div>
           <form id="ask-question-form" class="question-form" phx-submit="ask_question">
             <input
               name="question"

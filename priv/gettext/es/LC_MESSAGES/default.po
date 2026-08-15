@@ -575,3 +575,15 @@ msgstr "Para"
 
 msgid "Change your language in Profile"
 msgstr "Cambia tu idioma en Perfil"
+
+msgid "How much can you cover?"
+msgstr "¿Cuánto puedes cubrir?"
+
+msgid "First half"
+msgstr "Primera mitad"
+
+msgid "Second half"
+msgstr "Segunda mitad"
+
+msgid "No due time"
+msgstr "Sin hora límite"

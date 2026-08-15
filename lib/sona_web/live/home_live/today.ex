@@ -143,7 +143,10 @@ defmodule SonaWeb.HomeLive.Today do
             <option value="">{gettext("Anyone on the team")}</option>
             <option :for={person <- @assignable_staff} value={person.id}>{person.name}</option>
           </select>
-          <input type="time" name="due_time" aria-label={gettext("Due")} />
+          <select name="due_time" aria-label={gettext("Due")}>
+            <option value="">{gettext("No due time")}</option>
+            <option :for={time <- day_time_choices()} value={time}>{time}</option>
+          </select>
           <button class="primary-button">{gettext("Add task")}</button>
         </form>
 

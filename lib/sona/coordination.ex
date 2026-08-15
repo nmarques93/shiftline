@@ -146,6 +146,17 @@ defmodule Sona.Coordination do
   end
 
   @doc """
+  Staff names for the new-request form's suggestions.
+
+  The person who called in sick is nearly always on the roster, so the field
+  suggests rather than constrains — agency cover and someone hired last week
+  still need to be nameable.
+  """
+  def staff_names do
+    Repo.all(from staff in StaffMember, select: staff.name, order_by: [asc: staff.name])
+  end
+
+  @doc """
   The departments that currently have staff, for the new-request form.
   """
   def departments do

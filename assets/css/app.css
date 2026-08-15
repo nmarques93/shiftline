@@ -352,3 +352,10 @@ a.text-button { display: inline-flex; align-items: center; gap: 5px; }
 .task-action { padding: 6px 11px; border: 1px solid var(--line); border-radius: 99px; background: var(--surface); color: var(--moss); font: 600 12px "DM Sans", sans-serif; }
 .task-action:hover { background: var(--moss-soft); }
 .task-status.active { color: #8a5b1f; background: #fdf3e4; }
+
+/* Partial coverage picker */
+.partial-picker { margin-top: 10px; }
+.partial-presets { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 10px; }
+.partial-hint { width: 100%; color: var(--ink-soft); font: 600 12px "DM Sans", sans-serif; }
+.partial-presets .action-button em { margin-left: 6px; font-style: normal; color: var(--ink-soft); font-size: 12px; }
+.partial-form select { min-height: 46px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); font: 500 14px "DM Sans", sans-serif; }
