@@ -13,6 +13,8 @@ defmodule SonaWeb.HomeLive do
   use SonaWeb, :live_view
 
   alias Sona.Coordination
+  alias Sona.Coordination.{Events, Tasks}
+  alias Sona.Demo
   alias SonaWeb.HomeLive.{Coverage, Messages, Profile, Today}
 
   import SonaWeb.HomeLive.UI
@@ -22,7 +24,7 @@ defmodule SonaWeb.HomeLive do
 
   @impl true
   def mount(_params, _session, socket) do
-    Coordination.ensure_demo_data()
+    Demo.ensure_demo_data()
     if connected?(socket), do: Coordination.subscribe()
 
     {:ok,
@@ -187,7 +189,7 @@ defmodule SonaWeb.HomeLive do
   def handle_event("create_task", params, socket) do
     attrs = Map.take(params, ["title", "assignee_id", "due_time"])
 
-    case Coordination.create_task(socket.assigns.current_staff.id, attrs) do
+    case Tasks.create(socket.assigns.current_staff.id, attrs) do
       {:ok, _task} ->
         {:noreply,
          socket
@@ -206,7 +208,7 @@ defmodule SonaWeb.HomeLive do
   def handle_event("assign_task", %{"task-id" => task_id, "assignee_id" => assignee_id}, socket) do
     assignee = if assignee_id == "", do: nil, else: String.to_integer(assignee_id)
 
-    case Coordination.assign_task(
+    case Tasks.assign(
            String.to_integer(task_id),
            assignee,
            socket.assigns.current_staff.id
@@ -217,7 +219,7 @@ defmodule SonaWeb.HomeLive do
   end
 
   def handle_event("claim_task", %{"task-id" => task_id}, socket) do
-    case Coordination.claim_task(String.to_integer(task_id), socket.assigns.current_staff.id) do
+    case Tasks.claim(String.to_integer(task_id), socket.assigns.current_staff.id) do
       {:ok, _task} ->
         {:noreply, socket |> put_flash(:info, gettext("That one is yours now")) |> refresh_data()}
 
@@ -227,7 +229,7 @@ defmodule SonaWeb.HomeLive do
   end
 
   def handle_event("advance_task", %{"task-id" => task_id, "status" => status}, socket) do
-    case Coordination.update_task_status(
+    case Tasks.update_status(
            String.to_integer(task_id),
            status,
            socket.assigns.current_staff.id
@@ -297,7 +299,7 @@ defmodule SonaWeb.HomeLive do
   end
 
   def handle_event("reset", _params, socket) do
-    Coordination.reset_demo()
+    Demo.reset_demo()
 
     {:noreply,
      socket
@@ -540,7 +542,7 @@ defmodule SonaWeb.HomeLive do
         List.first(incidents) ||
         Coordination.request_with_details(Coordination.active_request().id)
 
-    personas = Coordination.personas()
+    personas = Demo.personas()
     current_staff = Map.fetch!(personas, socket.assigns.role)
 
     Gettext.put_locale(SonaWeb.Gettext, locale_for(current_staff.language))
@@ -566,12 +568,12 @@ defmodule SonaWeb.HomeLive do
       questions: Enum.filter(events, &(&1.kind == "question")),
       # The in-app channel is a real preference: muting it empties the feed
       # rather than just hiding the dot.
-      notifications: if(current_staff.notify_in_app, do: Coordination.recent_events(), else: []),
+      notifications: if(current_staff.notify_in_app, do: Events.recent(), else: []),
       notifications_muted: not current_staff.notify_in_app,
       departments: Coordination.departments(),
       staff_names: Coordination.staff_names(),
-      tasks: Coordination.list_tasks(current_staff),
-      assignable_staff: Coordination.assignable_staff(current_staff)
+      tasks: Tasks.list(current_staff),
+      assignable_staff: Tasks.assignable_staff(current_staff)
     )
   end
 

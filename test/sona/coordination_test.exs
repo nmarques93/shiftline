@@ -2,15 +2,16 @@ defmodule Sona.CoordinationTest do
   use Sona.DataCase, async: true
 
   alias Sona.Coordination
-  alias Sona.Coordination.{CoverageRequest, CoverageResponse, StaffMember}
+  alias Sona.Coordination.{CoverageRequest, CoverageResponse, StaffMember, Tasks}
+  alias Sona.Demo
 
   setup do
-    request = Coordination.seed_demo()
+    request = Demo.seed_demo()
 
     %{
       request: request,
-      maya: Coordination.supervisor_persona(),
-      luis: Coordination.frontline_persona()
+      maya: Demo.supervisor_persona(),
+      luis: Demo.frontline_persona()
     }
   end
 
@@ -200,7 +201,7 @@ defmodule Sona.CoordinationTest do
     end
 
     test "the seeded board shows the department's work, unassigned first", %{luis: luis} do
-      tasks = Coordination.list_tasks(luis)
+      tasks = Tasks.list(luis)
 
       assert length(tasks) == 3
       assert [%{assignee_id: nil} | _rest] = tasks
@@ -208,22 +209,22 @@ defmodule Sona.CoordinationTest do
     end
 
     test "a task board is scoped to the reader's own department", %{luis: luis, mei: mei} do
-      refute Coordination.list_tasks(luis) == []
-      assert Coordination.list_tasks(mei) == []
+      refute Tasks.list(luis) == []
+      assert Tasks.list(mei) == []
     end
 
     test "only a supervisor can put work on the board", %{maya: maya, luis: luis} do
-      assert {:ok, task} = Coordination.create_task(maya.id, %{"title" => "Polish the brass"})
+      assert {:ok, task} = Tasks.create(maya.id, %{"title" => "Polish the brass"})
       assert task.status == "todo"
       assert task.department == "Front Office"
       assert is_nil(task.assignee_id)
 
       assert {:error, :not_supervisor} =
-               Coordination.create_task(luis.id, %{"title" => "Polish the brass"})
+               Tasks.create(luis.id, %{"title" => "Polish the brass"})
     end
 
     test "a task needs a real title", %{maya: maya} do
-      assert {:error, changeset} = Coordination.create_task(maya.id, %{"title" => "no"})
+      assert {:error, changeset} = Tasks.create(maya.id, %{"title" => "no"})
       assert %{title: _} = errors_on(changeset)
     end
 
@@ -232,16 +233,16 @@ defmodule Sona.CoordinationTest do
       luis: luis,
       mei: mei
     } do
-      {:ok, task} = Coordination.create_task(maya.id, %{"title" => "Check the lobby lights"})
+      {:ok, task} = Tasks.create(maya.id, %{"title" => "Check the lobby lights"})
 
-      assert {:ok, assigned} = Coordination.assign_task(task.id, luis.id, maya.id)
+      assert {:ok, assigned} = Tasks.assign(task.id, luis.id, maya.id)
       assert assigned.assignee_id == luis.id
 
       # Mei is Housekeeping; this is Front Office work.
-      assert {:error, :wrong_department} = Coordination.assign_task(task.id, mei.id, maya.id)
+      assert {:error, :wrong_department} = Tasks.assign(task.id, mei.id, maya.id)
 
       # Clearing the assignment puts it back on the board.
-      assert {:ok, cleared} = Coordination.assign_task(task.id, nil, maya.id)
+      assert {:ok, cleared} = Tasks.assign(task.id, nil, maya.id)
       assert is_nil(cleared.assignee_id)
     end
 
@@ -250,9 +251,9 @@ defmodule Sona.CoordinationTest do
       luis: luis,
       priya: priya
     } do
-      {:ok, task} = Coordination.create_task(maya.id, %{"title" => "Sort the lost property"})
+      {:ok, task} = Tasks.create(maya.id, %{"title" => "Sort the lost property"})
 
-      assert {:error, :not_supervisor} = Coordination.assign_task(task.id, priya.id, luis.id)
+      assert {:error, :not_supervisor} = Tasks.assign(task.id, priya.id, luis.id)
     end
 
     test "a supervisor from another department cannot touch the task", %{
@@ -260,12 +261,12 @@ defmodule Sona.CoordinationTest do
       rosa: rosa,
       luis: luis
     } do
-      {:ok, task} = Coordination.create_task(maya.id, %{"title" => "Refill the key cards"})
+      {:ok, task} = Tasks.create(maya.id, %{"title" => "Refill the key cards"})
 
-      assert {:error, :wrong_department} = Coordination.assign_task(task.id, luis.id, rosa.id)
+      assert {:error, :wrong_department} = Tasks.assign(task.id, luis.id, rosa.id)
 
       assert {:error, :wrong_department} =
-               Coordination.update_task_status(task.id, "done", rosa.id)
+               Tasks.update_status(task.id, "done", rosa.id)
     end
 
     test "unclaimed work can be claimed, but only once and only in-department", %{
@@ -273,13 +274,13 @@ defmodule Sona.CoordinationTest do
       priya: priya,
       mei: mei
     } do
-      [unassigned | _rest] = Coordination.list_tasks(luis)
+      [unassigned | _rest] = Tasks.list(luis)
 
-      assert {:error, :wrong_department} = Coordination.claim_task(unassigned.id, mei.id)
-      assert {:ok, claimed} = Coordination.claim_task(unassigned.id, luis.id)
+      assert {:error, :wrong_department} = Tasks.claim(unassigned.id, mei.id)
+      assert {:ok, claimed} = Tasks.claim(unassigned.id, luis.id)
       assert claimed.assignee_id == luis.id
 
-      assert {:error, :already_assigned} = Coordination.claim_task(unassigned.id, priya.id)
+      assert {:error, :already_assigned} = Tasks.claim(unassigned.id, priya.id)
     end
 
     test "status moves only for the owner or a supervisor", %{
@@ -287,26 +288,26 @@ defmodule Sona.CoordinationTest do
       luis: luis,
       priya: priya
     } do
-      {:ok, task} = Coordination.create_task(maya.id, %{"title" => "Walk the corridors"})
-      {:ok, _} = Coordination.assign_task(task.id, luis.id, maya.id)
+      {:ok, task} = Tasks.create(maya.id, %{"title" => "Walk the corridors"})
+      {:ok, _} = Tasks.assign(task.id, luis.id, maya.id)
 
       # Priya neither owns it nor supervises.
       assert {:error, :not_task_owner} =
-               Coordination.update_task_status(task.id, "done", priya.id)
+               Tasks.update_status(task.id, "done", priya.id)
 
-      assert {:ok, started} = Coordination.update_task_status(task.id, "in_progress", luis.id)
+      assert {:ok, started} = Tasks.update_status(task.id, "in_progress", luis.id)
       assert started.status == "in_progress"
 
       # The supervisor can close it out on the owner's behalf.
-      assert {:ok, done} = Coordination.update_task_status(task.id, "done", maya.id)
+      assert {:ok, done} = Tasks.update_status(task.id, "done", maya.id)
       assert done.status == "done"
     end
 
     test "work nobody owns has no status to change", %{maya: maya, luis: luis} do
-      [unassigned | _rest] = Coordination.list_tasks(luis)
+      [unassigned | _rest] = Tasks.list(luis)
 
       assert {:error, :unassigned} =
-               Coordination.update_task_status(unassigned.id, "in_progress", maya.id)
+               Tasks.update_status(unassigned.id, "in_progress", maya.id)
     end
   end
 
@@ -540,21 +541,21 @@ defmodule Sona.CoordinationTest do
       Repo.delete_all(Sona.Coordination.CoverageResponse)
       Repo.delete_all(CoverageRequest)
 
-      assert :ok = Coordination.ensure_demo_data()
+      assert :ok = Demo.ensure_demo_data()
       assert Coordination.active_request()
       assert Repo.aggregate(StaffMember, :count) == 12
     end
 
     test "is a no-op when the demo data is present", %{request: request} do
-      assert :ok = Coordination.ensure_demo_data()
+      assert :ok = Demo.ensure_demo_data()
       assert Coordination.active_request().id == request.id
     end
 
     test "reseeds when a demo persona is missing", %{luis: luis} do
       Repo.delete!(luis)
 
-      assert :ok = Coordination.ensure_demo_data()
-      assert Coordination.frontline_persona()
+      assert :ok = Demo.ensure_demo_data()
+      assert Demo.frontline_persona()
       assert Repo.aggregate(StaffMember, :count) == 12
     end
   end

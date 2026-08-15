@@ -2,6 +2,7 @@ defmodule Sona.TranslationTest do
   use Sona.DataCase, async: true
 
   alias Sona.Coordination
+  alias Sona.Demo
   alias Sona.Translation
   alias Sona.Translation.ContentTranslation
 
@@ -58,8 +59,8 @@ defmodule Sona.TranslationTest do
 
   describe "content written through the workflow" do
     setup do
-      request = Coordination.seed_demo()
-      %{request: request, maya: Coordination.supervisor_persona()}
+      request = Demo.seed_demo()
+      %{request: request, maya: Demo.supervisor_persona()}
     end
 
     test "a newly created request has its reason and handoff note translated", %{maya: maya} do

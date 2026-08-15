@@ -11,14 +11,15 @@ defmodule SonaWeb.HomeLiveTest do
   import Phoenix.LiveViewTest
 
   alias Sona.Coordination
+  alias Sona.Demo
 
   setup do
-    request = Coordination.seed_demo()
+    request = Demo.seed_demo()
 
     %{
       request: request,
-      maya: Coordination.supervisor_persona(),
-      luis: Coordination.frontline_persona()
+      maya: Demo.supervisor_persona(),
+      luis: Demo.frontline_persona()
     }
   end
 

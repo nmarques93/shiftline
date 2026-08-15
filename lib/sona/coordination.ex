@@ -9,76 +9,38 @@ defmodule Sona.Coordination do
 
   Write functions validate the transition and return `{:ok, result}` or
   `{:error, reason}`, and broadcast `{:coordination_updated, request_id}`
-  on the `#{inspect(__MODULE__)}` PubSub topic so every connected client
-  refreshes.
+  so every connected client refreshes.
+
+  Coverage is the whole of this module. Its neighbours own the rest:
+
+    * `Sona.Coordination.Tasks` — the shift task board, a different question
+      with a different shape (owned by one person, no state machine)
+    * `Sona.Coordination.Events` — the activity feed, and the sentences that
+      go in it
+    * `Sona.Coordination.Notifier` — the PubSub contract every client reads
+    * `Sona.Demo` — seeded fixtures and the persona switcher standing in for
+      authentication, deliberately outside the domain
   """
 
   import Ecto.Query
   alias Sona.Repo
 
   alias Sona.Coordination.{
-    ActivityEvent,
     CoverageRequest,
     CoverageResponse,
-    ShiftTask,
+    Events,
+    Notifier,
     StaffMember
   }
 
-  @topic "coordination"
   @active_statuses ~w(open contacting claimed)
   @offer_types ~w(accepted partial)
 
-  # The prototype ships with two switchable demo personas instead of
-  # authentication. The frontline persona is pinned by name so the demo
-  # always lands on a Spanish-speaking staff member.
-  @frontline_persona "Luis Garcia"
-
-  ## PubSub
-
-  def subscribe, do: Phoenix.PubSub.subscribe(Sona.PubSub, @topic)
-
-  defp broadcast(request_id) do
-    Phoenix.PubSub.broadcast(Sona.PubSub, @topic, {:coordination_updated, request_id})
-  end
-
-  defp broadcast_settings(staff_id) do
-    Phoenix.PubSub.broadcast(Sona.PubSub, @topic, {:settings_updated, staff_id})
-  end
-
-  defp broadcast_tasks do
-    Phoenix.PubSub.broadcast(Sona.PubSub, @topic, :tasks_updated)
-  end
-
-  # Anything a user types is translated in the background and broadcast when
-  # the translations land, so other windows re-render in their own language
-  # without the writer waiting on a translation provider.
-  defp translate_content(texts, request_id) do
-    texts
-    |> Enum.reject(&is_nil/1)
-    |> Enum.each(&Sona.Translation.translate_later(&1, fn -> broadcast(request_id) end))
-  end
-
-  # Task titles are typed by a supervisor, so they need the same treatment as
-  # a request reason — Gettext cannot cover a sentence written this morning.
-  defp translate_task_content(texts) do
-    texts
-    |> Enum.reject(&is_nil/1)
-    |> Enum.each(fn text ->
-      Sona.Translation.translate_later(text, fn -> broadcast_tasks() end)
-    end)
-  end
-
-  ## Demo personas
-
-  def supervisor_persona do
-    Repo.one!(
-      from staff in StaffMember, where: staff.is_supervisor, order_by: [asc: staff.id], limit: 1
-    )
-  end
-
-  def frontline_persona, do: Repo.get_by!(StaffMember, name: @frontline_persona)
-
-  def personas, do: %{"supervisor" => supervisor_persona(), "frontline" => frontline_persona()}
+  @doc """
+  Subscribes the caller to every coordination message. `Sona.Coordination.Notifier`
+  documents the message shapes.
+  """
+  defdelegate subscribe, to: Notifier
 
   ## Reads
 
@@ -129,7 +91,7 @@ defmodule Sona.Coordination do
 
     case staff |> StaffMember.settings_changeset(attrs) |> Repo.update() do
       {:ok, updated} ->
-        broadcast_settings(updated.id)
+        Notifier.broadcast_settings(updated.id)
         {:ok, updated}
 
       {:error, changeset} ->
@@ -168,154 +130,6 @@ defmodule Sona.Coordination do
     )
   end
 
-  ## Shift tasks
-
-  @doc """
-  Everyone a task can be handed to: the staff member's own department,
-  supervisors included, since supervisors carry work too.
-  """
-  def assignable_staff(%StaffMember{} = staff) do
-    Repo.all(
-      from person in StaffMember,
-        where: person.department == ^staff.department,
-        order_by: [asc: person.name]
-    )
-  end
-
-  @doc """
-  Tasks for a staff member's department on a given day, unassigned first so
-  work nobody owns is the thing you see.
-  """
-  def list_tasks(%StaffMember{} = staff, shift_date \\ nil) do
-    date = shift_date || Date.utc_today()
-
-    Repo.all(
-      from task in ShiftTask,
-        where: task.department == ^staff.department and task.shift_date == ^date,
-        order_by: [asc: is_nil(task.assignee_id) == false, asc: task.due_time, asc: task.id],
-        preload: [:assignee]
-    )
-  end
-
-  @doc """
-  Creates a task for a department. Only a supervisor can put work on the
-  board; `:assignee_id` is optional, and leaving it out posts the task to the
-  department for someone to claim.
-  """
-  def create_task(supervisor_id, attrs) do
-    supervisor = Repo.get!(StaffMember, supervisor_id)
-
-    if supervisor.is_supervisor do
-      attrs =
-        attrs
-        |> Map.new(fn {key, value} -> {to_string(key), value} end)
-        |> Map.put_new("department", supervisor.department)
-        |> Map.put_new("shift_date", Date.utc_today())
-        |> Map.put("created_by_id", supervisor.id)
-        |> Map.put("status", "todo")
-        |> normalise_assignee()
-
-      case %ShiftTask{} |> ShiftTask.changeset(attrs) |> Repo.insert() do
-        {:ok, task} ->
-          translate_task_content([task.title])
-          broadcast_tasks()
-          {:ok, Repo.preload(task, :assignee)}
-
-        {:error, changeset} ->
-          {:error, changeset}
-      end
-    else
-      {:error, :not_supervisor}
-    end
-  end
-
-  @doc """
-  Assigns a task to someone, or clears the assignment with `nil`.
-
-  Only a supervisor may assign work to another person, and only within their
-  own department — a supervisor cannot hand a task to another department's
-  staff, and staff cannot be assigned work outside theirs.
-  """
-  def assign_task(task_id, assignee_id, actor_id) do
-    task = Repo.get!(ShiftTask, task_id)
-    actor = Repo.get!(StaffMember, actor_id)
-    assignee = assignee_id && Repo.get(StaffMember, assignee_id)
-
-    cond do
-      not actor.is_supervisor ->
-        {:error, :not_supervisor}
-
-      actor.department != task.department ->
-        {:error, :wrong_department}
-
-      assignee_id && is_nil(assignee) ->
-        {:error, :unknown_staff}
-
-      assignee && assignee.department != task.department ->
-        {:error, :wrong_department}
-
-      true ->
-        update_task!(task, %{assignee_id: assignee_id})
-    end
-  end
-
-  @doc """
-  Lets a staff member take ownership of unclaimed work in their department.
-
-  This is the frontline half of "confirm ownership": nobody has to wait for a
-  supervisor to hand out a task that is already sitting there.
-  """
-  def claim_task(task_id, staff_id) do
-    task = Repo.get!(ShiftTask, task_id)
-    staff = Repo.get!(StaffMember, staff_id)
-
-    cond do
-      staff.department != task.department -> {:error, :wrong_department}
-      not is_nil(task.assignee_id) -> {:error, :already_assigned}
-      true -> update_task!(task, %{assignee_id: staff.id})
-    end
-  end
-
-  @doc """
-  Moves a task between `todo`, `in_progress` and `done`.
-
-  Only the person who owns the task or a supervisor in its department can
-  change it, so status is a statement by someone accountable for the work
-  rather than by whoever happened to have the page open.
-  """
-  def update_task_status(task_id, status, actor_id) when status in ~w(todo in_progress done) do
-    task = Repo.get!(ShiftTask, task_id)
-    actor = Repo.get!(StaffMember, actor_id)
-
-    cond do
-      actor.department != task.department ->
-        {:error, :wrong_department}
-
-      task.assignee_id != actor.id and not actor.is_supervisor ->
-        {:error, :not_task_owner}
-
-      is_nil(task.assignee_id) ->
-        {:error, :unassigned}
-
-      true ->
-        update_task!(task, %{status: status})
-    end
-  end
-
-  defp update_task!(task, attrs) do
-    updated = task |> ShiftTask.changeset(attrs) |> Repo.update!()
-    broadcast_tasks()
-    {:ok, Repo.preload(updated, :assignee, force: true)}
-  end
-
-  # A blank select value arrives as "" and means "nobody".
-  defp normalise_assignee(attrs) do
-    case Map.get(attrs, "assignee_id") do
-      "" -> Map.put(attrs, "assignee_id", nil)
-      _other -> attrs
-    end
-  end
-
   ## Workflow transitions
 
   @doc """
@@ -335,11 +149,11 @@ defmodule Sona.Coordination do
       case Repo.transaction(fn ->
              case Repo.insert(changeset) do
                {:ok, request} ->
-                 add_event(
+                 Events.record(
                    request.id,
                    supervisor_id,
                    "created",
-                   "#{first_name(supervisor)} created a #{String.downcase(request.urgency)} " <>
+                   "#{Events.first_name(supervisor)} created a #{String.downcase(request.urgency)} " <>
                      "coverage request for #{request.department}."
                  )
 
@@ -350,8 +164,8 @@ defmodule Sona.Coordination do
              end
            end) do
         {:ok, request} ->
-          translate_content([request.reason, request.handoff_note], request.id)
-          broadcast(request.id)
+          Notifier.translate_content([request.reason, request.handoff_note], request.id)
+          Notifier.broadcast(request.id)
           {:ok, request}
 
         {:error, invalid} ->
@@ -428,8 +242,8 @@ defmodule Sona.Coordination do
             update_request!(request, %{status: "claimed"})
           end
 
-          add_event(request_id, staff_id, "response", response_event_body(staff, response))
-          translate_content([opts[:note]], request_id)
+          Events.record(request_id, staff_id, "response", Events.response_body(staff, response))
+          Notifier.translate_content([opts[:note]], request_id)
           response
       end
     end)
@@ -460,7 +274,13 @@ defmodule Sona.Coordination do
 
         true ->
           touch_viewed(request_id, staff_id)
-          add_event(request_id, staff_id, "question", "#{first_name(staff)} asked: #{text}")
+
+          Events.record(
+            request_id,
+            staff_id,
+            "question",
+            "#{Events.first_name(staff)} asked: #{text}"
+          )
       end
     end)
   end
@@ -480,7 +300,7 @@ defmodule Sona.Coordination do
         fun.(request)
       end)
 
-    with {:ok, _value} <- result, do: broadcast(request_id)
+    with {:ok, _value} <- result, do: Notifier.broadcast(request_id)
     result
   end
 
@@ -564,17 +384,20 @@ defmodule Sona.Coordination do
         true ->
           scope =
             case offer do
-              %{response_type: "partial"} = partial -> "part of the shift (#{window(partial)})"
-              _full -> "the #{request.role} shift"
+              %{response_type: "partial"} = partial ->
+                "part of the shift (#{Events.window(partial)})"
+
+              _full ->
+                "the #{request.role} shift"
             end
 
           update_request!(request, %{status: "approved", selected_replacement_id: staff_id})
 
-          add_event(
+          Events.record(
             request_id,
             approver_id,
             "approved",
-            "#{first_name(approver)} approved #{staff.name} for #{scope}."
+            "#{Events.first_name(approver)} approved #{staff.name} for #{scope}."
           )
 
           request_with_details(request_id)
@@ -618,11 +441,11 @@ defmodule Sona.Coordination do
 
           update_request!(request, %{status: "resolved", handoff_acknowledged_at: now})
 
-          add_event(
+          Events.record(
             request.id,
             staff_id,
             "handoff",
-            "#{first_name(staff)} acknowledged the handoff at #{request.location}."
+            "#{Events.first_name(staff)} acknowledged the handoff at #{request.location}."
           )
 
           details = request_with_details(request.id)
@@ -652,11 +475,11 @@ defmodule Sona.Coordination do
         status: "open"
       })
 
-    add_event(
+    Events.record(
       followup.id,
       nil,
       "created",
-      "Sona opened a follow-up request for #{format_time(gap_start)}–#{format_time(gap_end)}."
+      "Sona opened a follow-up request for #{Events.format_time(gap_start)}–#{Events.format_time(gap_end)}."
     )
 
     followup
@@ -679,7 +502,7 @@ defmodule Sona.Coordination do
 
   defp do_mark_viewed(request_id, staff_id) do
     response = touch_viewed(request_id, staff_id)
-    broadcast(request_id)
+    Notifier.broadcast(request_id)
     {:ok, response}
   end
 
@@ -701,210 +524,6 @@ defmodule Sona.Coordination do
     end
   end
 
-  @doc """
-  The most recent activity across every request, newest first — the feed
-  behind the notifications panel.
-  """
-  def recent_events(limit \\ 6) do
-    Repo.all(
-      from event in ActivityEvent,
-        order_by: [desc: event.inserted_at, desc: event.id],
-        limit: ^limit,
-        preload: [:actor]
-    )
-  end
-
-  ## Demo data
-
-  # Serializes concurrent seeding attempts (e.g. two first-time clients
-  # mounting at once) within the seeding transaction.
-  @seed_lock_key 571_113
-
-  @doc """
-  Reseeds the demo dataset when its structural anchors are missing: any
-  staff, any coverage request, or either demo persona. It does not detect
-  arbitrary corruption of an otherwise-anchored dataset — `Reset demo` is
-  the recovery path for that. Safe to call from every mount: the
-  check-and-seed runs in a transaction under an advisory lock, so
-  concurrent callers cannot double-seed.
-  """
-  def ensure_demo_data do
-    {:ok, seeded} =
-      Repo.transaction(fn ->
-        Repo.query!("SELECT pg_advisory_xact_lock($1)", [@seed_lock_key])
-
-        if demo_anchors_missing?() do
-          delete_demo_data()
-          {:seeded, seed_demo()}
-        else
-          :present
-        end
-      end)
-
-    with {:seeded, request} <- seeded, do: broadcast(request.id)
-    :ok
-  end
-
-  defp demo_anchors_missing? do
-    Repo.aggregate(CoverageRequest, :count) == 0 or
-      is_nil(Repo.one(from staff in StaffMember, where: staff.is_supervisor, limit: 1)) or
-      is_nil(Repo.get_by(StaffMember, name: @frontline_persona))
-  end
-
-  def reset_demo do
-    {:ok, request} =
-      Repo.transaction(fn ->
-        delete_demo_data()
-        seed_demo()
-      end)
-
-    broadcast(request.id)
-    request
-  end
-
-  defp delete_demo_data do
-    Repo.delete_all(ShiftTask)
-    Repo.delete_all(ActivityEvent)
-    Repo.delete_all(CoverageResponse)
-    Repo.delete_all(CoverageRequest)
-    Repo.delete_all(StaffMember)
-  end
-
-  def seed_demo do
-    maya =
-      insert_staff!("Maya Chen", "Front Office Supervisor", "English", is_supervisor: true)
-
-    luis = insert_staff!("Luis Garcia", "Front Desk Agent", "Spanish")
-    priya = insert_staff!("Priya Shah", "Front Desk Agent", "English")
-    theo = insert_staff!("Theo Martin", "Front Desk Agent", "French")
-    dana = insert_staff!("Dana Kim", "Night Auditor", "English")
-    sofia = insert_staff!("Sofia Alvarez", "Front Desk Agent", "Spanish")
-    _omar = insert_staff!("Omar Haddad", "Front Desk Agent", "French")
-    _ana = insert_staff!("Ana Costa", "Night Auditor", "Spanish")
-
-    # A second department, so that department-scoped eligibility is visible
-    # rather than theoretical: a Housekeeping request never reaches the front
-    # desk, and vice versa.
-    _rosa =
-      insert_staff!("Rosa Iglesias", "Housekeeping Supervisor", "Spanish",
-        department: "Housekeeping",
-        is_supervisor: true
-      )
-
-    _mei = insert_staff!("Mei Tanaka", "Room Attendant", "English", department: "Housekeeping")
-    _yusuf = insert_staff!("Yusuf Demir", "Room Attendant", "French", department: "Housekeeping")
-
-    _carla =
-      insert_staff!("Carla Mendes", "Housekeeping Attendant", "Spanish",
-        department: "Housekeeping"
-      )
-
-    request =
-      Repo.insert!(%CoverageRequest{
-        absent_name: "Jordan Lee",
-        department: "Front Office",
-        role: "Front Desk Agent",
-        shift_date: Date.utc_today(),
-        start_time: ~T[18:00:00],
-        end_time: ~T[22:00:00],
-        location: "Lobby front desk",
-        urgency: "Urgent",
-        reason:
-          "Jordan is unexpectedly unavailable. We need front desk coverage for the evening shift.",
-        handoff_note: "Please review VIP arrivals with Maya at 17:45.",
-        status: "open"
-      })
-
-    priya_offer =
-      Repo.insert!(%CoverageResponse{
-        coverage_request_id: request.id,
-        staff_member_id: priya.id,
-        response_type: "partial",
-        note: "I can cover the first half.",
-        cover_start_time: ~T[18:00:00],
-        cover_end_time: ~T[20:00:00],
-        viewed_at: now()
-      })
-
-    Repo.insert!(%CoverageResponse{
-      coverage_request_id: request.id,
-      staff_member_id: theo.id,
-      response_type: "declined",
-      note: "Already working in reservations.",
-      viewed_at: now()
-    })
-
-    Repo.insert!(%CoverageResponse{
-      coverage_request_id: request.id,
-      staff_member_id: dana.id,
-      response_type: "pending",
-      viewed_at: now()
-    })
-
-    add_event(
-      request.id,
-      maya.id,
-      "created",
-      "Maya created an urgent coverage request for the Front Office."
-    )
-
-    add_event(request.id, priya.id, "response", response_event_body(priya, priya_offer))
-    add_event(request.id, sofia.id, "team", "Sofia completed the 15:00 room release update.")
-
-    seed_tasks(maya, luis, priya)
-
-    request
-  end
-
-  defp seed_tasks(maya, luis, priya) do
-    insert_task!(maya, "Complete the lobby handoff checklist",
-      assignee_id: luis.id,
-      due_time: ~T[17:45:00],
-      location: "Front desk"
-    )
-
-    insert_task!(maya, "Review guest arrival notes",
-      assignee_id: priya.id,
-      status: "done",
-      due_time: ~T[15:20:00],
-      location: "Front desk"
-    )
-
-    # Left unassigned on purpose: it is the piece of work a frontline member
-    # can claim without waiting to be asked.
-    insert_task!(maya, "Restock the welcome desk stationery",
-      due_time: ~T[19:00:00],
-      location: "Lobby"
-    )
-  end
-
-  defp insert_task!(creator, title, opts) do
-    translate_task_content([title])
-
-    Repo.insert!(%ShiftTask{
-      title: title,
-      department: creator.department,
-      status: Keyword.get(opts, :status, "todo"),
-      shift_date: Date.utc_today(),
-      due_time: Keyword.get(opts, :due_time),
-      location: Keyword.get(opts, :location),
-      assignee_id: Keyword.get(opts, :assignee_id),
-      created_by_id: creator.id
-    })
-  end
-
-  ## Helpers
-
-  defp insert_staff!(name, role, language, opts \\ []) do
-    Repo.insert!(%StaffMember{
-      name: name,
-      role: role,
-      department: Keyword.get(opts, :department, "Front Office"),
-      language: language,
-      is_supervisor: Keyword.get(opts, :is_supervisor, false)
-    })
-  end
-
   defp upsert_response(request_id, staff_id, attrs) do
     attrs =
       Map.merge(attrs, %{coverage_request_id: request_id, staff_member_id: staff_id})
@@ -923,36 +542,6 @@ defmodule Sona.Coordination do
   defp update_request!(request, attrs) do
     request |> CoverageRequest.changeset(attrs) |> Repo.update!()
   end
-
-  defp add_event(request_id, actor_id, kind, body) do
-    # Event bodies are composed sentences containing real names and times, so
-    # they can't be Gettext msgids — they go through the same translation
-    # cache as anything else a person types.
-    translate_content([body], request_id)
-
-    Repo.insert!(%ActivityEvent{
-      coverage_request_id: request_id,
-      actor_id: actor_id,
-      kind: kind,
-      body: body
-    })
-  end
-
-  defp response_event_body(staff, %CoverageResponse{response_type: "accepted"}),
-    do: "#{first_name(staff)} offered to cover the full shift."
-
-  defp response_event_body(staff, %CoverageResponse{response_type: "partial"} = response),
-    do: "#{first_name(staff)} offered partial coverage (#{window(response)})."
-
-  defp response_event_body(staff, %CoverageResponse{response_type: "declined"}),
-    do: "#{first_name(staff)} declined the coverage request."
-
-  defp window(%{cover_start_time: cover_start, cover_end_time: cover_end}),
-    do: "#{format_time(cover_start)}–#{format_time(cover_end)}"
-
-  defp format_time(%Time{} = time), do: Calendar.strftime(time, "%H:%M")
-
-  defp first_name(%StaffMember{name: name}), do: name |> String.split() |> hd()
 
   defp now, do: DateTime.utc_now() |> DateTime.truncate(:second)
 end

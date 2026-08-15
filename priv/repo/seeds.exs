@@ -1,1 +1,1 @@
-Sona.Coordination.reset_demo()
+Sona.Demo.reset_demo()
