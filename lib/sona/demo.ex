@@ -146,7 +146,12 @@ defmodule Sona.Demo do
         reason:
           "Jordan is unexpectedly unavailable. We need front desk coverage for the evening shift.",
         handoff_note: "Please review VIP arrivals with Maya at 17:45.",
-        status: "open"
+        # "claimed", not "open": Priya's partial offer below is seeded as an
+        # existing row rather than replayed through `respond/4`, so the status
+        # has to be set to what that call would have left behind. An offer
+        # with the request still open is a state the workflow cannot reach,
+        # and seeded data has no business inventing one.
+        status: "claimed"
       })
 
     priya_offer =

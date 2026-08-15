@@ -16,9 +16,19 @@ defmodule Sona.CoordinationTest do
   end
 
   describe "seed and reads" do
-    test "active_request returns the open seeded request", %{request: request} do
+    test "active_request returns the seeded request", %{request: request} do
       assert Coordination.active_request().id == request.id
-      assert Coordination.active_request().status == "open"
+    end
+
+    test "the seeded request is in the state its seeded responses imply" do
+      # The seed writes response rows directly instead of replaying respond/4,
+      # so this guards the one invariant that shortcut could break: an offer
+      # exists, therefore the request is claimed rather than open.
+      request = Coordination.active_request()
+      %{responses: responses} = Coordination.request_with_details(request.id)
+
+      assert Enum.any?(responses, &(&1.response_type in ~w(accepted partial)))
+      assert request.status == "claimed"
     end
 
     test "active_requests orders by shift date before start time", %{request: request} do
@@ -61,8 +71,10 @@ defmodule Sona.CoordinationTest do
     end
 
     test "declining does not change the status", %{request: request, luis: luis} do
+      before = Repo.get!(CoverageRequest, request.id).status
+
       assert {:ok, _} = Coordination.respond(request.id, luis.id, "declined")
-      assert Repo.get!(CoverageRequest, request.id).status == "open"
+      assert Repo.get!(CoverageRequest, request.id).status == before
     end
 
     test "a second response updates the existing row", %{request: request, luis: luis} do
@@ -569,11 +581,13 @@ defmodule Sona.CoordinationTest do
       request: request,
       luis: luis
     } do
+      before = Repo.get!(CoverageRequest, request.id).status
+
       assert {:ok, %CoverageResponse{response_type: "pending"} = viewed} =
                Coordination.mark_viewed(request.id, luis.id)
 
       assert viewed.viewed_at
-      assert Repo.get!(CoverageRequest, request.id).status == "open"
+      assert Repo.get!(CoverageRequest, request.id).status == before
     end
 
     test "is idempotent and upgraded by a real response", %{request: request, luis: luis} do
