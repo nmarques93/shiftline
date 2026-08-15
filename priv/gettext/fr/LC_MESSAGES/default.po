@@ -1,0 +1,518 @@
+## French translations for the Sona prototype workflow.
+##
+## Uses the formal "vous" register, standard for French workplace software.
+## The seeded user content at the end is resolved at render time by
+## `SonaWeb.HomeLive.UI.translate_content/1`.
+msgid ""
+msgstr ""
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "%{count} d ago"
+msgstr "il y a %{count} j"
+
+msgid "%{count} h ago"
+msgstr "il y a %{count} h"
+
+msgid "%{count} min ago"
+msgstr "il y a %{count} min"
+
+msgid "%{count} open coverage requests"
+msgstr "%{count} demandes de remplacement ouvertes"
+
+msgid "%{name} is covering %{window}"
+msgstr "%{name} couvre le créneau %{window}"
+
+msgid "%{name} is covering the shift"
+msgstr "%{name} couvre le service"
+
+msgid "%{viewed} of %{total} viewed · %{answers} responses"
+msgstr "%{viewed} sur %{total} ont vu · %{answers} réponses"
+
+msgid "%{viewed} of %{total} viewed"
+msgstr "%{viewed} sur %{total} ont vu"
+
+msgid "%{window} still needs coverage"
+msgstr "%{window} reste à couvrir"
+
+msgid "A team member needs help"
+msgstr "Un collègue a besoin d'aide"
+
+msgid "ACTIVE INCIDENT"
+msgstr "INCIDENT EN COURS"
+
+msgid "APPROVED"
+msgstr "APPROUVÉ"
+
+msgid "Acknowledge handoff"
+msgstr "Confirmer la passation"
+
+msgid "Acknowledged"
+msgstr "Confirmé"
+
+msgid "Also needs coverage"
+msgstr "À couvrir également"
+
+msgid "Approve"
+msgstr "Approuver"
+
+msgid "Approved"
+msgstr "Approuvé"
+
+msgid "Ask a question about the shift..."
+msgstr "Posez une question sur le service..."
+
+msgid "Ask a question"
+msgstr "Poser une question"
+
+msgid "Attempting to reconnect"
+msgstr "Tentative de reconnexion"
+
+msgid "COVERAGE REQUEST"
+msgstr "DEMANDE DE REMPLACEMENT"
+
+msgid "CURRENT PROPERTY"
+msgstr "ÉTABLISSEMENT ACTUEL"
+
+msgid "Changes updates, tasks and responses across the whole app."
+msgstr "Modifie les mises à jour, les tâches et les réponses dans toute l'application."
+
+msgid "Choose a window inside the shift times."
+msgstr "Choisissez un créneau compris dans les horaires du service."
+
+msgid "Claimed"
+msgstr "Pris en charge"
+
+msgid "Close"
+msgstr "Fermer"
+
+msgid "Complete lobby handoff checklist"
+msgstr "Compléter la check-list de passation du lobby"
+
+msgid "Completed 15:20 · Front desk"
+msgstr "Terminé 15:20 · Réception"
+
+msgid "Confirm partial coverage"
+msgstr "Confirmer la couverture partielle"
+
+msgid "Contacting"
+msgstr "Prise de contact"
+
+msgid "Conversations stay attached to the work they change."
+msgstr "Les conversations restent rattachées au travail qu'elles modifient."
+
+msgid "Coverage gap"
+msgstr "Créneau non couvert"
+
+msgid "Coverage is confirmed"
+msgstr "La couverture est confirmée"
+
+msgid "Coverage needed · Front desk"
+msgstr "Remplacement nécessaire · Réception"
+
+msgid "Coverage partially confirmed"
+msgstr "Couverture partiellement confirmée"
+
+msgid "Coverage"
+msgstr "Remplacements"
+
+msgid "Current work"
+msgstr "Travail en cours"
+
+msgid "DEPARTMENT"
+msgstr "DÉPARTEMENT"
+
+msgid "Declined"
+msgstr "Refusé"
+
+msgid "Demo reset"
+msgstr "Démo réinitialisée"
+
+msgid "Done"
+msgstr "Terminé"
+
+msgid "Due 17:45 · Front desk"
+msgstr "Pour 17:45 · Réception"
+
+msgid "Engineering · Ice machine issue cleared"
+msgstr "Technique · Problème de machine à glaçons résolu"
+
+msgid "From"
+msgstr "De"
+
+msgid "Front Office / Today"
+msgstr "Réception / Aujourd'hui"
+
+msgid "Front Office team · illustrative preview"
+msgstr "Équipe de réception · aperçu illustratif"
+
+msgid "Front Office · Evening handoff"
+msgstr "Réception · Passation du soir"
+
+msgid "Front desk coverage"
+msgstr "Remplacement à la réception"
+
+msgid "Full shift"
+msgstr "Service complet"
+
+msgid "Good afternoon, %{name}"
+msgstr "Bon après-midi, %{name}"
+
+msgid "HIGH"
+msgstr "ÉLEVÉE"
+
+msgid "Handoff acknowledged"
+msgstr "Passation confirmée"
+
+msgid "Handoff needs acknowledgement"
+msgstr "La passation doit être confirmée"
+
+msgid "Handoff note"
+msgstr "Note de passation"
+
+msgid "Here is what needs your attention today."
+msgstr "Voici ce qui requiert votre attention aujourd'hui."
+
+msgid "How you use Sona"
+msgstr "Votre utilisation de Sona"
+
+msgid "I can cover all of it"
+msgstr "Je peux tout couvrir"
+
+msgid "I can cover part of it"
+msgstr "Je peux couvrir une partie"
+
+msgid "I can't cover it"
+msgstr "Je ne peux pas couvrir"
+
+msgid "In-app alerts are off. You can turn them back on in Profile."
+msgstr "Les alertes dans l'application sont désactivées. Vous pouvez les réactiver dans Profil."
+
+msgid "In-app alerts"
+msgstr "Alertes dans l'application"
+
+msgid "Just now"
+msgstr "À l'instant"
+
+msgid "Keep your role and language ready for every handoff."
+msgstr "Gardez votre poste et votre langue prêts pour chaque passation."
+
+msgid "Live operations"
+msgstr "Opérations en direct"
+
+msgid "Live"
+msgstr "En direct"
+
+msgid "Lobby"
+msgstr "Lobby"
+
+msgid "Maintenance handoff"
+msgstr "Passation de maintenance"
+
+msgid "Messages"
+msgstr "Messages"
+
+msgid "NEEDS A RESPONSE"
+msgstr "RÉPONSE ATTENDUE"
+
+msgid "New message"
+msgstr "Nouveau message"
+
+msgid "New update"
+msgstr "Nouvelle annonce"
+
+msgid "Not available in this prototype — no messages are sent."
+msgstr "Indisponible dans ce prototype — aucun message n'est envoyé."
+
+msgid "Not started"
+msgstr "Non commencé"
+
+msgid "Not viewed"
+msgstr "Non vu"
+
+msgid "Nothing new right now."
+msgstr "Rien de nouveau pour le moment."
+
+msgid "Notifications"
+msgstr "Notifications"
+
+msgid "ON YOUR SHIFT"
+msgstr "PENDANT VOTRE SERVICE"
+
+msgid "OPEN QUESTIONS"
+msgstr "QUESTIONS EN ATTENTE"
+
+msgid "OTHER OPEN REQUESTS"
+msgstr "AUTRES DEMANDES OUVERTES"
+
+msgid "One open coverage request"
+msgstr "Une demande de remplacement ouverte"
+
+msgid "Only a supervisor can approve a replacement."
+msgstr "Seul un superviseur peut approuver un remplacement."
+
+msgid "Only the approved replacement can acknowledge this handoff."
+msgstr "Seul le remplaçant approuvé peut confirmer cette passation."
+
+msgid "Open request"
+msgstr "Ouvrir la demande"
+
+msgid "Open tasks"
+msgstr "Tâches ouvertes"
+
+msgid "Open thread"
+msgstr "Ouvrir le fil"
+
+msgid "Open"
+msgstr "Ouverte"
+
+msgid "Operations board"
+msgstr "Tableau des opérations"
+
+msgid "PARTIALLY COVERED"
+msgstr "PARTIELLEMENT COUVERT"
+
+msgid "PINNED FOR YOUR TEAM"
+msgstr "ÉPINGLÉ POUR VOTRE ÉQUIPE"
+
+msgid "Partial coverage"
+msgstr "Couverture partielle"
+
+msgid "Preferred language"
+msgstr "Langue préférée"
+
+msgid "Preview"
+msgstr "Aperçu"
+
+msgid "Profile"
+msgstr "Profil"
+
+msgid "Push and SMS"
+msgstr "Push et SMS"
+
+msgid "Question sent to %{name}"
+msgstr "Question envoyée à %{name}"
+
+msgid "RECENT CONVERSATIONS"
+msgstr "CONVERSATIONS RÉCENTES"
+
+msgid "RESOLVED"
+msgstr "RÉSOLU"
+
+msgid "ROLE"
+msgstr "POSTE"
+
+msgid "Recent activity"
+msgstr "Activité récente"
+
+msgid "Replacement approved and the team has been updated"
+msgstr "Remplacement approuvé et l'équipe a été informée"
+
+msgid "Reset demo"
+msgstr "Réinitialiser la démo"
+
+msgid "Resolved"
+msgstr "Résolue"
+
+msgid "Respond to request"
+msgstr "Répondre à la demande"
+
+msgid "Responded"
+msgstr "A répondu"
+
+msgid "Response needed"
+msgstr "Réponse attendue"
+
+msgid "Review guest arrival notes"
+msgstr "Vérifier les notes d'arrivée des clients"
+
+msgid "Save settings"
+msgstr "Enregistrer les paramètres"
+
+msgid "See all"
+msgstr "Tout voir"
+
+msgid "See the open gap, responses, and handoff in one place."
+msgstr "Voyez le créneau à couvrir, les réponses et la passation au même endroit."
+
+msgid "Send question"
+msgstr "Envoyer la question"
+
+msgid "Settings saved"
+msgstr "Paramètres enregistrés"
+
+msgid "Shift in progress"
+msgstr "Service en cours"
+
+msgid "Something went wrong!"
+msgstr "Une erreur est survenue !"
+
+msgid "Starts in %{count} h"
+msgstr "Commence dans %{count} h"
+
+msgid "Starts in %{count} min"
+msgstr "Commence dans %{count} min"
+
+msgid "TEAM HANDOFFS"
+msgstr "PASSATIONS DE L'ÉQUIPE"
+
+msgid "TEAM RESPONSES"
+msgstr "RÉPONSES DE L'ÉQUIPE"
+
+msgid "Team activity"
+msgstr "Activité de l'équipe"
+
+msgid "The team asked"
+msgstr "L'équipe a demandé"
+
+msgid "This handoff is not ready to acknowledge yet."
+msgstr "Cette passation n'est pas encore prête à être confirmée."
+
+msgid "This request is already closed."
+msgstr "Cette demande est déjà clôturée."
+
+msgid "This team member has not offered to cover the shift."
+msgstr "Ce collègue ne s'est pas proposé pour couvrir le service."
+
+msgid "Those settings could not be saved."
+msgstr "Ces paramètres n'ont pas pu être enregistrés."
+
+msgid "Today"
+msgstr "Aujourd'hui"
+
+msgid "Translated automatically"
+msgstr "Traduit automatiquement"
+
+msgid "UPDATE"
+msgstr "INFO"
+
+msgid "URGENT"
+msgstr "URGENT"
+
+msgid "Until"
+msgstr "Jusqu'à"
+
+msgid "Urgent coverage needed"
+msgstr "Remplacement urgent nécessaire"
+
+msgid "Urgent updates and replies appear in your activity feed."
+msgstr "Les mises à jour urgentes et les réponses apparaissent dans votre fil d'activité."
+
+msgid "View shift"
+msgstr "Voir le service"
+
+msgid "Viewed"
+msgstr "Vu"
+
+msgid "Viewed, no response yet"
+msgstr "Vu, pas encore de réponse"
+
+msgid "Viewing as"
+msgstr "Vue en tant que"
+
+msgid "Waiting for handoff acknowledgement"
+msgstr "En attente de la confirmation de passation"
+
+msgid "We can't find the internet"
+msgstr "Connexion Internet introuvable"
+
+msgid "Welcome Ana, our new night auditor. Please introduce yourself during the 17:45 handoff."
+msgstr "Bienvenue à Ana, notre nouvelle auditrice de nuit. Présentez-vous lors de la passation de 17h45."
+
+msgid "What changed"
+msgstr "Ce qui a changé"
+
+msgid "Who has seen this?"
+msgstr "Qui a vu ce message ?"
+
+msgid "YOUR RESPONSE"
+msgstr "VOTRE RÉPONSE"
+
+msgid "YOUR SETTINGS"
+msgstr "VOS PARAMÈTRES"
+
+msgid "YOUR SHIFT"
+msgstr "VOTRE SERVICE"
+
+msgid "You are not eligible to respond to this request."
+msgstr "Vous n'êtes pas éligible pour répondre à cette demande."
+
+msgid "Your response was sent to %{name}"
+msgstr "Votre réponse a été envoyée à %{name}"
+
+msgid "Your role, department and property are managed by your hotel's operations team."
+msgstr "Votre poste, votre département et votre établissement sont gérés par l'équipe des opérations de votre hôtel."
+
+msgid "Your workspace"
+msgstr "Votre espace de travail"
+
+## Seeded user content (see module note above)
+
+msgid "Jordan is unexpectedly unavailable. We need front desk coverage for the evening shift."
+msgstr "Jordan est indisponible de manière imprévue. Nous avons besoin d'un remplacement à la réception pour le service du soir."
+
+msgid "The remaining window of this shift still needs coverage."
+msgstr "Le créneau restant de ce service doit encore être couvert."
+
+msgid "Please review VIP arrivals with Maya at 17:45."
+msgstr "Merci de passer en revue les arrivées VIP avec Maya à 17h45."
+
+msgid "I can cover the full shift."
+msgstr "Je peux couvrir tout le service."
+
+msgid "I can cover the first half."
+msgstr "Je peux couvrir la première moitié."
+
+msgid "Already working in reservations."
+msgstr "Je travaille déjà aux réservations."
+
+msgid "New coverage request"
+msgstr "Nouvelle demande de remplacement"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "NEW COVERAGE REQUEST"
+msgstr "NOUVELLE DEMANDE DE REMPLACEMENT"
+
+msgid "Report an absence"
+msgstr "Signaler une absence"
+
+msgid "Please check this form"
+msgstr "Veuillez vérifier ce formulaire"
+
+msgid "Who is unavailable"
+msgstr "Qui est indisponible"
+
+msgid "Team member's name"
+msgstr "Nom du collègue"
+
+msgid "Department"
+msgstr "Département"
+
+msgid "Role needed"
+msgstr "Poste requis"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Location"
+msgstr "Lieu"
+
+msgid "Urgency"
+msgstr "Urgence"
+
+msgid "What the team needs to know"
+msgstr "Ce que l'équipe doit savoir"
+
+msgid "Handoff note (optional)"
+msgstr "Note de passation (facultative)"
+
+msgid "Send to eligible team members"
+msgstr "Envoyer aux collègues éligibles"
+
+msgid "Coverage request sent to the team"
+msgstr "Demande de remplacement envoyée à l'équipe"
+
+msgid "Shown in its original language"
+msgstr "Affiché dans sa langue d'origine"

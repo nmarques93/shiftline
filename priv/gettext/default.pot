@@ -1,0 +1,779 @@
+## This file is a PO Template file.
+##
+## "msgid"s here are often extracted from source code.
+## Add new messages manually only if they're dynamic
+## messages that can't be statically extracted.
+##
+## Run "mix gettext.extract" to bring this file up to
+## date. Leave "msgstr"s empty as changing them here has no
+## effect: edit them in PO (.po) files instead.
+#
+msgid ""
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:332
+#, elixir-autogen, elixir-format
+msgid "%{count} d ago"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:331
+#, elixir-autogen, elixir-format
+msgid "%{count} h ago"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:330
+#, elixir-autogen, elixir-format
+msgid "%{count} min ago"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:270
+#: lib/sona_web/live/home_live/ui.ex:279
+#, elixir-autogen, elixir-format
+msgid "%{name} is covering the shift"
+msgstr ""
+
+#: lib/sona_web/live/home_live/coverage.ex:174
+#, elixir-autogen, elixir-format
+msgid "%{viewed} of %{total} viewed"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:289
+#, elixir-autogen, elixir-format
+msgid "%{viewed} of %{total} viewed · %{answers} responses"
+msgstr ""
+
+#: lib/sona_web/live/home_live/today.ex:55
+#, elixir-autogen, elixir-format
+msgid "A team member needs help"
+msgstr ""
+
+#: lib/sona_web/live/home_live/coverage.ex:39
+#, elixir-autogen, elixir-format
+msgid "ACTIVE INCIDENT"
+msgstr ""
+
+#: lib/sona_web/live/home_live/today.ex:87
+#: lib/sona_web/live/home_live/ui.ex:96
+#, elixir-autogen, elixir-format
+msgid "APPROVED"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:120
+#, elixir-autogen, elixir-format
+msgid "Acknowledge handoff"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:241
+#, elixir-autogen, elixir-format
+msgid "Acknowledged"
+msgstr ""
+
+#: lib/sona_web/components/core_components.ex:375
+#, elixir-autogen, elixir-format
+msgid "Actions"
+msgstr ""
+
+#: lib/sona_web/live/home_live/coverage.ex:197
+#, elixir-autogen, elixir-format
+msgid "Approve"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:199
+#: lib/sona_web/live/home_live/ui.ex:224
+#, elixir-autogen, elixir-format
+msgid "Approved"
+msgstr ""
+
+#: lib/sona_web/live/home_live/coverage.ex:144
+#, elixir-autogen, elixir-format
+msgid "Ask a question"
+msgstr ""
+
+#: lib/sona_web/live/home_live/coverage.ex:143
+#, elixir-autogen, elixir-format
+msgid "Ask a question about the shift..."
+msgstr ""
+
+#: lib/sona_web/components/layouts.ex:103
+#: lib/sona_web/components/layouts.ex:118
+#, elixir-autogen, elixir-format
+msgid "Attempting to reconnect"
+msgstr ""
+
+#: lib/sona_web/live/home_live/coverage.ex:100
+#, elixir-autogen, elixir-format
+msgid "COVERAGE REQUEST"
+msgstr ""
+
+#: lib/sona_web/live/home_live.ex:231
+#: lib/sona_web/live/home_live/profile.ex:45
+#, elixir-autogen, elixir-format
+msgid "CURRENT PROPERTY"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:198
+#: lib/sona_web/live/home_live/ui.ex:223
+#, elixir-autogen, elixir-format
+msgid "Claimed"
+msgstr ""
+
+#: lib/sona_web/live/home_live/today.ex:123
+#, elixir-autogen, elixir-format
+msgid "Complete lobby handoff checklist"
+msgstr ""
+
+#: lib/sona_web/live/home_live/today.ex:132
+#, elixir-autogen, elixir-format
+msgid "Completed 15:20 · Front desk"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:197
+#: lib/sona_web/live/home_live/ui.ex:222
+#, elixir-autogen, elixir-format
+msgid "Contacting"
+msgstr ""
+
+#: lib/sona_web/live/home_live/messages.ex:22
+#, elixir-autogen, elixir-format
+msgid "Conversations stay attached to the work they change."
+msgstr ""
+
+#: lib/sona_web/live/home_live.ex:245
+#: lib/sona_web/live/home_live.ex:374
+#: lib/sona_web/live/home_live/coverage.ex:30
+#, elixir-autogen, elixir-format
+msgid "Coverage"
+msgstr ""
+
+#: lib/sona_web/live/home_live/today.ex:95
+#: lib/sona_web/live/home_live/ui.ex:263
+#, elixir-autogen, elixir-format
+msgid "Coverage is confirmed"
+msgstr ""
+
+#: lib/sona_web/live/home_live/messages.ex:60
+#, elixir-autogen, elixir-format
+msgid "Coverage needed · Front desk"
+msgstr ""
+
+#: lib/sona_web/live/home_live/today.ex:115
+#, elixir-autogen, elixir-format
+msgid "Current work"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:238
+#: lib/sona_web/live/home_live/ui.ex:244
+#, elixir-autogen, elixir-format
+msgid "Declined"
+msgstr ""
+
+#: lib/sona_web/live/home_live.ex:212
+#, elixir-autogen, elixir-format
+msgid "Demo reset"
+msgstr ""
+
+#: lib/sona_web/live/home_live/today.ex:134
+#, elixir-autogen, elixir-format
+msgid "Done"
+msgstr ""
+
+#: lib/sona_web/live/home_live/today.ex:124
+#, elixir-autogen, elixir-format
+msgid "Due 17:45 · Front desk"
+msgstr ""
+
+#: lib/sona_web/live/home_live/messages.ex:69
+#, elixir-autogen, elixir-format
+msgid "Engineering · Ice machine issue cleared"
+msgstr ""
+
+#: lib/sona_web/live/home_live/messages.ex:19
+#, elixir-autogen, elixir-format
+msgid "Front Office / Today"
+msgstr ""
+
+#: lib/sona_web/live/home_live/messages.ex:46
+#, elixir-autogen, elixir-format
+msgid "Front Office team · illustrative preview"
+msgstr ""
+
+#: lib/sona_web/live/home_live/messages.ex:31
+#, elixir-autogen, elixir-format
+msgid "Front Office · Evening handoff"
+msgstr ""
+
+#: lib/sona_web/live/home_live/coverage.ex:101
+#, elixir-autogen, elixir-format
+msgid "Front desk coverage"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:236
+#, elixir-autogen, elixir-format
+msgid "Full shift"
+msgstr ""
+
+#: lib/sona_web/live/home_live/today.ex:27
+#, elixir-autogen, elixir-format
+msgid "Good afternoon, %{name}"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:204
+#, elixir-autogen, elixir-format
+msgid "HIGH"
+msgstr ""
+
+#: lib/sona_web/live/home_live.ex:200
+#: lib/sona_web/live/home_live/ui.ex:128
+#, elixir-autogen, elixir-format
+msgid "Handoff acknowledged"
+msgstr ""
+
+#: lib/sona_web/live/home_live/today.ex:93
+#, elixir-autogen, elixir-format
+msgid "Handoff needs acknowledgement"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:113
+#, elixir-autogen, elixir-format
+msgid "Handoff note"
+msgstr ""
+
+#: lib/sona_web/live/home_live/today.ex:28
+#, elixir-autogen, elixir-format
+msgid "Here is what needs your attention today."
+msgstr ""
+
+#: lib/sona_web/live/home_live/coverage.ex:119
+#, elixir-autogen, elixir-format
+msgid "I can cover all of it"
+msgstr ""
+
+#: lib/sona_web/live/home_live/coverage.ex:122
+#, elixir-autogen, elixir-format
+msgid "I can cover part of it"
+msgstr ""
+
+#: lib/sona_web/live/home_live/coverage.ex:125
+#, elixir-autogen, elixir-format
+msgid "I can't cover it"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:329
+#, elixir-autogen, elixir-format
+msgid "Just now"
+msgstr ""
+
+#: lib/sona_web/live/home_live/profile.ex:21
+#, elixir-autogen, elixir-format
+msgid "Keep your role and language ready for every handoff."
+msgstr ""
+
+#: lib/sona_web/live/home_live/today.ex:25
+#, elixir-autogen, elixir-format
+msgid "Live"
+msgstr ""
+
+#: lib/sona_web/live/home_live.ex:233
+#, elixir-autogen, elixir-format
+msgid "Live operations"
+msgstr ""
+
+#: lib/sona_web/live/home_live/today.ex:43
+#, elixir-autogen, elixir-format
+msgid "Lobby"
+msgstr ""
+
+#: lib/sona_web/live/home_live/messages.ex:68
+#, elixir-autogen, elixir-format
+msgid "Maintenance handoff"
+msgstr ""
+
+#: lib/sona_web/live/home_live.ex:254
+#: lib/sona_web/live/home_live.ex:383
+#: lib/sona_web/live/home_live/messages.ex:20
+#, elixir-autogen, elixir-format
+msgid "Messages"
+msgstr ""
+
+#: lib/sona_web/live/home_live/today.ex:52
+#, elixir-autogen, elixir-format
+msgid "NEEDS A RESPONSE"
+msgstr ""
+
+#: lib/sona_web/live/home_live/messages.ex:25
+#, elixir-autogen, elixir-format
+msgid "New message"
+msgstr ""
+
+#: lib/sona_web/live/home_live/coverage.ex:35
+#, elixir-autogen, elixir-format
+msgid "New update"
+msgstr ""
+
+#: lib/sona_web/live/home_live/today.ex:126
+#, elixir-autogen, elixir-format
+msgid "Not started"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:242
+#, elixir-autogen, elixir-format
+msgid "Not viewed"
+msgstr ""
+
+#: lib/sona_web/live/home_live/today.ex:114
+#, elixir-autogen, elixir-format
+msgid "ON YOUR SHIFT"
+msgstr ""
+
+#: lib/sona_web/live/home_live/today.ex:56
+#, elixir-autogen, elixir-format
+msgid "One open coverage request"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:196
+#: lib/sona_web/live/home_live/ui.ex:201
+#: lib/sona_web/live/home_live/ui.ex:221
+#, elixir-autogen, elixir-format
+msgid "Open"
+msgstr ""
+
+#: lib/sona_web/live/home_live/coverage.ex:79
+#: lib/sona_web/live/home_live/ui.ex:70
+#, elixir-autogen, elixir-format
+msgid "Open request"
+msgstr ""
+
+#: lib/sona_web/live/home_live/today.ex:44
+#, elixir-autogen, elixir-format
+msgid "Open tasks"
+msgstr ""
+
+#: lib/sona_web/live/home_live/messages.ex:47
+#, elixir-autogen, elixir-format
+msgid "Open thread"
+msgstr ""
+
+#: lib/sona_web/live/home_live/coverage.ex:29
+#, elixir-autogen, elixir-format
+msgid "Operations board"
+msgstr ""
+
+#: lib/sona_web/live/home_live/messages.ex:30
+#, elixir-autogen, elixir-format
+msgid "PINNED FOR YOUR TEAM"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:237
+#, elixir-autogen, elixir-format
+msgid "Partial coverage"
+msgstr ""
+
+#: lib/sona_web/live/home_live/messages.ex:33
+#, elixir-autogen, elixir-format
+msgid "Preview"
+msgstr ""
+
+#: lib/sona_web/live/home_live.ex:261
+#: lib/sona_web/live/home_live.ex:390
+#: lib/sona_web/live/home_live/profile.ex:19
+#, elixir-autogen, elixir-format
+msgid "Profile"
+msgstr ""
+
+#: lib/sona_web/live/home_live.ex:136
+#, elixir-autogen, elixir-format
+msgid "Question sent to %{name}"
+msgstr ""
+
+#: lib/sona_web/live/home_live/messages.ex:53
+#, elixir-autogen, elixir-format
+msgid "RECENT CONVERSATIONS"
+msgstr ""
+
+#: lib/sona_web/live/home_live/today.ex:88
+#: lib/sona_web/live/home_live/ui.ex:97
+#, elixir-autogen, elixir-format
+msgid "RESOLVED"
+msgstr ""
+
+#: lib/sona_web/live/home_live.ex:186
+#, elixir-autogen, elixir-format
+msgid "Replacement approved and the team has been updated"
+msgstr ""
+
+#: lib/sona_web/live/home_live.ex:267
+#, elixir-autogen, elixir-format
+msgid "Reset demo"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:200
+#: lib/sona_web/live/home_live/ui.ex:225
+#, elixir-autogen, elixir-format
+msgid "Resolved"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:62
+#, elixir-autogen, elixir-format
+msgid "Respond to request"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:245
+#, elixir-autogen, elixir-format
+msgid "Responded"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:235
+#, elixir-autogen, elixir-format
+msgid "Response needed"
+msgstr ""
+
+#: lib/sona_web/live/home_live/today.ex:131
+#, elixir-autogen, elixir-format
+msgid "Review guest arrival notes"
+msgstr ""
+
+#: lib/sona_web/live/home_live/today.ex:144
+#, elixir-autogen, elixir-format
+msgid "See all"
+msgstr ""
+
+#: lib/sona_web/live/home_live/coverage.ex:32
+#, elixir-autogen, elixir-format
+msgid "See the open gap, responses, and handoff in one place."
+msgstr ""
+
+#: lib/sona_web/live/home_live/coverage.ex:146
+#, elixir-autogen, elixir-format
+msgid "Send question"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:341
+#, elixir-autogen, elixir-format
+msgid "Shift in progress"
+msgstr ""
+
+#: lib/sona_web/components/layouts.ex:110
+#, elixir-autogen, elixir-format
+msgid "Something went wrong!"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:343
+#, elixir-autogen, elixir-format
+msgid "Starts in %{count} h"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:342
+#, elixir-autogen, elixir-format
+msgid "Starts in %{count} min"
+msgstr ""
+
+#: lib/sona_web/live/home_live/today.ex:141
+#, elixir-autogen, elixir-format
+msgid "TEAM HANDOFFS"
+msgstr ""
+
+#: lib/sona_web/live/home_live/coverage.ex:170
+#, elixir-autogen, elixir-format
+msgid "TEAM RESPONSES"
+msgstr ""
+
+#: lib/sona_web/live/home_live/messages.ex:54
+#, elixir-autogen, elixir-format
+msgid "Team activity"
+msgstr ""
+
+#: lib/sona_web/live/home_live.ex:525
+#, elixir-autogen, elixir-format
+msgid "This handoff is not ready to acknowledge yet."
+msgstr ""
+
+#: lib/sona_web/live/home_live.ex:513
+#, elixir-autogen, elixir-format
+msgid "This request is already closed."
+msgstr ""
+
+#: lib/sona_web/live/home_live.ex:522
+#, elixir-autogen, elixir-format
+msgid "This team member has not offered to cover the shift."
+msgstr ""
+
+#: lib/sona_web/live/home_live.ex:237
+#: lib/sona_web/live/home_live.ex:368
+#: lib/sona_web/live/home_live/coverage.ex:72
+#: lib/sona_web/live/home_live/ui.ex:35
+#: lib/sona_web/live/home_live/ui.ex:101
+#, elixir-autogen, elixir-format
+msgid "Today"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:42
+#, elixir-autogen, elixir-format
+msgid "Translated automatically"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:205
+#, elixir-autogen, elixir-format
+msgid "UPDATE"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:203
+#, elixir-autogen, elixir-format
+msgid "URGENT"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:32
+#, elixir-autogen, elixir-format
+msgid "Urgent coverage needed"
+msgstr ""
+
+#: lib/sona_web/live/home_live/today.ex:117
+#, elixir-autogen, elixir-format
+msgid "View shift"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:243
+#, elixir-autogen, elixir-format
+msgid "Viewed"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:239
+#, elixir-autogen, elixir-format
+msgid "Viewed, no response yet"
+msgstr ""
+
+#: lib/sona_web/live/home_live.ex:290
+#, elixir-autogen, elixir-format
+msgid "Viewing as"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:124
+#, elixir-autogen, elixir-format
+msgid "Waiting for handoff acknowledgement"
+msgstr ""
+
+#: lib/sona_web/components/layouts.ex:95
+#, elixir-autogen, elixir-format
+msgid "We can't find the internet"
+msgstr ""
+
+#: lib/sona_web/live/home_live/messages.ex:36
+#, elixir-autogen, elixir-format
+msgid "Welcome Ana, our new night auditor. Please introduce yourself during the 17:45 handoff."
+msgstr ""
+
+#: lib/sona_web/live/home_live/today.ex:142
+#, elixir-autogen, elixir-format
+msgid "What changed"
+msgstr ""
+
+#: lib/sona_web/live/home_live/coverage.ex:171
+#, elixir-autogen, elixir-format
+msgid "Who has seen this?"
+msgstr ""
+
+#: lib/sona_web/live/home_live/coverage.ex:113
+#, elixir-autogen, elixir-format
+msgid "YOUR RESPONSE"
+msgstr ""
+
+#: lib/sona_web/live/home_live/today.ex:40
+#, elixir-autogen, elixir-format
+msgid "YOUR SHIFT"
+msgstr ""
+
+#: lib/sona_web/live/home_live.ex:503
+#, elixir-autogen, elixir-format
+msgid "Your response was sent to %{name}"
+msgstr ""
+
+#: lib/sona_web/live/home_live/profile.ex:18
+#, elixir-autogen, elixir-format
+msgid "Your workspace"
+msgstr ""
+
+#: lib/sona_web/components/core_components.ex:81
+#, elixir-autogen, elixir-format
+msgid "close"
+msgstr ""
+
+#: lib/sona_web/live/home_live/today.ex:57
+#, elixir-autogen, elixir-format
+msgid "%{count} open coverage requests"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:273
+#, elixir-autogen, elixir-format
+msgid "%{name} is covering %{window}"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:105
+#, elixir-autogen, elixir-format
+msgid "%{window} still needs coverage"
+msgstr ""
+
+#: lib/sona_web/live/home_live/coverage.ex:66
+#, elixir-autogen, elixir-format
+msgid "Also needs coverage"
+msgstr ""
+
+#: lib/sona_web/live/home_live/profile.ex:66
+#, elixir-autogen, elixir-format
+msgid "Changes updates, tasks and responses across the whole app."
+msgstr ""
+
+#: lib/sona_web/live/home_live.ex:119
+#, elixir-autogen, elixir-format
+msgid "Choose a window inside the shift times."
+msgstr ""
+
+#: lib/sona_web/live/home_live.ex:307
+#, elixir-autogen, elixir-format
+msgid "Close"
+msgstr ""
+
+#: lib/sona_web/live/home_live/coverage.ex:137
+#, elixir-autogen, elixir-format
+msgid "Confirm partial coverage"
+msgstr ""
+
+#: lib/sona_web/live/home_live/ui.ex:105
+#, elixir-autogen, elixir-format
+msgid "Coverage gap"
+msgstr ""
+
+#: lib/sona_web/live/home_live/today.ex:94
+#, elixir-autogen, elixir-format
+msgid "Coverage partially confirmed"
+msgstr ""
+
+#: lib/sona_web/live/home_live/profile.ex:41
+#, elixir-autogen, elixir-format
+msgid "DEPARTMENT"
+msgstr ""
+
+#: lib/sona_web/live/home_live/coverage.ex:130
+#, elixir-autogen, elixir-format
+msgid "From"
+msgstr ""
+
+#: lib/sona_web/live/home_live/profile.ex:58
+#, elixir-autogen, elixir-format
+msgid "How you use Sona"
+msgstr ""
+
+#: lib/sona_web/live/home_live/profile.ex:90
+#, elixir-autogen, elixir-format
+msgid "In-app alerts"
+msgstr ""
+
+#: lib/sona_web/live/home_live.ex:312
+#, elixir-autogen, elixir-format
+msgid "In-app alerts are off. You can turn them back on in Profile."
+msgstr ""
+
+#: lib/sona_web/live/home_live/profile.ex:98
+#, elixir-autogen, elixir-format
+msgid "Not available in this prototype — no messages are sent."
+msgstr ""
+
+#: lib/sona_web/live/home_live.ex:315
+#, elixir-autogen, elixir-format
+msgid "Nothing new right now."
+msgstr ""
+
+#: lib/sona_web/live/home_live.ex:298
+#: lib/sona_web/live/home_live/profile.ex:80
+#, elixir-autogen, elixir-format
+msgid "Notifications"
+msgstr ""
+
+#: lib/sona_web/live/home_live/coverage.ex:153
+#, elixir-autogen, elixir-format
+msgid "OPEN QUESTIONS"
+msgstr ""
+
+#: lib/sona_web/live/home_live/coverage.ex:65
+#, elixir-autogen, elixir-format
+msgid "OTHER OPEN REQUESTS"
+msgstr ""
+
+#: lib/sona_web/live/home_live.ex:519
+#, elixir-autogen, elixir-format
+msgid "Only a supervisor can approve a replacement."
+msgstr ""
+
+#: lib/sona_web/live/home_live.ex:528
+#, elixir-autogen, elixir-format
+msgid "Only the approved replacement can acknowledge this handoff."
+msgstr ""
+
+#: lib/sona_web/live/home_live/today.ex:86
+#: lib/sona_web/live/home_live/ui.ex:95
+#, elixir-autogen, elixir-format
+msgid "PARTIALLY COVERED"
+msgstr ""
+
+#: lib/sona_web/live/home_live/profile.ex:64
+#, elixir-autogen, elixir-format
+msgid "Preferred language"
+msgstr ""
+
+#: lib/sona_web/live/home_live/profile.ex:97
+#, elixir-autogen, elixir-format
+msgid "Push and SMS"
+msgstr ""
+
+#: lib/sona_web/live/home_live/profile.ex:37
+#, elixir-autogen, elixir-format
+msgid "ROLE"
+msgstr ""
+
+#: lib/sona_web/live/home_live.ex:306
+#, elixir-autogen, elixir-format
+msgid "Recent activity"
+msgstr ""
+
+#: lib/sona_web/live/home_live/profile.ex:104
+#, elixir-autogen, elixir-format
+msgid "Save settings"
+msgstr ""
+
+#: lib/sona_web/live/home_live.ex:166
+#, elixir-autogen, elixir-format
+msgid "Settings saved"
+msgstr ""
+
+#: lib/sona_web/live/home_live/coverage.ex:154
+#, elixir-autogen, elixir-format
+msgid "The team asked"
+msgstr ""
+
+#: lib/sona_web/live/home_live.ex:172
+#, elixir-autogen, elixir-format
+msgid "Those settings could not be saved."
+msgstr ""
+
+#: lib/sona_web/live/home_live/coverage.ex:134
+#, elixir-autogen, elixir-format
+msgid "Until"
+msgstr ""
+
+#: lib/sona_web/live/home_live/profile.ex:91
+#, elixir-autogen, elixir-format
+msgid "Urgent updates and replies appear in your activity feed."
+msgstr ""
+
+#: lib/sona_web/live/home_live/profile.ex:57
+#, elixir-autogen, elixir-format
+msgid "YOUR SETTINGS"
+msgstr ""
+
+#: lib/sona_web/live/home_live.ex:516
+#, elixir-autogen, elixir-format
+msgid "You are not eligible to respond to this request."
+msgstr ""
+
+#: lib/sona_web/live/home_live/profile.ex:50
+#, elixir-autogen, elixir-format
+msgid "Your role, department and property are managed by your hotel's operations team."
+msgstr ""

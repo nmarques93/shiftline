@@ -1,0 +1,526 @@
+## Spanish translations for the Sona prototype workflow.
+##
+## UI strings come from `mix gettext.extract`. The final block holds
+## curated translations for seeded user content (request reasons, notes),
+## resolved at render time by `SonaWeb.HomeLive.UI.translate_content/1` —
+## a stand-in for the machine-translation service a production build
+## would call.
+msgid ""
+msgstr ""
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "%{count} d ago"
+msgstr "hace %{count} d"
+
+msgid "%{count} h ago"
+msgstr "hace %{count} h"
+
+msgid "%{count} min ago"
+msgstr "hace %{count} min"
+
+msgid "%{name} is covering the shift"
+msgstr "%{name} cubrirá el turno"
+
+msgid "%{name} is covering %{window}"
+msgstr "%{name} cubrirá el tramo %{window}"
+
+msgid "%{window} still needs coverage"
+msgstr "%{window} aún necesita cobertura"
+
+msgid "PARTIALLY COVERED"
+msgstr "COBERTURA PARCIAL"
+
+msgid "Coverage gap"
+msgstr "Hueco de cobertura"
+
+msgid "Coverage partially confirmed"
+msgstr "Cobertura parcial confirmada"
+
+msgid "From"
+msgstr "Desde"
+
+msgid "Until"
+msgstr "Hasta"
+
+msgid "Confirm partial coverage"
+msgstr "Confirmar cobertura parcial"
+
+msgid "Choose a window inside the shift times."
+msgstr "Elige un horario dentro del turno."
+
+msgid "%{viewed} of %{total} viewed · %{answers} responses"
+msgstr "%{viewed} de %{total} lo vieron · %{answers} respuestas"
+
+msgid "%{viewed} of %{total} viewed"
+msgstr "%{viewed} de %{total} lo vieron"
+
+msgid "A team member needs help"
+msgstr "Un compañero necesita ayuda"
+
+msgid "ACTIVE INCIDENT"
+msgstr "INCIDENTE ACTIVO"
+
+msgid "APPROVED"
+msgstr "APROBADO"
+
+msgid "Acknowledge handoff"
+msgstr "Confirmar el relevo"
+
+msgid "Acknowledged"
+msgstr "Confirmado"
+
+msgid "Approve"
+msgstr "Aprobar"
+
+msgid "Approved"
+msgstr "Aprobado"
+
+msgid "Ask a question about the shift..."
+msgstr "Haz una pregunta sobre el turno..."
+
+msgid "Ask a question"
+msgstr "Haz una pregunta"
+
+msgid "COVERAGE REQUEST"
+msgstr "SOLICITUD DE COBERTURA"
+
+msgid "CURRENT PROPERTY"
+msgstr "PROPIEDAD ACTUAL"
+
+msgid "Claimed"
+msgstr "Reclamado"
+
+msgid "Complete lobby handoff checklist"
+msgstr "Completar la lista de relevo del lobby"
+
+msgid "Completed 15:20 · Front desk"
+msgstr "Completado 15:20 · Recepción"
+
+msgid "Contacting"
+msgstr "Contactando"
+
+msgid "Conversations stay attached to the work they change."
+msgstr "Las conversaciones quedan unidas al trabajo que cambian."
+
+msgid "Coverage is confirmed"
+msgstr "La cobertura está confirmada"
+
+msgid "Coverage needed · Front desk"
+msgstr "Se necesita cobertura · Recepción"
+
+msgid "Coverage"
+msgstr "Cobertura"
+
+msgid "Current work"
+msgstr "Trabajo actual"
+
+msgid "Declined"
+msgstr "Rechazado"
+
+msgid "Demo reset"
+msgstr "Demo reiniciada"
+
+msgid "Done"
+msgstr "Hecho"
+
+msgid "Due 17:45 · Front desk"
+msgstr "Para las 17:45 · Recepción"
+
+msgid "Engineering · Ice machine issue cleared"
+msgstr "Mantenimiento · Problema de la máquina de hielo resuelto"
+
+msgid "Front Office / Today"
+msgstr "Recepción / Hoy"
+
+msgid "Front Office team · illustrative preview"
+msgstr "Equipo de recepción · vista de ejemplo"
+
+msgid "Front Office · Evening handoff"
+msgstr "Recepción · Relevo de la tarde"
+
+msgid "Front desk coverage"
+msgstr "Cobertura de recepción"
+
+msgid "Full shift"
+msgstr "Turno completo"
+
+msgid "Good afternoon, %{name}"
+msgstr "Buenas tardes, %{name}"
+
+msgid "HIGH"
+msgstr "ALTA"
+
+msgid "Handoff acknowledged"
+msgstr "Relevo confirmado"
+
+msgid "Handoff needs acknowledgement"
+msgstr "El relevo necesita confirmación"
+
+msgid "Handoff note"
+msgstr "Nota de relevo"
+
+msgid "Here is what needs your attention today."
+msgstr "Esto es lo que necesita tu atención hoy."
+
+msgid "I can cover all of it"
+msgstr "Puedo cubrir todo"
+
+msgid "I can cover part of it"
+msgstr "Puedo cubrir parte"
+
+msgid "I can't cover it"
+msgstr "No puedo cubrir"
+
+msgid "Just now"
+msgstr "Ahora mismo"
+
+msgid "Keep your role and language ready for every handoff."
+msgstr "Mantén tu puesto e idioma listos para cada relevo."
+
+msgid "Live operations"
+msgstr "Operaciones en vivo"
+
+msgid "Live"
+msgstr "En vivo"
+
+msgid "Lobby"
+msgstr "Lobby"
+
+msgid "Maintenance handoff"
+msgstr "Relevo de mantenimiento"
+
+msgid "Messages"
+msgstr "Mensajes"
+
+msgid "NEEDS A RESPONSE"
+msgstr "NECESITA RESPUESTA"
+
+msgid "NOTIFICATIONS"
+msgstr "NOTIFICACIONES"
+
+msgid "New message"
+msgstr "Nuevo mensaje"
+
+msgid "New update"
+msgstr "Nueva actualización"
+
+msgid "Not started"
+msgstr "Sin empezar"
+
+msgid "Not viewed"
+msgstr "Sin ver"
+
+msgid "ON YOUR SHIFT"
+msgstr "EN TU TURNO"
+
+msgid "One open coverage request"
+msgstr "Una solicitud de cobertura abierta"
+
+msgid "%{count} open coverage requests"
+msgstr "%{count} solicitudes de cobertura abiertas"
+
+msgid "OTHER OPEN REQUESTS"
+msgstr "OTRAS SOLICITUDES ABIERTAS"
+
+msgid "OPEN QUESTIONS"
+msgstr "PREGUNTAS ABIERTAS"
+
+msgid "The team asked"
+msgstr "El equipo preguntó"
+
+msgid "Notifications"
+msgstr "Notificaciones"
+
+msgid "Recent activity"
+msgstr "Actividad reciente"
+
+msgid "Nothing new right now."
+msgstr "Nada nuevo por ahora."
+
+msgid "Close"
+msgstr "Cerrar"
+
+msgid "Please write your question first."
+msgstr "Escribe tu pregunta primero."
+
+msgid "YOUR SETTINGS"
+msgstr "TUS AJUSTES"
+
+msgid "How you use Sona"
+msgstr "Cómo usas Sona"
+
+msgid "Preferred language"
+msgstr "Idioma preferido"
+
+msgid "Changes updates, tasks and responses across the whole app."
+msgstr "Cambia las actualizaciones, tareas y respuestas en toda la aplicación."
+
+msgid "In-app alerts"
+msgstr "Avisos en la aplicación"
+
+msgid "Urgent updates and replies appear in your activity feed."
+msgstr "Las actualizaciones urgentes y las respuestas aparecen en tu actividad."
+
+msgid "Push and SMS"
+msgstr "Push y SMS"
+
+msgid "Not available in this prototype — no messages are sent."
+msgstr "No disponible en este prototipo: no se envía ningún mensaje."
+
+msgid "In-app alerts are off. You can turn them back on in Profile."
+msgstr "Los avisos en la aplicación están desactivados. Puedes reactivarlos en Perfil."
+
+msgid "Save settings"
+msgstr "Guardar ajustes"
+
+msgid "Settings saved"
+msgstr "Ajustes guardados"
+
+msgid "Those settings could not be saved."
+msgstr "No se pudieron guardar estos ajustes."
+
+msgid "ROLE"
+msgstr "PUESTO"
+
+msgid "DEPARTMENT"
+msgstr "DEPARTAMENTO"
+
+msgid "Your role, department and property are managed by your hotel's operations team."
+msgstr "Tu puesto, departamento y propiedad los gestiona el equipo de operaciones del hotel."
+
+msgid "Also needs coverage"
+msgstr "También necesita cobertura"
+
+msgid "Open request"
+msgstr "Abrir solicitud"
+
+msgid "Open tasks"
+msgstr "Tareas abiertas"
+
+msgid "Open thread"
+msgstr "Abrir hilo"
+
+msgid "Open"
+msgstr "Abierta"
+
+msgid "Operations board"
+msgstr "Panel de operaciones"
+
+msgid "PINNED FOR YOUR TEAM"
+msgstr "FIJADO PARA TU EQUIPO"
+
+msgid "PREFERRED LANGUAGE"
+msgstr "IDIOMA PREFERIDO"
+
+msgid "Partial coverage"
+msgstr "Cobertura parcial"
+
+msgid "Preview"
+msgstr "Vista previa"
+
+msgid "Profile"
+msgstr "Perfil"
+
+msgid "Push + SMS fallback"
+msgstr "Push + SMS de respaldo"
+
+msgid "Question asked"
+msgstr "Pregunta enviada"
+
+msgid "Question sent to %{name}"
+msgstr "Pregunta enviada a %{name}"
+
+msgid "RECENT CONVERSATIONS"
+msgstr "CONVERSACIONES RECIENTES"
+
+msgid "RESOLVED"
+msgstr "RESUELTO"
+
+msgid "Replacement approved and the team has been updated"
+msgstr "Reemplazo aprobado y el equipo ha sido notificado"
+
+msgid "Reset demo"
+msgstr "Reiniciar demo"
+
+msgid "Resolved"
+msgstr "Resuelta"
+
+msgid "Respond to request"
+msgstr "Responder a la solicitud"
+
+msgid "Responded"
+msgstr "Respondió"
+
+msgid "Response needed"
+msgstr "Falta tu respuesta"
+
+msgid "Review guest arrival notes"
+msgstr "Revisar las notas de llegada de huéspedes"
+
+msgid "See all"
+msgstr "Ver todo"
+
+msgid "See the open gap, responses, and handoff in one place."
+msgstr "Mira el hueco abierto, las respuestas y el relevo en un solo lugar."
+
+msgid "Send question"
+msgstr "Enviar pregunta"
+
+msgid "Shift in progress"
+msgstr "Turno en curso"
+
+msgid "Starts in %{count} h"
+msgstr "Empieza en %{count} h"
+
+msgid "Starts in %{count} min"
+msgstr "Empieza en %{count} min"
+
+msgid "TEAM HANDOFFS"
+msgstr "RELEVOS DEL EQUIPO"
+
+msgid "TEAM RESPONSES"
+msgstr "RESPUESTAS DEL EQUIPO"
+
+msgid "Team activity"
+msgstr "Actividad del equipo"
+
+msgid "This handoff is not ready to acknowledge yet."
+msgstr "Este relevo aún no está listo para confirmar."
+
+msgid "This request is already closed."
+msgstr "Esta solicitud ya está cerrada."
+
+msgid "You are not eligible to respond to this request."
+msgstr "No eres elegible para responder a esta solicitud."
+
+msgid "Only a supervisor can approve a replacement."
+msgstr "Solo un supervisor puede aprobar un reemplazo."
+
+msgid "Only the approved replacement can acknowledge this handoff."
+msgstr "Solo el reemplazo aprobado puede confirmar este relevo."
+
+msgid "This team member has not offered to cover the shift."
+msgstr "Este compañero no se ha ofrecido a cubrir el turno."
+
+msgid "Today"
+msgstr "Hoy"
+
+msgid "Translated automatically"
+msgstr "Traducido automáticamente"
+
+msgid "UPDATE"
+msgstr "AVISO"
+
+msgid "URGENT"
+msgstr "URGENTE"
+
+msgid "Urgent coverage needed"
+msgstr "Se necesita cobertura urgente"
+
+msgid "View shift"
+msgstr "Ver turno"
+
+msgid "Viewed"
+msgstr "Visto"
+
+msgid "Viewed, no response yet"
+msgstr "Visto, aún sin respuesta"
+
+msgid "Viewing as"
+msgstr "Viendo como"
+
+msgid "Waiting for handoff acknowledgement"
+msgstr "Esperando la confirmación del relevo"
+
+msgid "Welcome Ana, our new night auditor. Please introduce yourself during the 17:45 handoff."
+msgstr "Demos la bienvenida a Ana, nuestra nueva auditora nocturna. Preséntate durante el relevo de las 17:45."
+
+msgid "What changed"
+msgstr "Qué cambió"
+
+msgid "Who has seen this?"
+msgstr "¿Quién lo ha visto?"
+
+msgid "YOUR RESPONSE"
+msgstr "TU RESPUESTA"
+
+msgid "YOUR SHIFT"
+msgstr "TU TURNO"
+
+msgid "Your response was sent to %{name}"
+msgstr "Tu respuesta fue enviada a %{name}"
+
+msgid "Your workspace"
+msgstr "Tu espacio de trabajo"
+
+## Seeded user content (see module note above)
+
+msgid "Jordan is unexpectedly unavailable. We need front desk coverage for the evening shift."
+msgstr "Jordan no podrá asistir inesperadamente. Necesitamos cobertura en recepción para el turno de la tarde."
+
+msgid "The remaining window of this shift still needs coverage."
+msgstr "El tramo restante de este turno aún necesita cobertura."
+
+msgid "Please review VIP arrivals with Maya at 17:45."
+msgstr "Por favor revisa las llegadas VIP con Maya a las 17:45."
+
+msgid "I can cover the full shift."
+msgstr "Puedo cubrir el turno completo."
+
+msgid "I can cover the first half."
+msgstr "Puedo cubrir la primera mitad."
+
+msgid "Already working in reservations."
+msgstr "Ya estoy trabajando en reservas."
+
+msgid "New coverage request"
+msgstr "Nueva solicitud de cobertura"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "NEW COVERAGE REQUEST"
+msgstr "NUEVA SOLICITUD DE COBERTURA"
+
+msgid "Report an absence"
+msgstr "Reportar una ausencia"
+
+msgid "Please check this form"
+msgstr "Revisa este formulario"
+
+msgid "Who is unavailable"
+msgstr "Quién no está disponible"
+
+msgid "Team member's name"
+msgstr "Nombre del compañero"
+
+msgid "Department"
+msgstr "Departamento"
+
+msgid "Role needed"
+msgstr "Puesto necesario"
+
+msgid "Date"
+msgstr "Fecha"
+
+msgid "Location"
+msgstr "Ubicación"
+
+msgid "Urgency"
+msgstr "Urgencia"
+
+msgid "What the team needs to know"
+msgstr "Lo que el equipo debe saber"
+
+msgid "Handoff note (optional)"
+msgstr "Nota de relevo (opcional)"
+
+msgid "Send to eligible team members"
+msgstr "Enviar a los compañeros elegibles"
+
+msgid "Coverage request sent to the team"
+msgstr "Solicitud de cobertura enviada al equipo"
+
+msgid "Shown in its original language"
+msgstr "Se muestra en su idioma original"
