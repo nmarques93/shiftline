@@ -125,6 +125,82 @@ defmodule SonaWeb.HomeLiveTest do
     end
   end
 
+  describe "shift tasks on Today" do
+    test "the frontline view offers Claim on unowned work and not on other people's", %{
+      conn: conn
+    } do
+      {:ok, live, _html} = live(conn, ~p"/?view=today&role=frontline")
+
+      [unassigned] =
+        Sona.Repo.all(Sona.Coordination.ShiftTask) |> Enum.filter(&is_nil(&1.assignee_id))
+
+      assert has_element?(
+               live,
+               "button[phx-click='claim_task'][phx-value-task-id='#{unassigned.id}']"
+             )
+
+      # Exactly one task is claimable; the other two already have owners.
+      assert live
+             |> element(".task-list")
+             |> render()
+             |> then(&Regex.scan(~r/claim_task/, &1))
+             |> length() == 1
+    end
+
+    test "claiming work, starting it and finishing it", %{conn: conn, luis: luis} do
+      {:ok, live, _html} = live(conn, ~p"/?view=today&role=frontline")
+
+      [unassigned] =
+        Sona.Repo.all(Sona.Coordination.ShiftTask) |> Enum.filter(&is_nil(&1.assignee_id))
+
+      live
+      |> element("button[phx-click='claim_task'][phx-value-task-id='#{unassigned.id}']")
+      |> render_click()
+
+      claimed = Sona.Repo.get!(Sona.Coordination.ShiftTask, unassigned.id)
+      assert claimed.assignee_id == luis.id
+      assert claimed.status == "todo"
+
+      live
+      |> element("button[phx-value-task-id='#{unassigned.id}'][phx-value-status='in_progress']")
+      |> render_click()
+
+      assert Sona.Repo.get!(Sona.Coordination.ShiftTask, unassigned.id).status == "in_progress"
+
+      live
+      |> element("button[phx-value-task-id='#{unassigned.id}'][phx-value-status='done']")
+      |> render_click()
+
+      assert Sona.Repo.get!(Sona.Coordination.ShiftTask, unassigned.id).status == "done"
+    end
+
+    test "a supervisor can add work and hand it to someone", %{conn: conn, luis: luis} do
+      {:ok, live, _html} = live(conn, ~p"/?view=today&role=supervisor")
+
+      live |> element("button[phx-click='toggle_new_task']") |> render_click()
+
+      live
+      |> form("form[phx-submit='create_task']", %{"title" => "Check the lobby lights"})
+      |> render_submit()
+
+      task = Sona.Repo.get_by!(Sona.Coordination.ShiftTask, title: "Check the lobby lights")
+      assert is_nil(task.assignee_id)
+
+      live
+      |> element("form[phx-change='assign_task']:has(input[value='#{task.id}'])")
+      |> render_change(%{"task-id" => to_string(task.id), "assignee_id" => to_string(luis.id)})
+
+      assert Sona.Repo.get!(Sona.Coordination.ShiftTask, task.id).assignee_id == luis.id
+    end
+
+    test "frontline staff are never shown the assign or add-work controls", %{conn: conn} do
+      {:ok, live, _html} = live(conn, ~p"/?view=today&role=frontline")
+
+      refute has_element?(live, "button[phx-click='toggle_new_task']")
+      refute has_element?(live, "form[phx-change='assign_task']")
+    end
+  end
+
   describe "settings" do
     test "changing language re-renders the whole surface in it", %{conn: conn} do
       {:ok, live, html} = live(conn, ~p"/?view=profile&role=supervisor")

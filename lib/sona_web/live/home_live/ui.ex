@@ -330,6 +330,60 @@ defmodule SonaWeb.HomeLive.UI do
   def language_label("French"), do: "Français"
   def language_label(_), do: "English"
 
+  ## Shift tasks
+
+  def task_row_class(%{status: "done"}), do: "task-row done"
+  def task_row_class(_task), do: "task-row"
+
+  def task_status_class(%{status: "todo"}), do: "task-status pending"
+  def task_status_class(%{status: "in_progress"}), do: "task-status active"
+  def task_status_class(_task), do: "task-status"
+
+  def task_status_label("todo"), do: gettext("Not started")
+  def task_status_label("in_progress"), do: gettext("In progress")
+  def task_status_label(_status), do: gettext("Done")
+
+  @doc """
+  The supporting line under a task. Supervisors get the owner from the
+  assignment control beside it, so repeating it here would just be noise.
+  """
+  def task_meta(task, role \\ "frontline") do
+    owner =
+      cond do
+        role == "supervisor" -> nil
+        task.assignee -> task.assignee.name
+        true -> gettext("Unassigned")
+      end
+
+    [
+      task.due_time && gettext("Due %{time}", time: format_time(task.due_time)),
+      task.location,
+      owner
+    ]
+    |> Enum.reject(&is_nil/1)
+    |> Enum.join(" · ")
+  end
+
+  @doc """
+  The status this person can move the task to next, or `nil` when they own
+  no action on it. Only the assignee or a supervisor can advance work.
+  """
+  def next_status(%{assignee_id: nil}, _staff, _role), do: nil
+
+  def next_status(task, staff, role) do
+    owns? = task.assignee_id == staff.id or role == "supervisor"
+
+    case {owns?, task.status} do
+      {true, "todo"} -> "in_progress"
+      {true, "in_progress"} -> "done"
+      _otherwise -> nil
+    end
+  end
+
+  def next_status_label("in_progress"), do: gettext("Start")
+  def next_status_label("done"), do: gettext("Mark done")
+  def next_status_label(_status), do: nil
+
   ## Events
 
   def event_marker_class("response"), do: "activity-marker amber"

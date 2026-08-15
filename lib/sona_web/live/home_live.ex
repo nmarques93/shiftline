@@ -33,6 +33,7 @@ defmodule SonaWeb.HomeLive do
        partial_open: false,
        notifications_open: false,
        new_request_open: false,
+       new_task_open: false,
        request_errors: []
      )}
   end
@@ -56,6 +57,7 @@ defmodule SonaWeb.HomeLive do
        partial_open: false,
        notifications_open: false,
        new_request_open: false,
+       new_task_open: false,
        request_errors: [],
        focused_request_id: focused_request_id
      )
@@ -65,6 +67,10 @@ defmodule SonaWeb.HomeLive do
 
   @impl true
   def handle_info({:coordination_updated, _request_id}, socket) do
+    {:noreply, refresh_data(socket)}
+  end
+
+  def handle_info(:tasks_updated, socket) do
     {:noreply, refresh_data(socket)}
   end
 
@@ -171,6 +177,63 @@ defmodule SonaWeb.HomeLive do
 
       {:error, reason} ->
         {:noreply, domain_error_flash(socket, reason)}
+    end
+  end
+
+  def handle_event("toggle_new_task", _params, socket) do
+    {:noreply, assign(socket, :new_task_open, !socket.assigns.new_task_open)}
+  end
+
+  def handle_event("create_task", params, socket) do
+    attrs = Map.take(params, ["title", "assignee_id", "due_time"])
+
+    case Coordination.create_task(socket.assigns.current_staff.id, attrs) do
+      {:ok, _task} ->
+        {:noreply,
+         socket
+         |> put_flash(:info, gettext("Task added"))
+         |> assign(:new_task_open, false)
+         |> refresh_data()}
+
+      {:error, %Ecto.Changeset{}} ->
+        {:noreply, put_flash(socket, :error, gettext("Give the task a title first."))}
+
+      {:error, reason} ->
+        {:noreply, domain_error_flash(socket, reason)}
+    end
+  end
+
+  def handle_event("assign_task", %{"task-id" => task_id, "assignee_id" => assignee_id}, socket) do
+    assignee = if assignee_id == "", do: nil, else: String.to_integer(assignee_id)
+
+    case Coordination.assign_task(
+           String.to_integer(task_id),
+           assignee,
+           socket.assigns.current_staff.id
+         ) do
+      {:ok, _task} -> {:noreply, refresh_data(socket)}
+      {:error, reason} -> {:noreply, domain_error_flash(socket, reason)}
+    end
+  end
+
+  def handle_event("claim_task", %{"task-id" => task_id}, socket) do
+    case Coordination.claim_task(String.to_integer(task_id), socket.assigns.current_staff.id) do
+      {:ok, _task} ->
+        {:noreply, socket |> put_flash(:info, gettext("That one is yours now")) |> refresh_data()}
+
+      {:error, reason} ->
+        {:noreply, domain_error_flash(socket, reason)}
+    end
+  end
+
+  def handle_event("advance_task", %{"task-id" => task_id, "status" => status}, socket) do
+    case Coordination.update_task_status(
+           String.to_integer(task_id),
+           status,
+           socket.assigns.current_staff.id
+         ) do
+      {:ok, _task} -> {:noreply, refresh_data(socket)}
+      {:error, reason} -> {:noreply, domain_error_flash(socket, reason)}
     end
   end
 
@@ -368,6 +431,9 @@ defmodule SonaWeb.HomeLive do
                 responses={@responses}
                 eligible_staff={@eligible_staff}
                 events={@events}
+                tasks={@tasks}
+                assignable_staff={@assignable_staff}
+                new_task_open={@new_task_open}
               />
             <% "coverage" -> %>
               <Coverage.coverage_view
@@ -501,7 +567,9 @@ defmodule SonaWeb.HomeLive do
       # rather than just hiding the dot.
       notifications: if(current_staff.notify_in_app, do: Coordination.recent_events(), else: []),
       notifications_muted: not current_staff.notify_in_app,
-      departments: Coordination.departments()
+      departments: Coordination.departments(),
+      tasks: Coordination.list_tasks(current_staff),
+      assignable_staff: Coordination.assignable_staff(current_staff)
     )
   end
 

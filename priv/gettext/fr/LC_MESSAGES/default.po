@@ -516,3 +516,54 @@ msgstr "Demande de remplacement envoyée à l'équipe"
 
 msgid "Shown in its original language"
 msgstr "Affiché dans sa langue d'origine"
+
+msgid "Assign work"
+msgstr "Attribuer une tâche"
+
+msgid "What needs doing?"
+msgstr "Que faut-il faire ?"
+
+msgid "Anyone on the team"
+msgstr "N'importe qui dans l'équipe"
+
+msgid "Add task"
+msgstr "Ajouter la tâche"
+
+msgid "Task added"
+msgstr "Tâche ajoutée"
+
+msgid "Give the task a title first."
+msgstr "Donnez d'abord un titre à la tâche."
+
+msgid "No work assigned for today."
+msgstr "Aucune tâche prévue aujourd'hui."
+
+msgid "Unassigned"
+msgstr "Non attribuée"
+
+msgid "Assign this task"
+msgstr "Attribuer cette tâche"
+
+msgid "Claim"
+msgstr "Prendre en charge"
+
+msgid "That one is yours now"
+msgstr "Cette tâche est maintenant la vôtre"
+
+msgid "Start"
+msgstr "Commencer"
+
+msgid "Mark done"
+msgstr "Marquer comme terminée"
+
+msgid "In progress"
+msgstr "En cours"
+
+msgid "Due %{time}"
+msgstr "Pour %{time}"
+
+msgid "Due"
+msgstr "Pour"
+
+msgid "Change your language in Profile"
+msgstr "Changez votre langue dans Profil"

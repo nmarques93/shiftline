@@ -59,7 +59,7 @@ defmodule SonaWeb.HomeLive.Profile do
         </div>
       </div>
 
-      <form phx-submit="save_settings" class="settings-form">
+      <form id="settings-form" phx-submit="save_settings" class="settings-form">
         <label class="settings-field">
           <span class="settings-label">{gettext("Preferred language")}</span>
           <span class="settings-hint">

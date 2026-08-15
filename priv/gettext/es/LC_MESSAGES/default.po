@@ -524,3 +524,54 @@ msgstr "Solicitud de cobertura enviada al equipo"
 
 msgid "Shown in its original language"
 msgstr "Se muestra en su idioma original"
+
+msgid "Assign work"
+msgstr "Asignar trabajo"
+
+msgid "What needs doing?"
+msgstr "¿Qué hay que hacer?"
+
+msgid "Anyone on the team"
+msgstr "Cualquiera del equipo"
+
+msgid "Add task"
+msgstr "Añadir tarea"
+
+msgid "Task added"
+msgstr "Tarea añadida"
+
+msgid "Give the task a title first."
+msgstr "Primero ponle un título a la tarea."
+
+msgid "No work assigned for today."
+msgstr "No hay trabajo asignado para hoy."
+
+msgid "Unassigned"
+msgstr "Sin asignar"
+
+msgid "Assign this task"
+msgstr "Asignar esta tarea"
+
+msgid "Claim"
+msgstr "Asumir"
+
+msgid "That one is yours now"
+msgstr "Esa tarea ya es tuya"
+
+msgid "Start"
+msgstr "Empezar"
+
+msgid "Mark done"
+msgstr "Marcar como hecha"
+
+msgid "In progress"
+msgstr "En curso"
+
+msgid "Due %{time}"
+msgstr "Para las %{time}"
+
+msgid "Due"
+msgstr "Para"
+
+msgid "Change your language in Profile"
+msgstr "Cambia tu idioma en Perfil"

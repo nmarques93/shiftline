@@ -15,7 +15,14 @@ defmodule Sona.Coordination do
 
   import Ecto.Query
   alias Sona.Repo
-  alias Sona.Coordination.{ActivityEvent, CoverageRequest, CoverageResponse, StaffMember}
+
+  alias Sona.Coordination.{
+    ActivityEvent,
+    CoverageRequest,
+    CoverageResponse,
+    ShiftTask,
+    StaffMember
+  }
 
   @topic "coordination"
   @active_statuses ~w(open contacting claimed)
@@ -38,6 +45,10 @@ defmodule Sona.Coordination do
     Phoenix.PubSub.broadcast(Sona.PubSub, @topic, {:settings_updated, staff_id})
   end
 
+  defp broadcast_tasks do
+    Phoenix.PubSub.broadcast(Sona.PubSub, @topic, :tasks_updated)
+  end
+
   # Anything a user types is translated in the background and broadcast when
   # the translations land, so other windows re-render in their own language
   # without the writer waiting on a translation provider.
@@ -45,6 +56,16 @@ defmodule Sona.Coordination do
     texts
     |> Enum.reject(&is_nil/1)
     |> Enum.each(&Sona.Translation.translate_later(&1, fn -> broadcast(request_id) end))
+  end
+
+  # Task titles are typed by a supervisor, so they need the same treatment as
+  # a request reason — Gettext cannot cover a sentence written this morning.
+  defp translate_task_content(texts) do
+    texts
+    |> Enum.reject(&is_nil/1)
+    |> Enum.each(fn text ->
+      Sona.Translation.translate_later(text, fn -> broadcast_tasks() end)
+    end)
   end
 
   ## Demo personas
@@ -134,6 +155,154 @@ defmodule Sona.Coordination do
         select: staff.department,
         order_by: staff.department
     )
+  end
+
+  ## Shift tasks
+
+  @doc """
+  Everyone a task can be handed to: the staff member's own department,
+  supervisors included, since supervisors carry work too.
+  """
+  def assignable_staff(%StaffMember{} = staff) do
+    Repo.all(
+      from person in StaffMember,
+        where: person.department == ^staff.department,
+        order_by: [asc: person.name]
+    )
+  end
+
+  @doc """
+  Tasks for a staff member's department on a given day, unassigned first so
+  work nobody owns is the thing you see.
+  """
+  def list_tasks(%StaffMember{} = staff, shift_date \\ nil) do
+    date = shift_date || Date.utc_today()
+
+    Repo.all(
+      from task in ShiftTask,
+        where: task.department == ^staff.department and task.shift_date == ^date,
+        order_by: [asc: is_nil(task.assignee_id) == false, asc: task.due_time, asc: task.id],
+        preload: [:assignee]
+    )
+  end
+
+  @doc """
+  Creates a task for a department. Only a supervisor can put work on the
+  board; `:assignee_id` is optional, and leaving it out posts the task to the
+  department for someone to claim.
+  """
+  def create_task(supervisor_id, attrs) do
+    supervisor = Repo.get!(StaffMember, supervisor_id)
+
+    if supervisor.is_supervisor do
+      attrs =
+        attrs
+        |> Map.new(fn {key, value} -> {to_string(key), value} end)
+        |> Map.put_new("department", supervisor.department)
+        |> Map.put_new("shift_date", Date.utc_today())
+        |> Map.put("created_by_id", supervisor.id)
+        |> Map.put("status", "todo")
+        |> normalise_assignee()
+
+      case %ShiftTask{} |> ShiftTask.changeset(attrs) |> Repo.insert() do
+        {:ok, task} ->
+          translate_task_content([task.title])
+          broadcast_tasks()
+          {:ok, Repo.preload(task, :assignee)}
+
+        {:error, changeset} ->
+          {:error, changeset}
+      end
+    else
+      {:error, :not_supervisor}
+    end
+  end
+
+  @doc """
+  Assigns a task to someone, or clears the assignment with `nil`.
+
+  Only a supervisor may assign work to another person, and only within their
+  own department — a supervisor cannot hand a task to another department's
+  staff, and staff cannot be assigned work outside theirs.
+  """
+  def assign_task(task_id, assignee_id, actor_id) do
+    task = Repo.get!(ShiftTask, task_id)
+    actor = Repo.get!(StaffMember, actor_id)
+    assignee = assignee_id && Repo.get(StaffMember, assignee_id)
+
+    cond do
+      not actor.is_supervisor ->
+        {:error, :not_supervisor}
+
+      actor.department != task.department ->
+        {:error, :wrong_department}
+
+      assignee_id && is_nil(assignee) ->
+        {:error, :unknown_staff}
+
+      assignee && assignee.department != task.department ->
+        {:error, :wrong_department}
+
+      true ->
+        update_task!(task, %{assignee_id: assignee_id})
+    end
+  end
+
+  @doc """
+  Lets a staff member take ownership of unclaimed work in their department.
+
+  This is the frontline half of "confirm ownership": nobody has to wait for a
+  supervisor to hand out a task that is already sitting there.
+  """
+  def claim_task(task_id, staff_id) do
+    task = Repo.get!(ShiftTask, task_id)
+    staff = Repo.get!(StaffMember, staff_id)
+
+    cond do
+      staff.department != task.department -> {:error, :wrong_department}
+      not is_nil(task.assignee_id) -> {:error, :already_assigned}
+      true -> update_task!(task, %{assignee_id: staff.id})
+    end
+  end
+
+  @doc """
+  Moves a task between `todo`, `in_progress` and `done`.
+
+  Only the person who owns the task or a supervisor in its department can
+  change it, so status is a statement by someone accountable for the work
+  rather than by whoever happened to have the page open.
+  """
+  def update_task_status(task_id, status, actor_id) when status in ~w(todo in_progress done) do
+    task = Repo.get!(ShiftTask, task_id)
+    actor = Repo.get!(StaffMember, actor_id)
+
+    cond do
+      actor.department != task.department ->
+        {:error, :wrong_department}
+
+      task.assignee_id != actor.id and not actor.is_supervisor ->
+        {:error, :not_task_owner}
+
+      is_nil(task.assignee_id) ->
+        {:error, :unassigned}
+
+      true ->
+        update_task!(task, %{status: status})
+    end
+  end
+
+  defp update_task!(task, attrs) do
+    updated = task |> ShiftTask.changeset(attrs) |> Repo.update!()
+    broadcast_tasks()
+    {:ok, Repo.preload(updated, :assignee, force: true)}
+  end
+
+  # A blank select value arrives as "" and means "nobody".
+  defp normalise_assignee(attrs) do
+    case Map.get(attrs, "assignee_id") do
+      "" -> Map.put(attrs, "assignee_id", nil)
+      _other -> attrs
+    end
   end
 
   ## Workflow transitions
@@ -583,6 +752,7 @@ defmodule Sona.Coordination do
   end
 
   defp delete_demo_data do
+    Repo.delete_all(ShiftTask)
     Repo.delete_all(ActivityEvent)
     Repo.delete_all(CoverageResponse)
     Repo.delete_all(CoverageRequest)
@@ -593,7 +763,7 @@ defmodule Sona.Coordination do
     maya =
       insert_staff!("Maya Chen", "Front Office Supervisor", "English", is_supervisor: true)
 
-    _luis = insert_staff!("Luis Garcia", "Front Desk Agent", "Spanish")
+    luis = insert_staff!("Luis Garcia", "Front Desk Agent", "Spanish")
     priya = insert_staff!("Priya Shah", "Front Desk Agent", "English")
     theo = insert_staff!("Theo Martin", "Front Desk Agent", "French")
     dana = insert_staff!("Dana Kim", "Night Auditor", "English")
@@ -670,7 +840,46 @@ defmodule Sona.Coordination do
     add_event(request.id, priya.id, "response", response_event_body(priya, priya_offer))
     add_event(request.id, sofia.id, "team", "Sofia completed the 15:00 room release update.")
 
+    seed_tasks(maya, luis, priya)
+
     request
+  end
+
+  defp seed_tasks(maya, luis, priya) do
+    insert_task!(maya, "Complete the lobby handoff checklist",
+      assignee_id: luis.id,
+      due_time: ~T[17:45:00],
+      location: "Front desk"
+    )
+
+    insert_task!(maya, "Review guest arrival notes",
+      assignee_id: priya.id,
+      status: "done",
+      due_time: ~T[15:20:00],
+      location: "Front desk"
+    )
+
+    # Left unassigned on purpose: it is the piece of work a frontline member
+    # can claim without waiting to be asked.
+    insert_task!(maya, "Restock the welcome desk stationery",
+      due_time: ~T[19:00:00],
+      location: "Lobby"
+    )
+  end
+
+  defp insert_task!(creator, title, opts) do
+    translate_task_content([title])
+
+    Repo.insert!(%ShiftTask{
+      title: title,
+      department: creator.department,
+      status: Keyword.get(opts, :status, "todo"),
+      shift_date: Date.utc_today(),
+      due_time: Keyword.get(opts, :due_time),
+      location: Keyword.get(opts, :location),
+      assignee_id: Keyword.get(opts, :assignee_id),
+      created_by_id: creator.id
+    })
   end
 
   ## Helpers

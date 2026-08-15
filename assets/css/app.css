@@ -341,3 +341,14 @@ a.text-button { display: inline-flex; align-items: center; gap: 5px; }
 .form-errors ul { margin: 0; padding-left: 18px; }
 @media (max-width: 900px) { .request-form { grid-template-columns: minmax(0, 1fr); } }
 .translation-note.muted { color: var(--ink-soft); }
+
+/* Shift tasks */
+.task-form { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+.task-form input[name="title"] { flex: 1 1 190px; }
+.task-form input, .task-form select { min-height: 42px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); font: 500 13px "DM Sans", sans-serif; }
+.task-form .primary-button { min-height: 42px; }
+.task-empty { margin: 12px 0 0; color: var(--ink-soft); font-size: 13px; }
+.task-assignee { max-width: 132px; padding: 5px 7px; border: 1px solid var(--line); border-radius: 7px; background: var(--surface); font: 500 12px "DM Sans", sans-serif; color: var(--ink-soft); }
+.task-action { padding: 6px 11px; border: 1px solid var(--line); border-radius: 99px; background: var(--surface); color: var(--moss); font: 600 12px "DM Sans", sans-serif; }
+.task-action:hover { background: var(--moss-soft); }
+.task-status.active { color: #8a5b1f; background: #fdf3e4; }

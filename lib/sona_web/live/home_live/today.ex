@@ -13,6 +13,9 @@ defmodule SonaWeb.HomeLive.Today do
   attr :responses, :list, required: true
   attr :eligible_staff, :list, required: true
   attr :events, :list, required: true
+  attr :tasks, :list, required: true
+  attr :assignable_staff, :list, required: true
+  attr :new_task_open, :boolean, required: true
 
   def today_view(assigns) do
     assigns =
@@ -118,23 +121,82 @@ defmodule SonaWeb.HomeLive.Today do
             <span class="section-kicker">{gettext("ON YOUR SHIFT")}</span>
             <h2>{gettext("Current work")}</h2>
           </div>
+          <button
+            :if={@role == "supervisor"}
+            class="text-button"
+            phx-click="toggle_new_task"
+            aria-expanded={to_string(@new_task_open)}
+          >
+            <.icon name={if @new_task_open, do: "close", else: "plus"} />
+            {if @new_task_open, do: gettext("Cancel"), else: gettext("Assign work")}
+          </button>
         </div>
+
+        <form
+          :if={@role == "supervisor" and @new_task_open}
+          id="new-task-form"
+          class="task-form"
+          phx-submit="create_task"
+        >
+          <input name="title" required placeholder={gettext("What needs doing?")} />
+          <select name="assignee_id">
+            <option value="">{gettext("Anyone on the team")}</option>
+            <option :for={person <- @assignable_staff} value={person.id}>{person.name}</option>
+          </select>
+          <input type="time" name="due_time" aria-label={gettext("Due")} />
+          <button class="primary-button">{gettext("Add task")}</button>
+        </form>
+
+        <p :if={@tasks == []} class="task-empty">{gettext("No work assigned for today.")}</p>
+
         <div class="task-list">
-          <div class="task-row">
-            <span class="task-check"></span>
+          <div :for={task <- @tasks} class={task_row_class(task)}>
+            <span class="task-check">
+              <.icon :if={task.status == "done"} name="check" />
+            </span>
             <div>
-              <strong>{gettext("Complete lobby handoff checklist")}</strong>
-              <span>{gettext("Due 17:45 · Front desk")}</span>
+              <strong>{translate_content(task.title)}</strong>
+              <span>{task_meta(task, @role)}</span>
             </div>
-            <span class="task-status pending">{gettext("Not started")}</span>
-          </div>
-          <div class="task-row done">
-            <span class="task-check"><.icon name="check" /></span>
-            <div>
-              <strong>{gettext("Review guest arrival notes")}</strong>
-              <span>{gettext("Completed 15:20 · Front desk")}</span>
-            </div>
-            <span class="task-status">{gettext("Done")}</span>
+
+            <form :if={@role == "supervisor"} id={"assign-task-#{task.id}"} phx-change="assign_task">
+              <input type="hidden" name="task-id" value={task.id} />
+              <select
+                class="task-assignee"
+                name="assignee_id"
+                aria-label={gettext("Assign this task")}
+              >
+                <option value="" selected={is_nil(task.assignee_id)}>{gettext("Unassigned")}</option>
+                <option
+                  :for={person <- @assignable_staff}
+                  value={person.id}
+                  selected={task.assignee_id == person.id}
+                >
+                  {person.name}
+                </option>
+              </select>
+            </form>
+
+            <button
+              :if={@role != "supervisor" and is_nil(task.assignee_id)}
+              class="task-action"
+              phx-click="claim_task"
+              phx-value-task-id={task.id}
+            >
+              {gettext("Claim")}
+            </button>
+
+            <button
+              :if={next_status(task, @current_staff, @role)}
+              class="task-action"
+              phx-click="advance_task"
+              phx-value-task-id={task.id}
+              phx-value-status={next_status(task, @current_staff, @role)}
+            >
+              {next_status_label(next_status(task, @current_staff, @role))}
+            </button>
+
+            <span class={task_status_class(task)}>{task_status_label(task.status)}</span>
           </div>
         </div>
       </section>

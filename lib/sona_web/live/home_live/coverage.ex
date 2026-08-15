@@ -128,7 +128,7 @@ defmodule SonaWeb.HomeLive.Coverage do
         </ul>
       </div>
 
-      <form phx-submit="create_request" class="request-form">
+      <form id="new-request-form" phx-submit="create_request" class="request-form">
         <label>
           <span>{gettext("Who is unavailable")}</span>
           <input name="absent_name" required placeholder={gettext("Team member's name")} />
@@ -223,7 +223,12 @@ defmodule SonaWeb.HomeLive.Coverage do
               <.icon name="close" /> {gettext("I can't cover it")}
             </button>
           </div>
-          <form :if={@partial_open} class="partial-form" phx-submit="respond_partial">
+          <form
+            :if={@partial_open}
+            id="partial-cover-form"
+            class="partial-form"
+            phx-submit="respond_partial"
+          >
             <label>
               {gettext("From")}
               <input type="time" name="from" value={format_time(@request.start_time)} required />
@@ -234,7 +239,7 @@ defmodule SonaWeb.HomeLive.Coverage do
             </label>
             <button class="primary-button">{gettext("Confirm partial coverage")}</button>
           </form>
-          <form class="question-form" phx-submit="ask_question">
+          <form id="ask-question-form" class="question-form" phx-submit="ask_question">
             <input
               name="question"
               value={@question}
