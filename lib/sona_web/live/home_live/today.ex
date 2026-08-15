@@ -27,11 +27,15 @@ defmodule SonaWeb.HomeLive.Today do
         <h1>{gettext("Good afternoon, %{name}", name: first_name(@current_staff.name))}</h1>
         <p class="heading-subtitle">{gettext("Here is what needs your attention today.")}</p>
       </div>
-      <div class="language-chip">
+      <.link
+        patch={~p"/?view=profile&role=#{@role}"}
+        class="language-chip"
+        title={gettext("Change your language in Profile")}
+      >
         <span class="language-glyph">文</span>
         <span>{language_label(@current_staff.language)}</span>
-        <.icon name="chevron" />
-      </div>
+        <.icon name="arrow" />
+      </.link>
     </section>
 
     <div class="shift-strip">
@@ -114,7 +118,6 @@ defmodule SonaWeb.HomeLive.Today do
             <span class="section-kicker">{gettext("ON YOUR SHIFT")}</span>
             <h2>{gettext("Current work")}</h2>
           </div>
-          <button class="text-button">{gettext("View shift")} <.icon name="arrow" /></button>
         </div>
         <div class="task-list">
           <div class="task-row">
@@ -141,7 +144,6 @@ defmodule SonaWeb.HomeLive.Today do
             <span class="section-kicker">{gettext("TEAM HANDOFFS")}</span>
             <h2>{gettext("What changed")}</h2>
           </div>
-          <button class="text-button">{gettext("See all")} <.icon name="arrow" /></button>
         </div>
         <div class="activity-list">
           <div :for={event <- Enum.take(@events, 2)} class="activity-row">

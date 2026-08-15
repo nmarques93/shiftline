@@ -22,7 +22,6 @@ defmodule SonaWeb.HomeLive.Messages do
           {gettext("Conversations stay attached to the work they change.")}
         </p>
       </div>
-      <button class="outline-button"><.icon name="plus" /> {gettext("New message")}</button>
     </section>
     <section class="message-preview">
       <div class="message-header">
@@ -44,7 +43,6 @@ defmodule SonaWeb.HomeLive.Messages do
           <span class="avatar tiny priya">PS</span>
         </span>
         <span>{gettext("Front Office team · illustrative preview")}</span>
-        <button class="text-button">{gettext("Open thread")} <.icon name="arrow" /></button>
       </div>
     </section>
     <section class="message-list">
