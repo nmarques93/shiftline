@@ -4,9 +4,15 @@ I used AI assistance throughout this exercise and want to be straightforward
 about where and how, so the code can be read with an accurate picture of how
 it was produced.
 
-**Tool:** Claude Code (Claude Opus 5), driven interactively from the terminal.
+**Tools:**
+- OpenCode (GPT-5.6 Luna) for implementation and review
+- Claude Code (Claude Opus 5) for review and improvements/finetuning
 
 ---
+
+## Approaching the problem statement
+
+Given how open the challenge was, I approached this as if building an actual production app. I did some quick research (AI-assisted) on the market and what was the biggest gap in the competition, and documented the results [here](./market-research.md). Once I had that identified, I focused on the [implementation plan](./implementation-plan.md)
 
 ## The division of work
 
@@ -33,12 +39,14 @@ back in. Those rounds surfaced the concurrency and data-integrity issues —
 races between simultaneous approvals, non-atomic acknowledgement, a question
 overwriting a coverage offer — that shaped much of the final domain design.
 
-**What the AI did.** Implementation, refactoring, test writing, and running the
-app in a browser to verify behaviour end to end. It also proposed several
-designs I accepted after discussion — the follow-up-request mechanism for
-uncovered gaps, the row-locking approach to the transitions, and the write-time
-translation cache. Where I disagreed or wanted a different scope, I said so and
-it changed course.
+**What the tools did.** OpenCode carried the bulk of the implementation.
+Claude Code then took review and refinement passes over the result: hardening
+the domain, writing the test suite, and driving the running app in a browser to
+verify behaviour end to end. Between them they proposed several designs I
+accepted after discussion — the follow-up-request mechanism for uncovered gaps,
+the row-locking approach to the transitions, and the write-time translation
+cache. Where I disagreed or wanted a different scope, I said so and the work
+changed course.
 
 ## Verification
 
@@ -69,5 +77,11 @@ reasoning rather than the syntax.
 The repository was initialised at the end of the exercise, so the commits are a
 logical decomposition of the finished tree rather than a live record of the
 order the work happened in. Timestamps have not been altered to suggest
-otherwise. Commits carry a `Co-Authored-By` trailer for the AI assistance, for
-the same reason as this file.
+otherwise — they are all from the day the history was created.
+
+Commits carry a `Co-Authored-By: Claude Opus 5` trailer. That reflects the
+review and refinement pass, which touched the content of every commit; it is
+not a claim that Claude Code produced all of it. The fuller picture is the
+tooling split at the top of this file, which is why that split lives here
+rather than in trailers.
+

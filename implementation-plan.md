@@ -31,7 +31,7 @@ There can be more than one open incident at a time — a mid-shift partial offer
 - **Ecto + PostgreSQL:** the coverage workflow as an explicit, constraint-backed state machine (`open -> contacting -> claimed -> approved -> resolved`).
 - **Gettext + a translation service:** UI copy is localized with Gettext, keyed on each staff member's preferred language and applied to the workflow itself (request, actions, statuses, responses, flashes), not just settings — English, Spanish and French catalogs ship. *User-entered* content — what a supervisor types into a request, a response note, a question, an activity line carrying real names and times — cannot be a Gettext msgid, so it goes through `Sona.Translation`: a cache in front of a pluggable provider. See "Translating what people type" below.
 - **Plain CSS with variables (plus the stock Tailwind pipeline):** a distinctive visual system without UI-library defaults.
-- **Seeded demo data:** one realistic hotel, incident, and an eight-person roster with mixed languages and response states. `Reset demo` restores the starting point.
+- **Seeded demo data:** one realistic hotel and incident, with a twelve-person roster across two departments (Front Office and Housekeeping) in mixed languages and response states. The second department is there so department-scoped eligibility is visible rather than theoretical — a Housekeeping request never reaches the front desk. `Reset demo` restores the starting point.
 
 ## Product Shape
 
