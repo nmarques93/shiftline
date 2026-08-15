@@ -48,7 +48,10 @@ defmodule SonaWeb.HomeLive.Today do
         <strong>{@current_staff.role}</strong>
       </div>
       <div class="shift-fact"><span>14:00–22:00</span><small>{gettext("Lobby")}</small></div>
-      <div class="shift-fact hide-small"><span>3</span><small>{gettext("Open tasks")}</small></div>
+      <div class="shift-fact hide-small">
+        <span>{Enum.count(@tasks, &(&1.status != "done"))}</span>
+        <small>{gettext("Open tasks")}</small>
+      </div>
       <div class="shift-arrow"><.icon name="arrow" /></div>
     </div>
 
