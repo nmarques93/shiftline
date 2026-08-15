@@ -56,12 +56,23 @@ Warm hotel neutrals with one high-contrast operational accent, large status labe
 ```text
 lib/
 ├── sona/
-│   ├── coordination.ex            # context: workflow transitions, personas, seeds, PubSub
-│   └── coordination/
-│       ├── staff_member.ex
-│       ├── coverage_request.ex    # status state machine lives here + in the context
-│       ├── coverage_response.ex   # includes "pending" = viewed but not answered
-│       └── activity_event.ex
+│   ├── coordination.ex            # context: the coverage state machine, and only that
+│   ├── demo.ex                    # fixtures + the persona switcher standing in for auth
+│   ├── coordination/
+│   │   ├── tasks.ex               # the shift task board
+│   │   ├── events.ex              # the activity feed and the sentences in it
+│   │   ├── notifier.ex            # the PubSub contract clients subscribe to
+│   │   ├── staff_member.ex
+│   │   ├── coverage_request.ex    # status state machine lives here + in the context
+│   │   ├── coverage_response.ex   # includes "pending" = viewed but not answered
+│   │   ├── activity_event.ex
+│   │   └── shift_task.ex
+│   ├── translation.ex             # cache in front of a pluggable provider
+│   └── translation/
+│       ├── prompt.ex              # the instruction every provider shares
+│       ├── local.ex               # offline default
+│       ├── deepseek.ex
+│       └── claude.ex
 └── sona_web/
     └── live/
         ├── home_live.ex           # shell, URL state, event handlers, PubSub subscribe
@@ -75,7 +86,9 @@ test/sona/coordination_test.exs    # state machine + PubSub coverage
 priv/gettext/es/LC_MESSAGES/default.po
 ```
 
-Boundaries that matter: all writes go through `Sona.Coordination`, which validates the transition, records an activity event naming the real actor, and broadcasts `{:coordination_updated, id}`; the LiveView only renders state and dispatches actions.
+Boundaries that matter: all writes go through `Sona.Coordination` or `Sona.Coordination.Tasks`, which validate the transition, record an activity event naming the real actor, and broadcast through `Sona.Coordination.Notifier`; the LiveView only renders state and dispatches actions.
+
+`Sona.Demo` sits outside the domain on purpose. Everything a real deployment would delete — seeded fixtures, the reset button, and a persona switcher that hands out an identity with no proof of who is asking — lives there, so the line between what is real and what is scaffolding is visible in the module tree rather than in a comment. Authentication replaces `Sona.Demo.personas/0` and nothing else: every write function already takes an actor id and already checks department, role and ownership against it.
 
 ## Data Model
 
@@ -105,7 +118,8 @@ The shape matters more than the provider:
 
 - **Translation happens on write, not on read.** When someone creates a request, answers with a note, asks a question, or an activity line is recorded, the text is fanned out to every supported locale in a supervised background task and cached in `content_translations`, keyed by a hash of the text. Rendering is then a single indexed read — a page render never waits on a network call, and the same sentence is never paid for twice.
 - **The result arrives live.** The fan-out broadcasts on completion, so a window already showing the incident re-renders in its own language a moment later without a refresh.
-- **Two providers.** `Sona.Translation.Local` (the default) is offline and deterministic, backed by the Gettext catalogs — the demo runs with no API key and identical output every time. `Sona.Translation.Claude` calls the Claude Messages API over HTTP with Req (there is no official Elixir SDK) and translates anything; it activates when `ANTHROPIC_API_KEY` is set. A test stub keeps the suite offline.
+- **The provider is a behaviour with three implementations.** `Sona.Translation.Local` (the default) is offline and deterministic, backed by the Gettext catalogs — the demo runs with no API key and identical output every time. `Sona.Translation.DeepSeek` and `Sona.Translation.Claude` each call their provider's HTTP API with Req (neither has an official Elixir SDK) and translate anything; whichever of `DEEPSEEK_API_KEY` / `ANTHROPIC_API_KEY` is present selects one. A test stub keeps the suite offline.
+- **Swapping providers cannot change the ask.** Both hosted adapters send the same system prompt from `Sona.Translation.Prompt`, so the choice between them is a cost and latency decision rather than a behavioural one. DeepSeek defaults to the cheaper `deepseek-v4-flash`: this path runs once per locale per piece of user-entered text, so it is the cost that scales with usage, and translating one operational sentence is mechanical work.
 - **Failure is visible, not invented.** If a provider can't translate something, nothing is cached and the reader sees the original text under a "shown in its original language" note, rather than a silent fallback that looks like a translation.
 
 Because the source language is whatever the writer used, text is translated into *every* locale including English — so a question typed in Spanish reaches the supervisor in English, not just the reverse.

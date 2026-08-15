@@ -20,27 +20,27 @@ defmodule Sona.Translation.Claude do
 
   @behaviour Sona.Translation
 
+  alias Sona.Translation.Prompt
+
   @endpoint "https://api.anthropic.com/v1/messages"
   @api_version "2023-06-01"
-  @model "claude-opus-5"
+  @default_model "claude-opus-5"
   @max_tokens 2_048
-
-  @language_names %{"en" => "English", "es" => "Spanish", "fr" => "French"}
 
   @impl true
   def translate(text, locale) do
     with {:ok, api_key} <- fetch_api_key(),
-         {:ok, language} <- fetch_language(locale) do
+         {:ok, language} <- Prompt.fetch_language(locale) do
       request(text, language, api_key)
     end
   end
 
   defp request(text, language, api_key) do
     body = %{
-      model: @model,
+      model: config(:model, @default_model),
       max_tokens: @max_tokens,
       output_config: %{effort: "low"},
-      system: system_prompt(language),
+      system: Prompt.system(language),
       messages: [%{role: "user", content: text}],
       # A policy decline would otherwise just stop; this re-serves the
       # request on Anthropic's recommended fallback model in the same call.
@@ -60,10 +60,16 @@ defmodule Sona.Translation.Claude do
     end
   end
 
-  # The reply is a list of content blocks; the translation is the text ones.
-  defp read_reply(%{"stop_reason" => "refusal"}), do: {:error, :refused}
+  @doc """
+  Reads the translation out of a decoded Messages API response. The reply is
+  a list of content blocks and the translation is the text ones.
 
-  defp read_reply(%{"content" => blocks}) when is_list(blocks) do
+  Public so it can be tested against recorded payloads without a network
+  call or an API key.
+  """
+  def read_reply(%{"stop_reason" => "refusal"}), do: {:error, :refused}
+
+  def read_reply(%{"content" => blocks}) when is_list(blocks) do
     blocks
     |> Enum.filter(&(&1["type"] == "text"))
     |> Enum.map_join(& &1["text"])
@@ -74,31 +80,16 @@ defmodule Sona.Translation.Claude do
     end
   end
 
-  defp read_reply(body), do: {:error, {:unexpected_response, body}}
+  def read_reply(body), do: {:error, {:unexpected_response, body}}
 
-  defp system_prompt(language) do
-    """
-    You translate short operational messages for hotel staff.
-
-    Translate the message into #{language}. Reply with the translation and \
-    nothing else — no preamble, no quotation marks, no explanation. If the \
-    message is already in #{language}, reply with it unchanged. Keep names, \
-    times, dates and room or area labels exactly as written, and keep the \
-    tone plain and direct, the way a colleague would speak on shift.
-    """
+  defp config(key, default) do
+    Application.get_env(:sona, Sona.Translation, [])[key] || default
   end
 
   defp fetch_api_key do
-    case Application.get_env(:sona, Sona.Translation, [])[:api_key] do
+    case config(:api_key, nil) do
       key when is_binary(key) and key != "" -> {:ok, key}
       _missing -> {:error, :missing_api_key}
-    end
-  end
-
-  defp fetch_language(locale) do
-    case Map.fetch(@language_names, locale) do
-      {:ok, language} -> {:ok, language}
-      :error -> {:error, {:unsupported_locale, locale}}
     end
   end
 end

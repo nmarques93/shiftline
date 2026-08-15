@@ -75,7 +75,15 @@ Keep the supervisor view in the first window. A response submitted in one appear
 
 Language follows each person's own preference, set in **Profile**, and applies to the workflow itself rather than only to a settings screen. English, Spanish and French ship as catalogs.
 
-Text that people type — a request reason, a note, a question — is translated by a pluggable service (`Sona.Translation`). The default provider is offline and only covers seeded phrases, so newly typed text appears under a "shown in its original language" note. Export `ANTHROPIC_API_KEY` before starting the server to translate arbitrary input.
+Text that people type — a request reason, a note, a question — is translated by a pluggable service (`Sona.Translation`). The default provider is offline and only covers seeded phrases, so newly typed text appears under a "shown in its original language" note.
+
+To translate arbitrary input, export either key before starting the server:
+
+```bash
+export DEEPSEEK_API_KEY=...   # or ANTHROPIC_API_KEY=...
+```
+
+Both adapters send the same prompt and satisfy the same behaviour, so the key you export is the whole of the switch. `TRANSLATION_MODEL` overrides the default model if you want a different one.
 
 ## Verification
 

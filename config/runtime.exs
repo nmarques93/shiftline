@@ -135,10 +135,27 @@ if config_env() == :prod do
   # See https://swoosh.hexdocs.pm/Swoosh.html#module-installation for details.
 end
 
-# Dynamic translation of user-entered content. Without a key the app falls
-# back to the offline catalog provider, so the demo runs unchanged.
-if api_key = System.get_env("ANTHROPIC_API_KEY") do
-  config :sona, Sona.Translation,
-    adapter: Sona.Translation.Claude,
-    api_key: api_key
+# Dynamic translation of user-entered content. Whichever key is present picks
+# the provider; with neither, the app falls back to the offline catalog
+# provider and the demo runs unchanged.
+#
+# Both adapters send the same prompt (`Sona.Translation.Prompt`) and satisfy
+# the same behaviour, so this is the whole of the switch — which is the point
+# of putting a behaviour in front of a provider in the first place.
+translation_provider =
+  cond do
+    key = System.get_env("DEEPSEEK_API_KEY") -> {Sona.Translation.DeepSeek, key}
+    key = System.get_env("ANTHROPIC_API_KEY") -> {Sona.Translation.Claude, key}
+    true -> nil
+  end
+
+case translation_provider do
+  {adapter, api_key} ->
+    config :sona, Sona.Translation,
+      adapter: adapter,
+      api_key: api_key,
+      model: System.get_env("TRANSLATION_MODEL")
+
+  nil ->
+    :ok
 end

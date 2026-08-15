@@ -16,9 +16,13 @@ defmodule Sona.Translation do
   while a real deployment translates anything:
 
       config :sona, Sona.Translation, adapter: Sona.Translation.Local
+      config :sona, Sona.Translation, adapter: Sona.Translation.DeepSeek
       config :sona, Sona.Translation, adapter: Sona.Translation.Claude
 
-  See `Sona.Translation.Local` and `Sona.Translation.Claude`.
+  The two provider-backed adapters send an identical prompt
+  (`Sona.Translation.Prompt`), so the choice between them is a cost and
+  latency decision rather than a behavioural one. `config/runtime.exs` picks
+  whichever API key is present.
   """
 
   import Ecto.Query
