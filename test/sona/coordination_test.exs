@@ -422,7 +422,7 @@ defmodule Sona.CoordinationTest do
 
       assert :ok = Coordination.ensure_demo_data()
       assert Coordination.active_request()
-      assert Repo.aggregate(StaffMember, :count) == 8
+      assert Repo.aggregate(StaffMember, :count) == 12
     end
 
     test "is a no-op when the demo data is present", %{request: request} do
@@ -435,7 +435,7 @@ defmodule Sona.CoordinationTest do
 
       assert :ok = Coordination.ensure_demo_data()
       assert Coordination.frontline_persona()
-      assert Repo.aggregate(StaffMember, :count) == 8
+      assert Repo.aggregate(StaffMember, :count) == 12
     end
   end
 

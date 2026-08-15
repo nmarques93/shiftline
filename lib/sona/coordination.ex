@@ -601,6 +601,23 @@ defmodule Sona.Coordination do
     _omar = insert_staff!("Omar Haddad", "Front Desk Agent", "French")
     _ana = insert_staff!("Ana Costa", "Night Auditor", "Spanish")
 
+    # A second department, so that department-scoped eligibility is visible
+    # rather than theoretical: a Housekeeping request never reaches the front
+    # desk, and vice versa.
+    _rosa =
+      insert_staff!("Rosa Iglesias", "Housekeeping Supervisor", "Spanish",
+        department: "Housekeeping",
+        is_supervisor: true
+      )
+
+    _mei = insert_staff!("Mei Tanaka", "Room Attendant", "English", department: "Housekeeping")
+    _yusuf = insert_staff!("Yusuf Demir", "Room Attendant", "French", department: "Housekeeping")
+
+    _carla =
+      insert_staff!("Carla Mendes", "Housekeeping Attendant", "Spanish",
+        department: "Housekeeping"
+      )
+
     request =
       Repo.insert!(%CoverageRequest{
         absent_name: "Jordan Lee",
@@ -662,7 +679,7 @@ defmodule Sona.Coordination do
     Repo.insert!(%StaffMember{
       name: name,
       role: role,
-      department: "Front Office",
+      department: Keyword.get(opts, :department, "Front Office"),
       language: language,
       is_supervisor: Keyword.get(opts, :is_supervisor, false)
     })
