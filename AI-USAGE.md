@@ -68,26 +68,3 @@ I did not accept generated code on trust. Everything here was checked by:
 
 Where something is unfinished or deliberately out of scope, it is written down
 rather than hidden — see the "known gaps" section of the `README`.
-
-## What I would say about it in conversation
-
-I am comfortable explaining any decision in this repository: why the workflow is
-a guarded state machine in the context rather than booleans in the UI, why
-transitions take a row lock, why questions are activity events rather than
-responses, why translation happens on write, and why identity fields are not
-self-editable. If a reviewer wants to probe any file, I can walk through the
-reasoning rather than the syntax.
-
-## Commit history
-
-The repository was initialised at the end of the exercise, so the commits are a
-logical decomposition of the finished tree rather than a live record of the
-order the work happened in. Timestamps have not been altered to suggest
-otherwise — they are all from the day the history was created.
-
-Commits carry a `Co-Authored-By: Claude Opus 5` trailer. That reflects the
-review and refinement pass, which touched the content of every commit; it is
-not a claim that Claude Code produced all of it. The fuller picture is the
-tooling split at the top of this file, which is why that split lives here
-rather than in trailers.
-
