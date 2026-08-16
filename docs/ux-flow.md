@@ -1,5 +1,21 @@
 # First Prototype UX Flow
 
+> **Design-stage document.** Written before the build to think through the flow;
+> kept as a record of that reasoning, not as a description of what shipped. The
+> [README](../README.md) is authoritative for the built app.
+>
+> Where implementation deliberately diverged:
+>
+> - The screen inventory below plans ten screens and three overlays. The build is
+>   four tabs with actions inline in the incident, because separate "type chooser",
+>   "preview" and "confirm replacement" screens added steps without adding clarity.
+> - A notification panel *was* built, though this document argues against one — the
+>   activity feed turned out to need somewhere to live.
+> - Supervisors can read questions but cannot reply in-app; that half of "two-way"
+>   is unfinished.
+> - Partial coverage went further than planned: an approved partial offer opens
+>   follow-up requests for the uncovered window automatically.
+
 ## Prototype Direction
 
 Build one focused mobile-first experience for a mid-sized hotel team. The prototype should prove that a supervisor can turn an unexpected absence into a visible, two-way coverage decision, and that a frontline worker can understand and act on it without entering a chat maze.

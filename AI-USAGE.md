@@ -12,7 +12,7 @@ it was produced.
 
 ## Approaching the problem statement
 
-Given how open the challenge was, I approached this as if building an actual production app. I did some quick research (AI-assisted) on the market and what was the biggest gap in the competition, and documented the results [here](./docs/market-research.md). Once I had that identified, I focused on the implementation plan, whose architecture and decisions are now folded into the [README](./README.md)
+Given how open the challenge was, I approached this as if building an actual production app. I did some quick research (AI-assisted) on the market and what was the biggest gap in the competition, and documented the results [here](./docs/market-research.md). Once I had that identified, I focused on the implementation plan, whose architecture and decisions are now folded into the [README](./README.md).
 
 ## The division of work
 
@@ -38,6 +38,12 @@ I also ran independent code review passes against the tree and fed the findings
 back in. Those rounds surfaced the concurrency and data-integrity issues —
 races between simultaneous approvals, non-atomic acknowledgement, a question
 overwriting a coverage offer — that shaped much of the final domain design.
+
+A late round caught something none of the local checks could: `config/runtime.exs`
+is evaluated in every environment, so an API key present in the shell replaced the
+test suite's offline stub and sent the tests onto the network. It never reproduced
+on the machine it was written on, which is the reason CI now runs the same checks
+against a clean checkout with an empty environment.
 
 **What the tools did.** OpenCode carried the bulk of the implementation.
 Claude Code then took review and refinement passes over the result: hardening

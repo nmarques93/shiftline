@@ -1,5 +1,10 @@
 # Visual Direction: Sona
 
+> **Design-stage document.** The visual system as specified before the build. The
+> implementation follows it closely; the known drift is that the `blue-700` /
+> `blue-100` informational pair was never used — moss green carries informational
+> states instead — and `ink-700` shipped as `#456257`.
+
 ## Direction: The Operations Signal
 
 Sona should feel like the calm, well-marked service corridor behind a hotel: immediate when something needs action, legible at a glance, and full of useful evidence after the handoff. It is not a social feed and it should not look like a corporate chat tool.

@@ -1,5 +1,8 @@
 # Hospitality Management Software Market Research
 
+> **Research snapshot, August 2026.** Competitor capabilities are cited from vendor
+> documentation as it read at the time and will drift.
+
 ## Product Direction
 
 The market is crowded, but mostly with products built around different centers of gravity. The opportunity is not "another hotel management system." It is a **frontline response layer** that sits on top of existing systems.

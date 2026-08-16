@@ -33,11 +33,11 @@ Two switchable perspectives stand in for authentication:
 - **Maya Chen** — Front Office Supervisor
 - **Luis Garcia** — Front Desk Agent, Spanish preference
 
-1. As Maya, open **Coverage → New coverage request** and report an absence (department, role, time, location, urgency). The app ships with one seeded incident so there's something on screen at load, but requests are created here — they are not fixtures.
-2. Land on **Today**: every open request, the current shift, tasks, and team activity.
-3. Open **Coverage**: structured incident facts, the step trail, and the response board — a partial offer, a decline, and one person who has viewed without answering.
+1. Land on **Today** as Maya: every open request, the current shift, the task board, and team activity.
+2. Open **Coverage**: structured incident facts, the step trail, and the response board — a partial offer, a decline, and one person who has viewed without answering.
+3. Report a new absence via **New coverage request** (department, role, time, location, urgency). A seeded incident exists so there's something on screen at load, but requests are created here — they are not fixtures.
 4. Switch to Luis: the same request fully in Spanish, with accept / partial / decline / ask-a-question.
-5. Accept the shift, then switch back to Maya and approve Luis.
+5. Respond, then switch back to Maya and approve him. Approve appears only next to a genuine offer — the person who declined has no button.
 6. As Luis, acknowledge the handoff — the request resolves and Maya sees the acknowledgement.
 
 If the approved offer was **partial**, the shift is never shown as fully covered: `coverage_gaps/2` computes the uncovered remainder and a follow-up request opens automatically for each gap, so the workflow starts again on what's left.
@@ -191,7 +191,7 @@ Worth naming directly:
 
 ## Background
 
-Research and design work behind the build, in `docs/`:
+Research and design work that preceded the build, in `docs/`. These are design-stage records rather than descriptions of the shipped app — each carries a header saying so, and `ux-flow.md` notes where implementation deliberately diverged from the plan.
 
 - [`challenge-brief.md`](docs/challenge-brief.md) — the assignment
 - [`market-research.md`](docs/market-research.md) — the competitive landscape and where the opportunity sits
