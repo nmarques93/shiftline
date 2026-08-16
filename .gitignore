@@ -38,3 +38,6 @@ npm-debug.log
 
 # Personal interview preparation notes — not part of the submission.
 /INTERVIEW-PREP.md
+
+# Local editor/agent tooling, not part of the project
+/.claude/
