@@ -35,11 +35,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Versions come from .tool-versions, so CI and a contributor's shell
+      # cannot drift apart silently.
       - uses: erlef/setup-beam@v1
         id: beam
         with:
-          elixir-version: "1.19"
-          otp-version: "27"
+          version-file: .tool-versions
+          version-type: strict
 
       - name: Cache deps and build
         uses: actions/cache@v4
@@ -88,8 +90,8 @@ jobs:
 
       - uses: erlef/setup-beam@v1
         with:
-          elixir-version: "1.19"
-          otp-version: "27"
+          version-file: .tool-versions
+          version-type: strict
 
       - run: mix deps.get
       - run: mix assets.setup

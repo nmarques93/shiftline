@@ -12,7 +12,9 @@ The brief's differentiator is an operational *response layer*, not scheduling, p
 
 ## Running it
 
-Requires Elixir 1.17+ (developed on 1.19), Erlang/OTP, and a local PostgreSQL accepting `postgres/postgres` on `localhost:5432` (see `config/dev.exs`). Node is not needed at runtime.
+Requires Elixir 1.17+, Erlang/OTP, and a local PostgreSQL accepting `postgres/postgres` on `localhost:5432` (see `config/dev.exs`). Node is not needed at runtime.
+
+[`.tool-versions`](.tool-versions) pins Elixir 1.19.5 / Erlang 27.3.3 — what this was built and tested against. If you use asdf or mise it will pick those up automatically, and CI reads the same file so the two cannot drift.
 
 ```bash
 mix setup
