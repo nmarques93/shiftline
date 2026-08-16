@@ -169,7 +169,9 @@ mix test
 mix format --check-formatted && mix compile --warnings-as-errors && mix assets.build
 ```
 
-95 tests cover the state machine including its illegal transitions, department and role eligibility, the concurrency guards, task ownership, translation caching and provider adapters, and the LiveView surface. The suite makes no network calls: a stub provider stands in for the hosted translation adapters, and the adapters' response parsing is tested against recorded payload shapes.
+97 tests cover the state machine including its illegal transitions, department and role eligibility, the concurrency guards, task ownership, translation caching and provider adapters, and the LiveView surface.
+
+The suite makes no network calls, and does not depend on your shell to keep it that way. `config/runtime.exs` is evaluated in every environment, so an API key exported for the demo would otherwise replace the stub provider and send the suite onto the network from inside the Ecto sandbox; test opts out of provider selection entirely, and a test asserts that. The adapters' response parsing is covered against recorded payload shapes instead.
 
 ## Scope and known gaps
 

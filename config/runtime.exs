@@ -142,8 +142,16 @@ end
 # Both adapters send the same prompt (`Sona.Translation.Prompt`) and satisfy
 # the same behaviour, so this is the whole of the switch — which is the point
 # of putting a behaviour in front of a provider in the first place.
+#
+# This file is evaluated in *every* environment, including test, and it runs
+# after `config/test.exs`. Without the `config_env()` guard below, an API key
+# sitting in a developer's or CI shell would silently replace the deterministic
+# stub the suite pins, and `mix test` would start making real network calls
+# from inside the Ecto sandbox. Tests must never depend on the ambient
+# environment, so test opts out of provider selection entirely.
 translation_provider =
   cond do
+    config_env() == :test -> nil
     key = System.get_env("DEEPSEEK_API_KEY") -> {Sona.Translation.DeepSeek, key}
     key = System.get_env("ANTHROPIC_API_KEY") -> {Sona.Translation.Claude, key}
     true -> nil

@@ -89,10 +89,24 @@ defmodule Sona.Translation.AdaptersTest do
     end
   end
 
-  describe "without credentials" do
+  describe "the suite is insulated from the network" do
+    test "the configured adapter is the offline stub, whatever keys are in the shell" do
+      # config/runtime.exs is evaluated in every environment and runs after
+      # config/test.exs, so a DEEPSEEK_API_KEY or ANTHROPIC_API_KEY in the
+      # developer's shell used to replace this stub and send the whole suite
+      # onto the network from inside the Ecto sandbox. It now opts test out of
+      # provider selection; this is the assertion that says so out loud rather
+      # than leaving the next person to diagnose connection timeouts.
+      assert Sona.Translation.adapter() == Sona.Translation.Stub
+    end
+
+    test "no API key reaches the test environment" do
+      refute Application.get_env(:sona, Sona.Translation, [])[:api_key]
+    end
+
     test "adapters fail closed instead of calling a provider" do
-      # The test config sets no api_key, so reaching the network here would
-      # be a bug: a missing key must be an error, never an anonymous request.
+      # Follows from the above: with no key configured, a missing key must be
+      # an error, never an anonymous request.
       assert DeepSeek.translate("Evening shift", "es") == {:error, :missing_api_key}
       assert Claude.translate("Evening shift", "es") == {:error, :missing_api_key}
     end
