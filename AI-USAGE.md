@@ -12,7 +12,7 @@ it was produced.
 
 ## Approaching the problem statement
 
-Given how open the challenge was, I approached this as if building an actual production app. I did some quick research (AI-assisted) on the market and what was the biggest gap in the competition, and documented the results [here](./market-research.md). Once I had that identified, I focused on the [implementation plan](./implementation-plan.md)
+Given how open the challenge was, I approached this as if building an actual production app. I did some quick research (AI-assisted) on the market and what was the biggest gap in the competition, and documented the results [here](./docs/market-research.md). Once I had that identified, I focused on the implementation plan, whose architecture and decisions are now folded into the [README](./README.md)
 
 ## The division of work
 
@@ -61,7 +61,7 @@ I did not accept generated code on trust. Everything here was checked by:
   re-verified.
 
 Where something is unfinished or deliberately out of scope, it is written down
-rather than hidden — see the "known gaps" discussion in `implementation-plan.md`.
+rather than hidden — see the "known gaps" section of the `README`.
 
 ## What I would say about it in conversation
 
