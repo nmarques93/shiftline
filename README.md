@@ -173,6 +173,8 @@ mix format --check-formatted && mix compile --warnings-as-errors && mix assets.b
 
 The suite makes no network calls, and does not depend on your shell to keep it that way. `config/runtime.exs` is evaluated in every environment, so an API key exported for the demo would otherwise replace the stub provider and send the suite onto the network from inside the Ecto sandbox; test opts out of provider selection entirely, and a test asserts that. The adapters' response parsing is covered against recorded payload shapes instead.
 
+[`.github/workflows/ci.yml`](.github/workflows/ci.yml) runs the same checks on every push against a clean checkout with a cold build and no keys in the shell — the environment you have, rather than the one I developed in. It runs the suite twice, the second time with deliberately invalid API keys exported, because "the tests don't touch the network" is a claim about configuration and configuration is worth testing. A second job runs `mix assets.setup && mix assets.build`, since `mix setup` is your first command and a green test suite says nothing about whether it works on a machine that has never downloaded the tailwind and esbuild binaries.
+
 ## Scope and known gaps
 
 A focused conceptual prototype, not a hospitality-management platform. No payroll, time tracking, PMS integration, guest communication, or production notification delivery.
@@ -184,7 +186,6 @@ Worth naming directly:
 - **Times are UTC-naive and same-day.** A 22:00–06:00 shift crossing midnight would fail the `end_time > start_time` validation. The real fix is UTC datetimes plus the property's time zone.
 - **The Today shift window is illustrative.** There is no Shift entity — complete workforce scheduling is out of scope per the brief.
 - **One global PubSub topic.** Every client re-runs its data load on any change. Right for one hotel; the first thing to scope per-department for a chain.
-- **No CI.** Checks are run locally.
 
 ## Background
 

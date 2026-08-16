@@ -1,0 +1,96 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+# The point of running this here rather than only locally: a fresh checkout on
+# a machine that has never seen this project, with no API keys in the shell and
+# no warm _build. That is the environment the evaluator has, and it is the one
+# that catches the class of bug where config quietly reads the ambient
+# environment.
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      db:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      MIX_ENV: test
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: erlef/setup-beam@v1
+        id: beam
+        with:
+          elixir-version: "1.19"
+          otp-version: "27"
+
+      - name: Cache deps and build
+        uses: actions/cache@v4
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-mix-${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-mix-${{ steps.beam.outputs.elixir-version }}-${{ steps.beam.outputs.otp-version }}-
+
+      - run: mix deps.get
+
+      - name: Check for unused dependencies
+        run: mix deps.unlock --check-unused
+
+      - name: Check formatting
+        run: mix format --check-formatted
+
+      - name: Compile without warnings
+        run: mix compile --warnings-as-errors
+
+      - name: Test
+        run: mix test
+
+      # The suite pins an offline stub provider, but config/runtime.exs is
+      # evaluated in every environment and runs after config/test.exs — so an
+      # API key in the shell once replaced that stub and sent the suite onto
+      # the network from inside the Ecto sandbox. These are deliberately
+      # invalid: if the guard regresses, this step fails instead of a
+      # reviewer's machine doing something expensive and confusing.
+      - name: Test again with API keys present, which must change nothing
+        env:
+          DEEPSEEK_API_KEY: ci-must-never-use-this
+          ANTHROPIC_API_KEY: ci-must-never-use-this
+        run: mix test
+
+  assets:
+    runs-on: ubuntu-latest
+
+    # `mix setup` is the evaluator's first command, and it builds assets. A
+    # green test suite says nothing about whether that command works on a
+    # machine without the tailwind and esbuild binaries already downloaded.
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: erlef/setup-beam@v1
+        with:
+          elixir-version: "1.19"
+          otp-version: "27"
+
+      - run: mix deps.get
+      - run: mix assets.setup
+      - run: mix assets.build
