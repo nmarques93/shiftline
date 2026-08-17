@@ -8,574 +8,928 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+#: lib/sona_web/live/home_live/ui.ex:479
+#, elixir-autogen, elixir-format
 msgid "%{count} d ago"
 msgstr "il y a %{count} j"
 
+#: lib/sona_web/live/home_live/ui.ex:478
+#, elixir-autogen, elixir-format
 msgid "%{count} h ago"
 msgstr "il y a %{count} h"
 
+#: lib/sona_web/live/home_live/ui.ex:477
+#, elixir-autogen, elixir-format
 msgid "%{count} min ago"
 msgstr "il y a %{count} min"
 
-msgid "%{count} open coverage requests"
-msgstr "%{count} demandes de remplacement ouvertes"
-
-msgid "%{name} is covering %{window}"
-msgstr "%{name} couvre le créneau %{window}"
-
+#: lib/sona_web/live/home_live/ui.ex:312
+#: lib/sona_web/live/home_live/ui.ex:321
+#, elixir-autogen, elixir-format
 msgid "%{name} is covering the shift"
 msgstr "%{name} couvre le service"
 
-msgid "%{viewed} of %{total} viewed · %{answers} responses"
-msgstr "%{viewed} sur %{total} ont vu · %{answers} réponses"
-
+#: lib/sona_web/live/home_live/coverage.ex:323
+#, elixir-autogen, elixir-format
 msgid "%{viewed} of %{total} viewed"
 msgstr "%{viewed} sur %{total} ont vu"
 
-msgid "%{window} still needs coverage"
-msgstr "%{window} reste à couvrir"
+#: lib/sona_web/live/home_live/ui.ex:331
+#, elixir-autogen, elixir-format
+msgid "%{viewed} of %{total} viewed · %{answers} responses"
+msgstr "%{viewed} sur %{total} ont vu · %{answers} réponses"
 
+#: lib/sona_web/live/home_live/today.ex:65
+#, elixir-autogen, elixir-format
 msgid "A team member needs help"
 msgstr "Un collègue a besoin d'aide"
 
+#: lib/sona_web/live/home_live/coverage.ex:61
+#, elixir-autogen, elixir-format
 msgid "ACTIVE INCIDENT"
 msgstr "INCIDENT EN COURS"
 
+#: lib/sona_web/live/home_live/today.ex:97
+#: lib/sona_web/live/home_live/ui.ex:109
+#, elixir-autogen, elixir-format
 msgid "APPROVED"
 msgstr "APPROUVÉ"
 
+#: lib/sona_web/live/home_live/ui.ex:133
+#, elixir-autogen, elixir-format
 msgid "Acknowledge handoff"
 msgstr "Confirmer la passation"
 
+#: lib/sona_web/live/home_live/ui.ex:283
+#, elixir-autogen, elixir-format
 msgid "Acknowledged"
 msgstr "Confirmé"
 
-msgid "Also needs coverage"
-msgstr "À couvrir également"
+#: lib/sona_web/components/core_components.ex:375
+#, elixir-autogen, elixir-format
+msgid "Actions"
+msgstr "Actions"
 
+#: lib/sona_web/live/home_live/coverage.ex:347
+#, elixir-autogen, elixir-format
 msgid "Approve"
 msgstr "Approuver"
 
+#: lib/sona_web/live/home_live/ui.ex:241
+#: lib/sona_web/live/home_live/ui.ex:266
+#, elixir-autogen, elixir-format
 msgid "Approved"
 msgstr "Approuvé"
 
-msgid "Ask a question about the shift..."
-msgstr "Posez une question sur le service..."
-
+#: lib/sona_web/live/home_live/coverage.ex:293
+#, elixir-autogen, elixir-format
 msgid "Ask a question"
 msgstr "Poser une question"
 
+#: lib/sona_web/live/home_live/coverage.ex:292
+#, elixir-autogen, elixir-format
+msgid "Ask a question about the shift..."
+msgstr "Posez une question sur le service..."
+
+#: lib/sona_web/components/layouts.ex:103
+#: lib/sona_web/components/layouts.ex:118
+#, elixir-autogen, elixir-format
 msgid "Attempting to reconnect"
 msgstr "Tentative de reconnexion"
 
+#: lib/sona_web/live/home_live/coverage.ex:218
+#, elixir-autogen, elixir-format
 msgid "COVERAGE REQUEST"
 msgstr "DEMANDE DE REMPLACEMENT"
 
+#: lib/sona_web/live/home_live.ex:337
+#: lib/sona_web/live/home_live/profile.ex:45
+#, elixir-autogen, elixir-format
 msgid "CURRENT PROPERTY"
 msgstr "ÉTABLISSEMENT ACTUEL"
 
-msgid "Changes updates, tasks and responses across the whole app."
-msgstr "Modifie les mises à jour, les tâches et les réponses dans toute l'application."
-
-msgid "Choose a window inside the shift times."
-msgstr "Choisissez un créneau compris dans les horaires du service."
-
+#: lib/sona_web/live/home_live/ui.ex:240
+#: lib/sona_web/live/home_live/ui.ex:265
+#, elixir-autogen, elixir-format
 msgid "Claimed"
 msgstr "Pris en charge"
 
-msgid "Close"
-msgstr "Fermer"
-
-msgid "Complete lobby handoff checklist"
-msgstr "Compléter la check-list de passation du lobby"
-
-msgid "Completed 15:20 · Front desk"
-msgstr "Terminé 15:20 · Réception"
-
-msgid "Confirm partial coverage"
-msgstr "Confirmer la couverture partielle"
-
+#: lib/sona_web/live/home_live/ui.ex:239
+#: lib/sona_web/live/home_live/ui.ex:264
+#, elixir-autogen, elixir-format
 msgid "Contacting"
 msgstr "Prise de contact"
 
+#: lib/sona_web/live/home_live/messages.ex:22
+#, elixir-autogen, elixir-format
 msgid "Conversations stay attached to the work they change."
 msgstr "Les conversations restent rattachées au travail qu'elles modifient."
 
-msgid "Coverage gap"
-msgstr "Créneau non couvert"
-
-msgid "Coverage is confirmed"
-msgstr "La couverture est confirmée"
-
-msgid "Coverage needed · Front desk"
-msgstr "Remplacement nécessaire · Réception"
-
-msgid "Coverage partially confirmed"
-msgstr "Couverture partiellement confirmée"
-
+#: lib/sona_web/live/home_live.ex:351
+#: lib/sona_web/live/home_live.ex:487
+#: lib/sona_web/live/home_live/coverage.ex:36
+#, elixir-autogen, elixir-format
 msgid "Coverage"
 msgstr "Remplacements"
 
+#: lib/sona_web/live/home_live/today.ex:105
+#: lib/sona_web/live/home_live/ui.ex:305
+#, elixir-autogen, elixir-format
+msgid "Coverage is confirmed"
+msgstr "La couverture est confirmée"
+
+#: lib/sona_web/live/home_live/messages.ex:58
+#, elixir-autogen, elixir-format
+msgid "Coverage needed · Front desk"
+msgstr "Remplacement nécessaire · Réception"
+
+#: lib/sona_web/live/home_live/today.ex:125
+#, elixir-autogen, elixir-format
 msgid "Current work"
 msgstr "Travail en cours"
 
-msgid "DEPARTMENT"
-msgstr "DÉPARTEMENT"
-
+#: lib/sona_web/live/home_live/ui.ex:280
+#: lib/sona_web/live/home_live/ui.ex:286
+#, elixir-autogen, elixir-format
 msgid "Declined"
 msgstr "Refusé"
 
+#: lib/sona_web/live/home_live.ex:318
+#, elixir-autogen, elixir-format
 msgid "Demo reset"
 msgstr "Démo réinitialisée"
 
+#: lib/sona_web/live/home_live/ui.ex:417
+#, elixir-autogen, elixir-format
 msgid "Done"
 msgstr "Terminé"
 
-msgid "Due 17:45 · Front desk"
-msgstr "Pour 17:45 · Réception"
-
+#: lib/sona_web/live/home_live/messages.ex:67
+#, elixir-autogen, elixir-format
 msgid "Engineering · Ice machine issue cleared"
 msgstr "Technique · Problème de machine à glaçons résolu"
 
-msgid "From"
-msgstr "De"
-
+#: lib/sona_web/live/home_live/messages.ex:19
+#, elixir-autogen, elixir-format
 msgid "Front Office / Today"
 msgstr "Réception / Aujourd'hui"
 
+#: lib/sona_web/live/home_live/messages.ex:45
+#, elixir-autogen, elixir-format
 msgid "Front Office team · illustrative preview"
 msgstr "Équipe de réception · aperçu illustratif"
 
+#: lib/sona_web/live/home_live/messages.ex:30
+#, elixir-autogen, elixir-format
 msgid "Front Office · Evening handoff"
 msgstr "Réception · Passation du soir"
 
+#: lib/sona_web/live/home_live/coverage.ex:219
+#, elixir-autogen, elixir-format
 msgid "Front desk coverage"
 msgstr "Remplacement à la réception"
 
+#: lib/sona_web/live/home_live/ui.ex:278
+#, elixir-autogen, elixir-format
 msgid "Full shift"
 msgstr "Service complet"
 
+#: lib/sona_web/live/home_live/today.ex:30
+#, elixir-autogen, elixir-format
 msgid "Good afternoon, %{name}"
 msgstr "Bon après-midi, %{name}"
 
+#: lib/sona_web/live/home_live/ui.ex:246
+#, elixir-autogen, elixir-format
 msgid "HIGH"
 msgstr "ÉLEVÉE"
 
+#: lib/sona_web/live/home_live.ex:306
+#: lib/sona_web/live/home_live/ui.ex:141
+#, elixir-autogen, elixir-format
 msgid "Handoff acknowledged"
 msgstr "Passation confirmée"
 
+#: lib/sona_web/live/home_live/today.ex:103
+#, elixir-autogen, elixir-format
 msgid "Handoff needs acknowledgement"
 msgstr "La passation doit être confirmée"
 
+#: lib/sona_web/live/home_live/ui.ex:126
+#, elixir-autogen, elixir-format
 msgid "Handoff note"
 msgstr "Note de passation"
 
+#: lib/sona_web/live/home_live/today.ex:31
+#, elixir-autogen, elixir-format
 msgid "Here is what needs your attention today."
 msgstr "Voici ce qui requiert votre attention aujourd'hui."
 
-msgid "How you use Sona"
-msgstr "Votre utilisation de Sona"
-
+#: lib/sona_web/live/home_live/coverage.ex:237
+#, elixir-autogen, elixir-format
 msgid "I can cover all of it"
 msgstr "Je peux tout couvrir"
 
+#: lib/sona_web/live/home_live/coverage.ex:240
+#, elixir-autogen, elixir-format
 msgid "I can cover part of it"
 msgstr "Je peux couvrir une partie"
 
+#: lib/sona_web/live/home_live/coverage.ex:243
+#, elixir-autogen, elixir-format
 msgid "I can't cover it"
 msgstr "Je ne peux pas couvrir"
 
-msgid "In-app alerts are off. You can turn them back on in Profile."
-msgstr "Les alertes dans l'application sont désactivées. Vous pouvez les réactiver dans Profil."
-
-msgid "In-app alerts"
-msgstr "Alertes dans l'application"
-
+#: lib/sona_web/live/home_live/ui.ex:476
+#, elixir-autogen, elixir-format
 msgid "Just now"
 msgstr "À l'instant"
 
+#: lib/sona_web/live/home_live/profile.ex:21
+#, elixir-autogen, elixir-format
 msgid "Keep your role and language ready for every handoff."
 msgstr "Gardez votre poste et votre langue prêts pour chaque passation."
 
-msgid "Live operations"
-msgstr "Opérations en direct"
-
+#: lib/sona_web/live/home_live/today.ex:28
+#, elixir-autogen, elixir-format
 msgid "Live"
 msgstr "En direct"
 
+#: lib/sona_web/live/home_live.ex:339
+#, elixir-autogen, elixir-format
+msgid "Live operations"
+msgstr "Opérations en direct"
+
+#: lib/sona_web/live/home_live/today.ex:50
+#, elixir-autogen, elixir-format
 msgid "Lobby"
 msgstr "Lobby"
 
+#: lib/sona_web/live/home_live/messages.ex:66
+#, elixir-autogen, elixir-format
 msgid "Maintenance handoff"
 msgstr "Passation de maintenance"
 
+#: lib/sona_web/live/home_live.ex:360
+#: lib/sona_web/live/home_live.ex:496
+#: lib/sona_web/live/home_live/messages.ex:20
+#, elixir-autogen, elixir-format
 msgid "Messages"
 msgstr "Messages"
 
+#: lib/sona_web/live/home_live/today.ex:62
+#, elixir-autogen, elixir-format
 msgid "NEEDS A RESPONSE"
 msgstr "RÉPONSE ATTENDUE"
 
-msgid "New message"
-msgstr "Nouveau message"
-
-msgid "New update"
-msgstr "Nouvelle annonce"
-
-msgid "Not available in this prototype — no messages are sent."
-msgstr "Indisponible dans ce prototype — aucun message n'est envoyé."
-
+#: lib/sona_web/live/home_live/ui.ex:415
+#, elixir-autogen, elixir-format
 msgid "Not started"
 msgstr "Non commencé"
 
+#: lib/sona_web/live/home_live/ui.ex:284
+#, elixir-autogen, elixir-format
 msgid "Not viewed"
 msgstr "Non vu"
 
-msgid "Nothing new right now."
-msgstr "Rien de nouveau pour le moment."
-
-msgid "Notifications"
-msgstr "Notifications"
-
+#: lib/sona_web/live/home_live/today.ex:124
+#, elixir-autogen, elixir-format
 msgid "ON YOUR SHIFT"
 msgstr "PENDANT VOTRE SERVICE"
 
-msgid "OPEN QUESTIONS"
-msgstr "QUESTIONS EN ATTENTE"
-
-msgid "OTHER OPEN REQUESTS"
-msgstr "AUTRES DEMANDES OUVERTES"
-
+#: lib/sona_web/live/home_live/today.ex:66
+#, elixir-autogen, elixir-format
 msgid "One open coverage request"
 msgstr "Une demande de remplacement ouverte"
 
-msgid "Only a supervisor can approve a replacement."
-msgstr "Seul un superviseur peut approuver un remplacement."
-
-msgid "Only the approved replacement can acknowledge this handoff."
-msgstr "Seul le remplaçant approuvé peut confirmer cette passation."
-
-msgid "Open request"
-msgstr "Ouvrir la demande"
-
-msgid "Open tasks"
-msgstr "Tâches ouvertes"
-
-msgid "Open thread"
-msgstr "Ouvrir le fil"
-
+#: lib/sona_web/live/home_live/ui.ex:238
+#: lib/sona_web/live/home_live/ui.ex:243
+#: lib/sona_web/live/home_live/ui.ex:263
+#, elixir-autogen, elixir-format
 msgid "Open"
 msgstr "Ouverte"
 
+#: lib/sona_web/live/home_live/coverage.ex:101
+#: lib/sona_web/live/home_live/ui.ex:83
+#, elixir-autogen, elixir-format
+msgid "Open request"
+msgstr "Ouvrir la demande"
+
+#: lib/sona_web/live/home_live/today.ex:53
+#, elixir-autogen, elixir-format
+msgid "Open tasks"
+msgstr "Tâches ouvertes"
+
+#: lib/sona_web/live/home_live/coverage.ex:35
+#, elixir-autogen, elixir-format
 msgid "Operations board"
 msgstr "Tableau des opérations"
 
-msgid "PARTIALLY COVERED"
-msgstr "PARTIELLEMENT COUVERT"
-
+#: lib/sona_web/live/home_live/messages.ex:29
+#, elixir-autogen, elixir-format
 msgid "PINNED FOR YOUR TEAM"
 msgstr "ÉPINGLÉ POUR VOTRE ÉQUIPE"
 
+#: lib/sona_web/live/home_live/ui.ex:279
+#, elixir-autogen, elixir-format
 msgid "Partial coverage"
 msgstr "Couverture partielle"
 
-msgid "Preferred language"
-msgstr "Langue préférée"
-
+#: lib/sona_web/live/home_live/messages.ex:32
+#, elixir-autogen, elixir-format
 msgid "Preview"
 msgstr "Aperçu"
 
+#: lib/sona_web/live/home_live.ex:367
+#: lib/sona_web/live/home_live.ex:503
+#: lib/sona_web/live/home_live/profile.ex:19
+#, elixir-autogen, elixir-format
 msgid "Profile"
 msgstr "Profil"
 
-msgid "Push and SMS"
-msgstr "Push et SMS"
-
+#: lib/sona_web/live/home_live.ex:148
+#, elixir-autogen, elixir-format
 msgid "Question sent to %{name}"
 msgstr "Question envoyée à %{name}"
 
+#: lib/sona_web/live/home_live/messages.ex:51
+#, elixir-autogen, elixir-format
 msgid "RECENT CONVERSATIONS"
 msgstr "CONVERSATIONS RÉCENTES"
 
+#: lib/sona_web/live/home_live/today.ex:98
+#: lib/sona_web/live/home_live/ui.ex:110
+#, elixir-autogen, elixir-format
 msgid "RESOLVED"
 msgstr "RÉSOLU"
 
-msgid "ROLE"
-msgstr "POSTE"
-
-msgid "Recent activity"
-msgstr "Activité récente"
-
+#: lib/sona_web/live/home_live.ex:292
+#, elixir-autogen, elixir-format
 msgid "Replacement approved and the team has been updated"
 msgstr "Remplacement approuvé et l'équipe a été informée"
 
+#: lib/sona_web/live/home_live.ex:373
+#, elixir-autogen, elixir-format
 msgid "Reset demo"
 msgstr "Réinitialiser la démo"
 
+#: lib/sona_web/live/home_live/ui.ex:242
+#: lib/sona_web/live/home_live/ui.ex:267
+#, elixir-autogen, elixir-format
 msgid "Resolved"
 msgstr "Résolue"
 
+#: lib/sona_web/live/home_live/ui.ex:75
+#, elixir-autogen, elixir-format
 msgid "Respond to request"
 msgstr "Répondre à la demande"
 
+#: lib/sona_web/live/home_live/ui.ex:287
+#, elixir-autogen, elixir-format
 msgid "Responded"
 msgstr "A répondu"
 
+#: lib/sona_web/live/home_live/ui.ex:277
+#, elixir-autogen, elixir-format
 msgid "Response needed"
 msgstr "Réponse attendue"
 
-msgid "Review guest arrival notes"
-msgstr "Vérifier les notes d'arrivée des clients"
-
-msgid "Save settings"
-msgstr "Enregistrer les paramètres"
-
-msgid "See all"
-msgstr "Tout voir"
-
+#: lib/sona_web/live/home_live/coverage.ex:38
+#, elixir-autogen, elixir-format
 msgid "See the open gap, responses, and handoff in one place."
 msgstr "Voyez le créneau à couvrir, les réponses et la passation au même endroit."
 
+#: lib/sona_web/live/home_live/coverage.ex:295
+#, elixir-autogen, elixir-format
 msgid "Send question"
 msgstr "Envoyer la question"
 
-msgid "Settings saved"
-msgstr "Paramètres enregistrés"
-
+#: lib/sona_web/live/home_live/ui.ex:488
+#, elixir-autogen, elixir-format
 msgid "Shift in progress"
 msgstr "Service en cours"
 
+#: lib/sona_web/components/layouts.ex:110
+#, elixir-autogen, elixir-format
 msgid "Something went wrong!"
 msgstr "Une erreur est survenue !"
 
+#: lib/sona_web/live/home_live/ui.ex:490
+#, elixir-autogen, elixir-format
 msgid "Starts in %{count} h"
 msgstr "Commence dans %{count} h"
 
+#: lib/sona_web/live/home_live/ui.ex:489
+#, elixir-autogen, elixir-format
 msgid "Starts in %{count} min"
 msgstr "Commence dans %{count} min"
 
+#: lib/sona_web/live/home_live/today.ex:212
+#, elixir-autogen, elixir-format
 msgid "TEAM HANDOFFS"
 msgstr "PASSATIONS DE L'ÉQUIPE"
 
+#: lib/sona_web/live/home_live/coverage.ex:319
+#, elixir-autogen, elixir-format
 msgid "TEAM RESPONSES"
 msgstr "RÉPONSES DE L'ÉQUIPE"
 
+#: lib/sona_web/live/home_live/messages.ex:52
+#, elixir-autogen, elixir-format
 msgid "Team activity"
 msgstr "Activité de l'équipe"
 
-msgid "The team asked"
-msgstr "L'équipe a demandé"
-
+#: lib/sona_web/live/home_live.ex:656
+#, elixir-autogen, elixir-format
 msgid "This handoff is not ready to acknowledge yet."
 msgstr "Cette passation n'est pas encore prête à être confirmée."
 
+#: lib/sona_web/live/home_live.ex:644
+#, elixir-autogen, elixir-format
 msgid "This request is already closed."
 msgstr "Cette demande est déjà clôturée."
 
+#: lib/sona_web/live/home_live.ex:653
+#, elixir-autogen, elixir-format
 msgid "This team member has not offered to cover the shift."
 msgstr "Ce collègue ne s'est pas proposé pour couvrir le service."
 
-msgid "Those settings could not be saved."
-msgstr "Ces paramètres n'ont pas pu être enregistrés."
-
+#: lib/sona_web/live/home_live.ex:343
+#: lib/sona_web/live/home_live.ex:481
+#: lib/sona_web/live/home_live/coverage.ex:94
+#: lib/sona_web/live/home_live/ui.ex:35
+#: lib/sona_web/live/home_live/ui.ex:114
+#, elixir-autogen, elixir-format
 msgid "Today"
 msgstr "Aujourd'hui"
 
+#: lib/sona_web/live/home_live/ui.ex:42
+#, elixir-autogen, elixir-format
 msgid "Translated automatically"
 msgstr "Traduit automatiquement"
 
+#: lib/sona_web/live/home_live/ui.ex:247
+#, elixir-autogen, elixir-format
 msgid "UPDATE"
 msgstr "INFO"
 
+#: lib/sona_web/live/home_live/ui.ex:245
+#, elixir-autogen, elixir-format
 msgid "URGENT"
 msgstr "URGENT"
 
-msgid "Until"
-msgstr "Jusqu'à"
-
+#: lib/sona_web/live/home_live/ui.ex:32
+#, elixir-autogen, elixir-format
 msgid "Urgent coverage needed"
 msgstr "Remplacement urgent nécessaire"
 
-msgid "Urgent updates and replies appear in your activity feed."
-msgstr "Les mises à jour urgentes et les réponses apparaissent dans votre fil d'activité."
-
-msgid "View shift"
-msgstr "Voir le service"
-
+#: lib/sona_web/live/home_live/ui.ex:285
+#, elixir-autogen, elixir-format
 msgid "Viewed"
 msgstr "Vu"
 
+#: lib/sona_web/live/home_live/ui.ex:281
+#, elixir-autogen, elixir-format
 msgid "Viewed, no response yet"
 msgstr "Vu, pas encore de réponse"
 
+#: lib/sona_web/live/home_live.ex:396
+#, elixir-autogen, elixir-format
 msgid "Viewing as"
 msgstr "Vue en tant que"
 
+#: lib/sona_web/live/home_live/ui.ex:137
+#, elixir-autogen, elixir-format
 msgid "Waiting for handoff acknowledgement"
 msgstr "En attente de la confirmation de passation"
 
+#: lib/sona_web/components/layouts.ex:95
+#, elixir-autogen, elixir-format
 msgid "We can't find the internet"
 msgstr "Connexion Internet introuvable"
 
+#: lib/sona_web/live/home_live/messages.ex:35
+#, elixir-autogen, elixir-format
 msgid "Welcome Ana, our new night auditor. Please introduce yourself during the 17:45 handoff."
 msgstr "Bienvenue à Ana, notre nouvelle auditrice de nuit. Présentez-vous lors de la passation de 17h45."
 
+#: lib/sona_web/live/home_live/today.ex:213
+#, elixir-autogen, elixir-format
 msgid "What changed"
 msgstr "Ce qui a changé"
 
+#: lib/sona_web/live/home_live/coverage.ex:320
+#, elixir-autogen, elixir-format
 msgid "Who has seen this?"
 msgstr "Qui a vu ce message ?"
 
+#: lib/sona_web/live/home_live/coverage.ex:231
+#, elixir-autogen, elixir-format
 msgid "YOUR RESPONSE"
 msgstr "VOTRE RÉPONSE"
 
-msgid "YOUR SETTINGS"
-msgstr "VOS PARAMÈTRES"
-
+#: lib/sona_web/live/home_live/today.ex:47
+#, elixir-autogen, elixir-format
 msgid "YOUR SHIFT"
 msgstr "VOTRE SERVICE"
 
-msgid "You are not eligible to respond to this request."
-msgstr "Vous n'êtes pas éligible pour répondre à cette demande."
-
+#: lib/sona_web/live/home_live.ex:622
+#, elixir-autogen, elixir-format
 msgid "Your response was sent to %{name}"
 msgstr "Votre réponse a été envoyée à %{name}"
 
-msgid "Your role, department and property are managed by your hotel's operations team."
-msgstr "Votre poste, votre département et votre établissement sont gérés par l'équipe des opérations de votre hôtel."
-
+#: lib/sona_web/live/home_live/profile.ex:18
+#, elixir-autogen, elixir-format
 msgid "Your workspace"
 msgstr "Votre espace de travail"
 
-## Seeded user content (see module note above)
+#: lib/sona_web/components/core_components.ex:81
+#, elixir-autogen, elixir-format, fuzzy
+msgid "close"
+msgstr "Fermer"
 
-msgid "Jordan is unexpectedly unavailable. We need front desk coverage for the evening shift."
-msgstr "Jordan est indisponible de manière imprévue. Nous avons besoin d'un remplacement à la réception pour le service du soir."
+#: lib/sona_web/live/home_live/today.ex:67
+#, elixir-autogen, elixir-format
+msgid "%{count} open coverage requests"
+msgstr "%{count} demandes de remplacement ouvertes"
 
-msgid "The remaining window of this shift still needs coverage."
-msgstr "Le créneau restant de ce service doit encore être couvert."
+#: lib/sona_web/live/home_live/ui.ex:315
+#, elixir-autogen, elixir-format
+msgid "%{name} is covering %{window}"
+msgstr "%{name} couvre le créneau %{window}"
 
-msgid "Please review VIP arrivals with Maya at 17:45."
-msgstr "Merci de passer en revue les arrivées VIP avec Maya à 17h45."
+#: lib/sona_web/live/home_live/ui.ex:118
+#, elixir-autogen, elixir-format
+msgid "%{window} still needs coverage"
+msgstr "%{window} reste à couvrir"
 
-msgid "I can cover the full shift."
-msgstr "Je peux couvrir tout le service."
+#: lib/sona_web/live/home_live/coverage.ex:88
+#, elixir-autogen, elixir-format
+msgid "Also needs coverage"
+msgstr "À couvrir également"
 
-msgid "I can cover the first half."
-msgstr "Je peux couvrir la première moitié."
+#: lib/sona_web/live/home_live/profile.ex:66
+#, elixir-autogen, elixir-format
+msgid "Changes updates, tasks and responses across the whole app."
+msgstr "Modifie les mises à jour, les tâches et les réponses dans toute l'application."
 
-msgid "Already working in reservations."
-msgstr "Je travaille déjà aux réservations."
+#: lib/sona_web/live/home_live.ex:131
+#, elixir-autogen, elixir-format
+msgid "Choose a window inside the shift times."
+msgstr "Choisissez un créneau compris dans les horaires du service."
 
-msgid "New coverage request"
-msgstr "Nouvelle demande de remplacement"
+#: lib/sona_web/live/home_live.ex:413
+#, elixir-autogen, elixir-format
+msgid "Close"
+msgstr "Fermer"
 
-msgid "Cancel"
-msgstr "Annuler"
+#: lib/sona_web/live/home_live/coverage.ex:285
+#, elixir-autogen, elixir-format
+msgid "Confirm partial coverage"
+msgstr "Confirmer la couverture partielle"
 
-msgid "NEW COVERAGE REQUEST"
-msgstr "NOUVELLE DEMANDE DE REMPLACEMENT"
+#: lib/sona_web/live/home_live/ui.ex:118
+#, elixir-autogen, elixir-format
+msgid "Coverage gap"
+msgstr "Créneau non couvert"
 
-msgid "Report an absence"
-msgstr "Signaler une absence"
+#: lib/sona_web/live/home_live/today.ex:104
+#, elixir-autogen, elixir-format
+msgid "Coverage partially confirmed"
+msgstr "Couverture partiellement confirmée"
 
-msgid "Please check this form"
-msgstr "Veuillez vérifier ce formulaire"
+#: lib/sona_web/live/home_live/profile.ex:41
+#, elixir-autogen, elixir-format
+msgid "DEPARTMENT"
+msgstr "DÉPARTEMENT"
 
-msgid "Who is unavailable"
-msgstr "Qui est indisponible"
+#: lib/sona_web/live/home_live/coverage.ex:163
+#: lib/sona_web/live/home_live/coverage.ex:262
+#, elixir-autogen, elixir-format
+msgid "From"
+msgstr "De"
 
-msgid "Team member's name"
-msgstr "Nom du collègue"
+#: lib/sona_web/live/home_live/profile.ex:58
+#, elixir-autogen, elixir-format
+msgid "How you use Sona"
+msgstr "Votre utilisation de Sona"
 
-msgid "Department"
-msgstr "Département"
+#: lib/sona_web/live/home_live/profile.ex:90
+#, elixir-autogen, elixir-format
+msgid "In-app alerts"
+msgstr "Alertes dans l'application"
 
-msgid "Role needed"
-msgstr "Poste requis"
+#: lib/sona_web/live/home_live.ex:418
+#, elixir-autogen, elixir-format
+msgid "In-app alerts are off. You can turn them back on in Profile."
+msgstr "Les alertes dans l'application sont désactivées. Vous pouvez les réactiver dans Profil."
 
-msgid "Date"
-msgstr "Date"
+#: lib/sona_web/live/home_live/profile.ex:98
+#, elixir-autogen, elixir-format
+msgid "Not available in this prototype — no messages are sent."
+msgstr "Indisponible dans ce prototype — aucun message n'est envoyé."
 
-msgid "Location"
-msgstr "Lieu"
+#: lib/sona_web/live/home_live.ex:421
+#, elixir-autogen, elixir-format
+msgid "Nothing new right now."
+msgstr "Rien de nouveau pour le moment."
 
-msgid "Urgency"
-msgstr "Urgence"
+#: lib/sona_web/live/home_live.ex:404
+#: lib/sona_web/live/home_live/profile.ex:80
+#, elixir-autogen, elixir-format
+msgid "Notifications"
+msgstr "Notifications"
 
-msgid "What the team needs to know"
-msgstr "Ce que l'équipe doit savoir"
+#: lib/sona_web/live/home_live/coverage.ex:302
+#, elixir-autogen, elixir-format
+msgid "OPEN QUESTIONS"
+msgstr "QUESTIONS EN ATTENTE"
 
-msgid "Handoff note (optional)"
-msgstr "Note de passation (facultative)"
+#: lib/sona_web/live/home_live/coverage.ex:87
+#, elixir-autogen, elixir-format
+msgid "OTHER OPEN REQUESTS"
+msgstr "AUTRES DEMANDES OUVERTES"
 
-msgid "Send to eligible team members"
-msgstr "Envoyer aux collègues éligibles"
+#: lib/sona_web/live/home_live.ex:650
+#, elixir-autogen, elixir-format
+msgid "Only a supervisor can approve a replacement."
+msgstr "Seul un superviseur peut approuver un remplacement."
 
-msgid "Coverage request sent to the team"
-msgstr "Demande de remplacement envoyée à l'équipe"
+#: lib/sona_web/live/home_live.ex:659
+#, elixir-autogen, elixir-format
+msgid "Only the approved replacement can acknowledge this handoff."
+msgstr "Seul le remplaçant approuvé peut confirmer cette passation."
 
-msgid "Shown in its original language"
-msgstr "Affiché dans sa langue d'origine"
+#: lib/sona_web/live/home_live/today.ex:96
+#: lib/sona_web/live/home_live/ui.ex:108
+#, elixir-autogen, elixir-format
+msgid "PARTIALLY COVERED"
+msgstr "PARTIELLEMENT COUVERT"
 
-msgid "Assign work"
-msgstr "Attribuer une tâche"
+#: lib/sona_web/live/home_live/profile.ex:64
+#, elixir-autogen, elixir-format
+msgid "Preferred language"
+msgstr "Langue préférée"
 
-msgid "What needs doing?"
-msgstr "Que faut-il faire ?"
+#: lib/sona_web/live/home_live/profile.ex:97
+#, elixir-autogen, elixir-format
+msgid "Push and SMS"
+msgstr "Push et SMS"
 
-msgid "Anyone on the team"
-msgstr "N'importe qui dans l'équipe"
+#: lib/sona_web/live/home_live/profile.ex:37
+#, elixir-autogen, elixir-format
+msgid "ROLE"
+msgstr "POSTE"
 
+#: lib/sona_web/live/home_live.ex:412
+#, elixir-autogen, elixir-format
+msgid "Recent activity"
+msgstr "Activité récente"
+
+#: lib/sona_web/live/home_live/profile.ex:104
+#, elixir-autogen, elixir-format
+msgid "Save settings"
+msgstr "Enregistrer les paramètres"
+
+#: lib/sona_web/live/home_live.ex:272
+#, elixir-autogen, elixir-format
+msgid "Settings saved"
+msgstr "Paramètres enregistrés"
+
+#: lib/sona_web/live/home_live/coverage.ex:303
+#, elixir-autogen, elixir-format
+msgid "The team asked"
+msgstr "L'équipe a demandé"
+
+#: lib/sona_web/live/home_live.ex:278
+#, elixir-autogen, elixir-format
+msgid "Those settings could not be saved."
+msgstr "Ces paramètres n'ont pas pu être enregistrés."
+
+#: lib/sona_web/live/home_live/coverage.ex:171
+#: lib/sona_web/live/home_live/coverage.ex:274
+#, elixir-autogen, elixir-format
+msgid "Until"
+msgstr "Jusqu'à"
+
+#: lib/sona_web/live/home_live/profile.ex:91
+#, elixir-autogen, elixir-format
+msgid "Urgent updates and replies appear in your activity feed."
+msgstr "Les mises à jour urgentes et les réponses apparaissent dans votre fil d'activité."
+
+#: lib/sona_web/live/home_live/profile.ex:57
+#, elixir-autogen, elixir-format
+msgid "YOUR SETTINGS"
+msgstr "VOS PARAMÈTRES"
+
+#: lib/sona_web/live/home_live.ex:647
+#, elixir-autogen, elixir-format
+msgid "You are not eligible to respond to this request."
+msgstr "Vous n'êtes pas éligible pour répondre à cette demande."
+
+#: lib/sona_web/live/home_live/profile.ex:50
+#, elixir-autogen, elixir-format
+msgid "Your role, department and property are managed by your hotel's operations team."
+msgstr "Votre poste, votre département et votre établissement sont gérés par l'équipe des opérations de votre hôtel."
+
+#: lib/sona_web/live/home_live/today.ex:153
+#, elixir-autogen, elixir-format
 msgid "Add task"
 msgstr "Ajouter la tâche"
 
-msgid "Task added"
-msgstr "Tâche ajoutée"
+#: lib/sona_web/live/home_live/today.ex:146
+#, elixir-autogen, elixir-format
+msgid "Anyone on the team"
+msgstr "N'importe qui dans l'équipe"
 
-msgid "Give the task a title first."
-msgstr "Donnez d'abord un titre à la tâche."
-
-msgid "No work assigned for today."
-msgstr "Aucune tâche prévue aujourd'hui."
-
-msgid "Unassigned"
-msgstr "Non attribuée"
-
+#: lib/sona_web/live/home_live/today.ex:173
+#, elixir-autogen, elixir-format
 msgid "Assign this task"
 msgstr "Attribuer cette tâche"
 
-msgid "Claim"
-msgstr "Prendre en charge"
+#: lib/sona_web/live/home_live/today.ex:134
+#, elixir-autogen, elixir-format
+msgid "Assign work"
+msgstr "Attribuer une tâche"
 
-msgid "That one is yours now"
-msgstr "Cette tâche est maintenant la vôtre"
+#: lib/sona_web/live/home_live/coverage.ex:48
+#: lib/sona_web/live/home_live/today.ex:134
+#, elixir-autogen, elixir-format
+msgid "Cancel"
+msgstr "Annuler"
 
-msgid "Start"
-msgstr "Commencer"
-
-msgid "Mark done"
-msgstr "Marquer comme terminée"
-
-msgid "In progress"
-msgstr "En cours"
-
-msgid "Due %{time}"
-msgstr "Pour %{time}"
-
-msgid "Due"
-msgstr "Pour"
-
+#: lib/sona_web/live/home_live/today.ex:36
+#, elixir-autogen, elixir-format
 msgid "Change your language in Profile"
 msgstr "Changez votre langue dans Profil"
 
-msgid "How much can you cover?"
-msgstr "Quelle partie pouvez-vous couvrir ?"
+#: lib/sona_web/live/home_live/today.ex:192
+#, elixir-autogen, elixir-format
+msgid "Claim"
+msgstr "Prendre en charge"
 
+#: lib/sona_web/live/home_live.ex:173
+#, elixir-autogen, elixir-format
+msgid "Coverage request sent to the team"
+msgstr "Demande de remplacement envoyée à l'équipe"
+
+#: lib/sona_web/live/home_live/coverage.ex:159
+#, elixir-autogen, elixir-format
+msgid "Date"
+msgstr "Date"
+
+#: lib/sona_web/live/home_live/coverage.ex:149
+#, elixir-autogen, elixir-format
+msgid "Department"
+msgstr "Département"
+
+#: lib/sona_web/live/home_live/today.ex:149
+#, elixir-autogen, elixir-format
+msgid "Due"
+msgstr "Pour"
+
+#: lib/sona_web/live/home_live/ui.ex:432
+#, elixir-autogen, elixir-format
+msgid "Due %{time}"
+msgstr "Pour %{time}"
+
+#: lib/sona_web/live/home_live/ui.ex:398
+#, elixir-autogen, elixir-format
 msgid "First half"
 msgstr "Première moitié"
 
+#: lib/sona_web/live/home_live.ex:201
+#, elixir-autogen, elixir-format
+msgid "Give the task a title first."
+msgstr "Donnez d'abord un titre à la tâche."
+
+#: lib/sona_web/live/home_live/coverage.ex:193
+#, elixir-autogen, elixir-format
+msgid "Handoff note (optional)"
+msgstr "Note de passation (facultative)"
+
+#: lib/sona_web/live/home_live/coverage.ex:248
+#, elixir-autogen, elixir-format
+msgid "How much can you cover?"
+msgstr "Quelle partie pouvez-vous couvrir ?"
+
+#: lib/sona_web/live/home_live/ui.ex:416
+#, elixir-autogen, elixir-format
+msgid "In progress"
+msgstr "En cours"
+
+#: lib/sona_web/live/home_live/coverage.ex:179
+#, elixir-autogen, elixir-format
+msgid "Location"
+msgstr "Lieu"
+
+#: lib/sona_web/live/home_live/ui.ex:457
+#, elixir-autogen, elixir-format
+msgid "Mark done"
+msgstr "Marquer comme terminée"
+
+#: lib/sona_web/live/home_live/coverage.ex:122
+#, elixir-autogen, elixir-format
+msgid "NEW COVERAGE REQUEST"
+msgstr "NOUVELLE DEMANDE DE REMPLACEMENT"
+
+#: lib/sona_web/live/home_live/coverage.ex:48
+#, elixir-autogen, elixir-format
+msgid "New coverage request"
+msgstr "Nouvelle demande de remplacement"
+
+#: lib/sona_web/live/home_live/today.ex:150
+#, elixir-autogen, elixir-format
+msgid "No due time"
+msgstr "Sans heure limite"
+
+#: lib/sona_web/live/home_live/today.ex:156
+#, elixir-autogen, elixir-format
+msgid "No work assigned for today."
+msgstr "Aucune tâche prévue aujourd'hui."
+
+#: lib/sona_web/live/home_live/coverage.ex:128
+#, elixir-autogen, elixir-format
+msgid "Please check this form"
+msgstr "Veuillez vérifier ce formulaire"
+
+#: lib/sona_web/live/home_live/coverage.ex:123
+#, elixir-autogen, elixir-format
+msgid "Report an absence"
+msgstr "Signaler une absence"
+
+#: lib/sona_web/live/home_live/coverage.ex:155
+#, elixir-autogen, elixir-format
+msgid "Role needed"
+msgstr "Poste requis"
+
+#: lib/sona_web/live/home_live/ui.ex:399
+#, elixir-autogen, elixir-format
 msgid "Second half"
 msgstr "Seconde moitié"
 
-msgid "No due time"
-msgstr "Sans heure limite"
+#: lib/sona_web/live/home_live/coverage.ex:197
+#, elixir-autogen, elixir-format
+msgid "Send to eligible team members"
+msgstr "Envoyer aux collègues éligibles"
+
+#: lib/sona_web/live/home_live/ui.ex:47
+#, elixir-autogen, elixir-format
+msgid "Show original"
+msgstr "Voir l'original"
+
+#: lib/sona_web/live/home_live/ui.ex:46
+#, elixir-autogen, elixir-format
+msgid "Show translation"
+msgstr "Voir la traduction"
+
+#: lib/sona_web/live/home_live/ui.ex:55
+#, elixir-autogen, elixir-format
+msgid "Shown in its original language"
+msgstr "Affiché dans sa langue d'origine"
+
+#: lib/sona_web/live/home_live/ui.ex:456
+#, elixir-autogen, elixir-format
+msgid "Start"
+msgstr "Commencer"
+
+#: lib/sona_web/live/home_live.ex:196
+#, elixir-autogen, elixir-format
+msgid "Task added"
+msgstr "Tâche ajoutée"
+
+#: lib/sona_web/live/home_live/coverage.ex:142
+#, elixir-autogen, elixir-format
+msgid "Team member's name"
+msgstr "Nom du collègue"
+
+#: lib/sona_web/live/home_live.ex:224
+#, elixir-autogen, elixir-format
+msgid "That one is yours now"
+msgstr "Cette tâche est maintenant la vôtre"
+
+#: lib/sona_web/live/home_live/today.ex:175
+#: lib/sona_web/live/home_live/ui.ex:428
+#, elixir-autogen, elixir-format
+msgid "Unassigned"
+msgstr "Non attribuée"
+
+#: lib/sona_web/live/home_live/coverage.ex:183
+#, elixir-autogen, elixir-format
+msgid "Urgency"
+msgstr "Urgence"
+
+#: lib/sona_web/live/home_live/today.ex:144
+#, elixir-autogen, elixir-format
+msgid "What needs doing?"
+msgstr "Que faut-il faire ?"
+
+#: lib/sona_web/live/home_live/coverage.ex:189
+#, elixir-autogen, elixir-format
+msgid "What the team needs to know"
+msgstr "Ce que l'équipe doit savoir"
+
+#: lib/sona_web/live/home_live/coverage.ex:136
+#, elixir-autogen, elixir-format
+msgid "Who is unavailable"
+msgstr "Qui est indisponible"

@@ -61,7 +61,8 @@ defmodule SonaWeb.HomeLive do
        new_request_open: false,
        new_task_open: false,
        request_errors: [],
-       focused_request_id: focused_request_id
+       focused_request_id: focused_request_id,
+       show_original: params["original"] == "1"
      )
      |> refresh_data()
      |> maybe_mark_viewed()}
@@ -241,6 +242,22 @@ defmodule SonaWeb.HomeLive do
 
   def handle_event("toggle_notifications", _params, socket) do
     {:noreply, assign(socket, :notifications_open, !socket.assigns.notifications_open)}
+  end
+
+  # Machine translation is advisory, not authoritative: the reader can always
+  # get back to what the author actually wrote. That matters because the text
+  # is attacker-influenced — a crafted note could try to talk the translation
+  # provider into emitting something other than a translation, and this is the
+  # affordance that makes such a discrepancy visible instead of invisible.
+  # Navigates rather than patches, for the same reason saving settings does:
+  # what this changes is *how* existing text renders, not which assigns feed it.
+  # `@request` is unchanged, so LiveView's change tracking would skip
+  # re-evaluating the very expressions that need re-running. Remounting from the
+  # URL sidesteps that, and keeps the mode shareable and refresh-safe like every
+  # other piece of view state here.
+  def handle_event("toggle_original", _params, socket) do
+    socket = assign(socket, :show_original, not socket.assigns.show_original)
+    {:noreply, push_navigate(socket, to: current_path(socket))}
   end
 
   def handle_event("save_settings", params, socket) do
@@ -546,6 +563,7 @@ defmodule SonaWeb.HomeLive do
     current_staff = Map.fetch!(personas, socket.assigns.role)
 
     Gettext.put_locale(SonaWeb.Gettext, locale_for(current_staff.language))
+    put_show_original(Map.get(socket.assigns, :show_original, false))
 
     events = Enum.sort_by(focused.activity_events, & &1.inserted_at, {:desc, DateTime})
 
@@ -563,6 +581,7 @@ defmodule SonaWeb.HomeLive do
       personas: personas,
       persona_list: Enum.map(["supervisor", "frontline"], &{&1, Map.fetch!(personas, &1)}),
       requester: Map.fetch!(personas, "supervisor"),
+      show_original: Map.get(socket.assigns, :show_original, false),
       current_staff: current_staff,
       eligible_staff: Map.fetch!(eligible_map, focused.id),
       questions: Enum.filter(events, &(&1.kind == "question")),
@@ -580,10 +599,11 @@ defmodule SonaWeb.HomeLive do
   defp current_path(socket) do
     %{view: view, role: role} = socket.assigns
 
-    case socket.assigns[:focused_request_id] do
-      nil -> ~p"/?view=#{view}&role=#{role}"
-      id -> ~p"/?view=#{view}&role=#{role}&request=#{id}"
-    end
+    query = [view: view, role: role]
+    query = if id = socket.assigns[:focused_request_id], do: query ++ [request: id], else: query
+    query = if socket.assigns[:show_original], do: query ++ [original: "1"], else: query
+
+    ~p"/?#{query}"
   end
 
   # Opening the Coverage tab as the frontline persona counts as having

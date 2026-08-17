@@ -230,4 +230,69 @@ defmodule SonaWeb.HomeLiveTest do
       refute has_element?(live, "input[name='is_supervisor']")
     end
   end
+
+  describe "checking a translation against the original" do
+    # A request created through the context goes through the translation cache,
+    # unlike the seeded one whose reason has no cached translation — so this is
+    # the path where a provider's output actually reaches a reader.
+    setup %{maya: maya} do
+      {:ok, request} =
+        Coordination.create_coverage_request(maya.id, %{
+          "absent_name" => "Noor Haddad",
+          "department" => "Front Office",
+          "role" => "Front Desk Agent",
+          "shift_date" => Date.to_iso8601(Date.utc_today()),
+          "start_time" => "08:00",
+          "end_time" => "12:00",
+          "location" => "Lobby front desk",
+          "urgency" => "High",
+          "reason" => "Noor called in sick for the morning shift."
+        })
+
+      %{created: request}
+    end
+
+    test "the reader can switch machine-translated text back to what was written",
+         %{conn: conn, created: created} do
+      {:ok, live, html} =
+        live(conn, ~p"/?view=coverage&role=frontline&request=#{created.id}")
+
+      # Luis reads Spanish, so the reason reaches him through the translation
+      # cache — the stub provider prefixes whatever it produced.
+      assert html =~ "[stub] Noor called in sick"
+
+      # Navigates rather than patches: the assigns are unchanged, so change
+      # tracking would skip re-rendering the text this is meant to change.
+      assert {:error, {:live_redirect, %{to: to}}} =
+               live |> element("button[phx-click='toggle_original']") |> render_click()
+
+      {:ok, live, html} = live(conn, to)
+
+      # The point of the control: a provider's output is never the only thing a
+      # reader can see, so text that does not match its source is detectable.
+      assert html =~ "Noor called in sick for the morning shift."
+      refute html =~ "[stub] Noor called in sick"
+
+      # And the mode is in the URL, so it survives a refresh and can be shared.
+      assert to =~ "original=1"
+
+      assert {:error, {:live_redirect, %{to: back}}} =
+               live |> element("button[phx-click='toggle_original']") |> render_click()
+
+      refute back =~ "original=1"
+      {:ok, _live, html} = live(conn, back)
+      assert html =~ "[stub] Noor called in sick"
+    end
+
+    test "the translated-automatically note stays put while originals show",
+         %{conn: conn, created: created} do
+      {:ok, _live, html} =
+        live(conn, ~p"/?view=coverage&role=frontline&request=#{created.id}&original=1")
+
+      # Otherwise switching to the original would hide the very label saying
+      # the text was machine-translated.
+      assert html =~ "translation-note"
+      assert html =~ ~s(phx-click="toggle_original")
+    end
+  end
 end

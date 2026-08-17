@@ -177,6 +177,18 @@ The suite makes no network calls, and does not depend on your shell to keep it t
 
 [`.github/workflows/ci.yml`](.github/workflows/ci.yml) runs the same checks on every push against a clean checkout with a cold build and no keys in the shell — the environment you have, rather than the one I developed in. It runs the suite twice, the second time with deliberately invalid API keys exported, because "the tests don't touch the network" is a claim about configuration and configuration is worth testing. A second job runs `mix assets.setup && mix assets.build`, since `mix setup` is your first command and a green test suite says nothing about whether it works on a machine that has never downloaded the tailwind and esbuild binaries.
 
+## Security notes
+
+User-typed text is sent to a third-party model for translation, which makes this the one place in the app where attacker-influenced content reaches an LLM. What that does and does not buy an attacker:
+
+**Structural protections.** Text is sent as the **user turn**, never concatenated into the system prompt, so instruction and data stay in separate roles. The result is inert — it is stored as a string and rendered, and never becomes code, a query, a tool call, or a permission decision. Rendering is HEEx with no `raw/1` anywhere in `lib/sona_web/`, so markup in a translation is escaped rather than executed. Input is capped at 2,000 characters and cached by content hash, which bounds both cost and repeat traffic.
+
+**The residual risk is content spoofing, not compromise.** A crafted note could try to talk the provider into emitting something other than a translation. The attacker already controls the source text, so what injection actually buys is the ability to make one message *say different things to different audiences* — an English-reading supervisor sees an innocuous note while Spanish-reading staff see something else.
+
+The mitigation is to make translations checkable rather than authoritative: any machine-translated text carries a **"Show original"** control that switches the view back to what the author actually wrote. The mode lives in the URL (`?original=1`), so it survives a refresh and can be shared. A filter guessing at malicious output would be weaker — this makes a discrepancy visible to anyone who looks, without having to out-guess a model.
+
+**Data residency is the bigger production question.** Staff names, shift patterns and reasons for absence leave the deployment for a third-party API. For an EU operator that is a GDPR matter — lawful basis, processor agreement, transfer mechanism — and it bears on provider choice, since DeepSeek is under Chinese jurisdiction. The behaviour in `Sona.Translation` means a self-hosted or EU-resident model is a config change, and the shared `Sona.Translation.Prompt` means swapping providers cannot alter what is asked.
+
 ## Scope and known gaps
 
 A focused conceptual prototype, not a hospitality-management platform. No payroll, time tracking, PMS integration, guest communication, or production notification delivery.

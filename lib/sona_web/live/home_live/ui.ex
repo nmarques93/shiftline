@@ -40,6 +40,12 @@ defmodule SonaWeb.HomeLive.UI do
           <span class="language-glyph">文</span>
           {language_label(@current_staff.language)} <span>·</span>
           <span>{gettext("Translated automatically")}</span>
+          <span>·</span>
+          <button type="button" phx-click="toggle_original">
+            {if show_original?(),
+              do: gettext("Show translation"),
+              else: gettext("Show original")}
+          </button>
         </div>
         <div
           :if={not content_translated?(@request.reason) and @current_staff.language != "English"}
@@ -195,9 +201,25 @@ defmodule SonaWeb.HomeLive.UI do
   background whenever someone writes something — then falls back to the
   Gettext catalogs for seeded content, and finally to the original text.
   """
+  # Whether this render shows source text instead of translations. Held per
+  # process, exactly as Gettext holds the locale — the two are the same kind of
+  # render-scoped state, read by the same function, and a LiveView process
+  # serves one client. Threading it through as an assign would mean a new attr
+  # on five components and no extra safety.
+  @show_original_key {__MODULE__, :show_original}
+
+  def put_show_original(show?) when is_boolean(show?),
+    do: Process.put(@show_original_key, show?)
+
+  def show_original?, do: Process.get(@show_original_key, false) == true
+
   def translate_content(nil), do: nil
 
   def translate_content(text) do
+    if show_original?(), do: text, else: translation_of(text)
+  end
+
+  defp translation_of(text) do
     locale = Gettext.get_locale(SonaWeb.Gettext)
     Sona.Translation.lookup(text, locale) || Gettext.gettext(SonaWeb.Gettext, text)
   end
@@ -207,7 +229,7 @@ defmodule SonaWeb.HomeLive.UI do
   rather than implying a translation that did not happen.
   """
   def content_translated?(nil), do: false
-  def content_translated?(text), do: translate_content(text) != text
+  def content_translated?(text), do: translation_of(text) != text
 
   ## Status and labels
 
