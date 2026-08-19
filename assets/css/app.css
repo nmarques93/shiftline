@@ -359,3 +359,23 @@ a.text-button { display: inline-flex; align-items: center; gap: 5px; }
 .partial-hint { width: 100%; color: var(--ink-soft); font: 600 12px "DM Sans", sans-serif; }
 .partial-presets .action-button em { margin-left: 6px; font-style: normal; color: var(--ink-soft); font-size: 12px; }
 .partial-form select { min-height: 46px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); font: 500 14px "DM Sans", sans-serif; }
+
+/* Shifts */
+.shift-list { display: flex; flex-direction: column; gap: 12px; }
+.shift-card { padding: 16px 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+.shift-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.shift-card-head h3 { margin: 2px 0 4px; font-size: 16px; }
+.shift-card-meta { display: inline-flex; align-items: center; gap: 6px; color: var(--ink-soft); font-size: 13px; }
+.shift-card-meta .icon { width: 14px; }
+.shift-people { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.shift-person { display: inline-flex; align-items: center; gap: 6px; padding: 4px 8px 4px 4px; background: var(--paper); border-radius: 999px; font-size: 13px; }
+.shift-person.absent { color: var(--ink-soft); text-decoration: line-through; }
+.shift-person em { font-style: normal; color: var(--ink-soft); font-size: 12px; }
+.shift-person-remove { padding: 0; color: var(--ink-soft); border: 0; background: transparent; }
+.shift-person-remove .icon { width: 13px; }
+.shift-uncovered { display: inline-flex; align-items: center; gap: 6px; color: var(--coral); font-size: 13px; }
+.shift-uncovered .icon { width: 14px; }
+.shift-card-actions { display: flex; align-items: center; gap: 12px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
+.shift-card-actions select { padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); font-size: 13px; }
+.text-button.danger { color: var(--coral); }
+.form-hint { color: var(--ink-soft); font-size: 12px; }

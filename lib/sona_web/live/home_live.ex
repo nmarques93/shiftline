@@ -15,11 +15,11 @@ defmodule SonaWeb.HomeLive do
   alias Sona.Coordination
   alias Sona.Coordination.{Events, Tasks}
   alias Sona.Demo
-  alias SonaWeb.HomeLive.{Coverage, Messages, Profile, Today}
+  alias SonaWeb.HomeLive.{Coverage, Messages, Profile, Shifts, Today}
 
   import SonaWeb.HomeLive.UI
 
-  @views ~w(today coverage messages profile)
+  @views ~w(today coverage shifts messages profile)
   @roles ~w(supervisor frontline)
 
   @impl true
@@ -36,6 +36,9 @@ defmodule SonaWeb.HomeLive do
        notifications_open: false,
        new_request_open: false,
        new_task_open: false,
+       new_shift_open: false,
+       editing_shift_id: nil,
+       shift_errors: [],
        request_errors: []
      )}
   end
@@ -74,6 +77,12 @@ defmodule SonaWeb.HomeLive do
   end
 
   def handle_info(:tasks_updated, socket) do
+    {:noreply, refresh_data(socket)}
+  end
+
+  # Nothing renders shifts yet, but every client subscribes to the one topic,
+  # so a message with no clause here would take the LiveView down.
+  def handle_info(:shifts_updated, socket) do
     {:noreply, refresh_data(socket)}
   end
 
@@ -240,6 +249,88 @@ defmodule SonaWeb.HomeLive do
     end
   end
 
+  ## Shifts
+
+  def handle_event("toggle_new_shift", _params, socket) do
+    open? = not socket.assigns.new_shift_open
+
+    {:noreply,
+     socket
+     |> assign(new_shift_open: open?, shift_errors: [])
+     |> assign(:editing_shift_id, if(open?, do: socket.assigns.editing_shift_id))
+     |> refresh_data()}
+  end
+
+  def handle_event("edit_shift", %{"shift-id" => id}, socket) do
+    {:noreply,
+     socket
+     |> assign(new_shift_open: true, editing_shift_id: String.to_integer(id), shift_errors: [])
+     |> refresh_data()}
+  end
+
+  # One form for both, keyed on whether a shift id came back with it — an edit
+  # of a roster entry needs exactly the fields creating one does.
+  def handle_event("save_shift", params, socket) do
+    actor_id = socket.assigns.current_staff.id
+
+    with {:ok, attrs} <- shift_attrs(params) do
+      result =
+        case params["shift_id"] do
+          nil -> Coordination.Shifts.create(actor_id, attrs)
+          "" -> Coordination.Shifts.create(actor_id, attrs)
+          id -> Coordination.Shifts.update(String.to_integer(id), attrs, actor_id)
+        end
+
+      case result do
+        {:ok, _shift} ->
+          {:noreply,
+           socket
+           |> assign(new_shift_open: false, editing_shift_id: nil, shift_errors: [])
+           |> refresh_data()}
+
+        {:error, %Ecto.Changeset{} = changeset} ->
+          {:noreply, assign(socket, :shift_errors, changeset_messages(changeset))}
+
+        {:error, reason} ->
+          {:noreply, domain_error_flash(socket, reason)}
+      end
+    else
+      {:error, message} -> {:noreply, assign(socket, :shift_errors, [message])}
+    end
+  end
+
+  def handle_event("delete_shift", %{"shift-id" => id}, socket) do
+    case Coordination.Shifts.delete(String.to_integer(id), socket.assigns.current_staff.id) do
+      {:ok, _} -> {:noreply, socket |> assign(:editing_shift_id, nil) |> refresh_data()}
+      {:error, reason} -> {:noreply, domain_error_flash(socket, reason)}
+    end
+  end
+
+  # A blank selection is the placeholder option, not an instruction.
+  def handle_event("assign_shift", %{"staff_id" => ""}, socket), do: {:noreply, socket}
+
+  def handle_event("assign_shift", %{"shift-id" => shift_id, "staff_id" => staff_id}, socket) do
+    case Coordination.Shifts.assign(
+           String.to_integer(shift_id),
+           String.to_integer(staff_id),
+           socket.assigns.current_staff.id
+         ) do
+      {:ok, _} -> {:noreply, refresh_data(socket)}
+      {:error, reason} -> {:noreply, domain_error_flash(socket, reason)}
+    end
+  end
+
+  def handle_event("unassign_shift", %{"shift-id" => shift_id, "staff-id" => staff_id}, socket) do
+    case Coordination.Shifts.unassign(
+           String.to_integer(shift_id),
+           String.to_integer(staff_id),
+           socket.assigns.current_staff.id
+         ) do
+      {:ok, _} -> {:noreply, refresh_data(socket)}
+      {:error, reason} -> {:noreply, domain_error_flash(socket, reason)}
+    end
+  end
+
   def handle_event("toggle_notifications", _params, socket) do
     {:noreply, assign(socket, :notifications_open, !socket.assigns.notifications_open)}
   end
@@ -360,6 +451,13 @@ defmodule SonaWeb.HomeLive do
           <.nav_link
             view={@view}
             role={@role}
+            target="shifts"
+            icon="clock"
+            label={gettext("Shifts")}
+          />
+          <.nav_link
+            view={@view}
+            role={@role}
             target="messages"
             icon="chat"
             label={gettext("Messages")}
@@ -471,6 +569,16 @@ defmodule SonaWeb.HomeLive do
                 departments={@departments}
                 staff_names={@staff_names}
               />
+            <% "shifts" -> %>
+              <Shifts.shifts_view
+                role={@role}
+                current_staff={@current_staff}
+                shifts={@shifts}
+                assignable_staff={@assignable_staff}
+                new_shift_open={@new_shift_open}
+                editing_shift={@editing_shift}
+                shift_errors={@shift_errors}
+              />
             <% "messages" -> %>
               <Messages.messages_view
                 request={@request}
@@ -493,6 +601,13 @@ defmodule SonaWeb.HomeLive do
           >
             <span :if={@incidents != []} class="mobile-count">{length(@incidents)}</span>
           </.mobile_link>
+          <.mobile_link
+            view={@view}
+            role={@role}
+            target="shifts"
+            icon="clock"
+            label={gettext("Shifts")}
+          />
           <.mobile_link
             view={@view}
             role={@role}
@@ -567,6 +682,16 @@ defmodule SonaWeb.HomeLive do
 
     events = Enum.sort_by(focused.activity_events, & &1.inserted_at, {:desc, DateTime})
 
+    # A week either side: enough to see the roster around today without the
+    # unbounded query a calendar view will need to think harder about.
+    now = DateTime.utc_now()
+
+    shifts =
+      Coordination.Shifts.list(current_staff,
+        from: DateTime.add(now, -7, :day),
+        to: DateTime.add(now, 7, :day)
+      )
+
     eligible_map =
       Map.new([focused | incidents], fn request ->
         {request.id, Coordination.eligible_staff(request)}
@@ -592,9 +717,32 @@ defmodule SonaWeb.HomeLive do
       departments: Coordination.departments(),
       staff_names: Coordination.staff_names(),
       tasks: Tasks.list(current_staff),
-      assignable_staff: Tasks.assignable_staff(current_staff)
+      assignable_staff: Tasks.assignable_staff(current_staff),
+      shifts: shifts,
+      editing_shift: Enum.find(shifts, &(&1.id == socket.assigns[:editing_shift_id]))
     )
   end
+
+  defp shift_attrs(params) do
+    with {:ok, date} <- Date.from_iso8601(params["date"] || ""),
+         {:ok, start_time} <- parse_time(params["start_time"]),
+         {:ok, end_time} <- parse_time(params["end_time"]) do
+      {starts_at, ends_at} = Coordination.Shifts.window_from_form(date, start_time, end_time)
+
+      {:ok,
+       %{
+         "role" => params["role"],
+         "location" => params["location"],
+         "starts_at" => starts_at,
+         "ends_at" => ends_at
+       }}
+    else
+      _error -> {:error, gettext("Enter a valid date and times.")}
+    end
+  end
+
+  defp parse_time(value) when is_binary(value), do: Time.from_iso8601(value <> ":00")
+  defp parse_time(_value), do: :error
 
   defp current_path(socket) do
     %{view: view, role: role} = socket.assigns
