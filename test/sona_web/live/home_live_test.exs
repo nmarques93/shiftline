@@ -51,6 +51,34 @@ defmodule SonaWeb.HomeLiveTest do
       refute has_element?(supervisor, "button[phx-value-type='accepted']")
     end
 
+    # The response controls used to be gated on role alone, so a Housekeeping
+    # request offered a Front Office agent accept / partial / decline and the
+    # Confirm button on the partial form. Every one of them came straight back
+    # "not eligible" from the context, which reads as a broken button.
+    test "a request from another department offers the frontline persona nothing",
+         %{conn: conn, maya: maya} do
+      {:ok, other} =
+        Coordination.create_coverage_request(maya.id, %{
+          "absent_name" => "Mei Tanaka",
+          "department" => "Housekeeping",
+          "role" => "Room Attendant",
+          "shift_date" => Date.utc_today(),
+          "start_time" => "13:00",
+          "end_time" => "20:00",
+          "location" => "Floors 3-5",
+          "urgency" => "High",
+          "reason" => "Called in sick."
+        })
+
+      {:ok, frontline, html} =
+        live(conn, ~p"/?view=coverage&role=frontline&request=#{other.id}")
+
+      refute has_element?(frontline, "button[phx-value-type='accepted']")
+      refute has_element?(frontline, "button[phx-click='toggle_partial']")
+      refute has_element?(frontline, "#partial-cover-form")
+      assert html =~ "Turno de otro departamento"
+    end
+
     test "only the supervisor is offered the create-request form", %{conn: conn} do
       {:ok, supervisor, _html} = live(conn, ~p"/?view=coverage&role=supervisor")
       assert has_element?(supervisor, "button[phx-click='toggle_new_request']")

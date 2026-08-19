@@ -225,7 +225,7 @@ defmodule SonaWeb.HomeLive.Coverage do
           <i></i>{label}
         </span>
       </div>
-      <%= if @role == "frontline" and active_status?(@request.status) do %>
+      <%= if @role == "frontline" and can_respond?(@request, @current_staff, @eligible_staff) do %>
         <div class="localized-actions">
           <div>
             <span class="section-kicker">{gettext("YOUR RESPONSE")}</span>

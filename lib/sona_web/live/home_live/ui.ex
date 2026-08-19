@@ -10,6 +10,20 @@ defmodule SonaWeb.HomeLive.UI do
 
   def active_status?(status), do: status in @active_statuses
 
+  @doc """
+  Whether this person can actually answer this request.
+
+  Role alone is not the rule: `Coordination.respond/4` only accepts staff in
+  the request's own department, so gating the controls on `role == "frontline"`
+  offered accept / partial / decline for another department's shift and every
+  one of them came back "not eligible". The eligible list is already loaded
+  for the response board, so this asks it rather than querying again.
+  """
+  def can_respond?(request, current_staff, eligible_staff) do
+    active_status?(request.status) and
+      Enum.any?(eligible_staff, &(&1.id == current_staff.id))
+  end
+
   ## Coverage card
 
   attr :request, :map, required: true
@@ -62,12 +76,20 @@ defmodule SonaWeb.HomeLive.UI do
             {@requester.name} <em>· {@request.department}</em>
           </span>
           <span class="response-state">
-            {if @role == "frontline",
-              do: response_label(response_for(@responses, @current_staff.id)),
-              else: response_summary(@responses, @eligible_staff)}
+            <%= cond do %>
+              <% @role != "frontline" -> %>
+                {response_summary(@responses, @eligible_staff)}
+              <% Enum.any?(@eligible_staff, &(&1.id == @current_staff.id)) -> %>
+                {response_label(response_for(@responses, @current_staff.id))}
+              <% true -> %>
+                {gettext("Another department's shift")}
+            <% end %>
           </span>
         </div>
-        <div :if={@role == "frontline" and active_status?(@request.status)} class="response-actions">
+        <div
+          :if={@role == "frontline" and can_respond?(@request, @current_staff, @eligible_staff)}
+          class="response-actions"
+        >
           <.link
             patch={~p"/?view=coverage&role=#{@role}&request=#{@request.id}"}
             class="primary-response"
