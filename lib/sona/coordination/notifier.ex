@@ -8,11 +8,12 @@ defmodule Sona.Coordination.Notifier do
   module's public API rather than something you discover by grepping for
   `broadcast`.
 
-  Three messages, deliberately distinct so a client can react narrowly:
+  Four messages, deliberately distinct so a client can react narrowly:
 
     * `{:coordination_updated, request_id}` — a coverage request changed
     * `{:settings_updated, staff_id}` — one person's language or alerts changed
     * `:tasks_updated` — the shift task board changed
+    * `:shifts_updated` — the roster changed
   """
 
   @topic "coordination"
@@ -29,6 +30,10 @@ defmodule Sona.Coordination.Notifier do
 
   def broadcast_tasks do
     Phoenix.PubSub.broadcast(Sona.PubSub, @topic, :tasks_updated)
+  end
+
+  def broadcast_shifts do
+    Phoenix.PubSub.broadcast(Sona.PubSub, @topic, :shifts_updated)
   end
 
   @doc """

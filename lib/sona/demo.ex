@@ -25,6 +25,8 @@ defmodule Sona.Demo do
     CoverageResponse,
     Events,
     Notifier,
+    Shift,
+    ShiftAssignment,
     ShiftTask,
     StaffMember
   }
@@ -97,6 +99,8 @@ defmodule Sona.Demo do
   end
 
   defp delete_demo_data do
+    Repo.delete_all(ShiftAssignment)
+    Repo.delete_all(Shift)
     Repo.delete_all(ShiftTask)
     Repo.delete_all(ActivityEvent)
     Repo.delete_all(CoverageResponse)
@@ -191,8 +195,63 @@ defmodule Sona.Demo do
     Events.record(request.id, sofia.id, "team", "Sofia completed the 15:00 room release update.")
 
     seed_tasks(maya, luis, priya)
+    seed_shifts(%{maya: maya, luis: luis, priya: priya, theo: theo, dana: dana, sofia: sofia})
 
     request
+  end
+
+  # Three shifts, chosen to exercise the model rather than to look full: the
+  # Front Office evening block the demo revolves around, a night audit that
+  # crosses midnight, and a Housekeeping morning so department scoping is
+  # visible here too.
+  defp seed_shifts(staff) do
+    evening =
+      insert_shift!("Front Office", "Front Desk Agent", ~T[14:00:00], ~T[22:00:00],
+        location: "Lobby front desk"
+      )
+
+    night =
+      insert_shift!("Front Office", "Night Auditor", ~T[22:00:00], ~T[06:00:00],
+        location: "Front desk",
+        crosses_midnight: true
+      )
+
+    _morning =
+      insert_shift!("Housekeeping", "Room Attendant", ~T[07:00:00], ~T[15:00:00],
+        location: "Floors 1-4"
+      )
+
+    for person <- [staff.maya, staff.luis, staff.priya, staff.sofia] do
+      insert_assignment!(evening, person)
+    end
+
+    insert_assignment!(night, staff.dana)
+
+    # Theo is on the evening shift but cannot make it — the fact the seeded
+    # coverage request exists because of.
+    insert_assignment!(evening, staff.theo, "absent")
+  end
+
+  defp insert_shift!(department, role, start_time, end_time, opts) do
+    today = Date.utc_today()
+    ends_on = if opts[:crosses_midnight], do: Date.add(today, 1), else: today
+
+    Repo.insert!(%Shift{
+      department: department,
+      role: role,
+      starts_at: DateTime.new!(today, start_time, "Etc/UTC"),
+      ends_at: DateTime.new!(ends_on, end_time, "Etc/UTC"),
+      location: Keyword.get(opts, :location),
+      source: "manual"
+    })
+  end
+
+  defp insert_assignment!(shift, staff, status \\ "scheduled") do
+    Repo.insert!(%ShiftAssignment{
+      shift_id: shift.id,
+      staff_member_id: staff.id,
+      status: status
+    })
   end
 
   defp seed_tasks(maya, luis, priya) do
