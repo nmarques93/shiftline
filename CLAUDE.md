@@ -25,6 +25,7 @@ batching; there is no reason not to.
 | A coverage rule or transition | `Sona.Coordination` |
 | Task board behaviour | `Sona.Coordination.Tasks` |
 | Rosters and who is on a shift | `Sona.Coordination.Shifts` |
+| A channel post or direct message | `Sona.Coordination.Messages` |
 | A line in the activity feed | `Sona.Coordination.Events.record/4` |
 | Anything pushed to connected clients | `Sona.Coordination.Notifier` |
 | Text a person typed | `Notifier.translate_content/2` — i18n comes free |
@@ -86,7 +87,10 @@ then write.
 - `Shift` uses UTC datetimes, so shifts crossing midnight work. `CoverageRequest`
   still uses date + time-of-day and does not — that migration is planned, see
   `docs/shifts-and-schedule-plan.md`.
-- Messages is a static preview. Authentication does not exist; the persona
-  switcher stands in for it and is the one deliberately fake thing.
+- Authentication does not exist; the persona switcher stands in for it and is
+  the one deliberately fake thing.
+- Messages has two audiences and no more — a department channel and a direct
+  line. There are no threads: a reply is the next message in the conversation,
+  and replies-in-context belong to the coverage workflow.
 - One global PubSub topic, and every client reloads on any change. Fine at this
   size, first thing to scope per-department when it is not.

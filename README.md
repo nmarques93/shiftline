@@ -39,6 +39,7 @@ Two switchable perspectives stand in for authentication:
 4. Switch to Luis: the same request fully in Spanish, with accept / partial / decline / ask-a-question.
 5. Respond, then switch back to Maya and approve him. Approve appears only next to a genuine offer — the person who declined has no button.
 6. As Luis, acknowledge the handoff — the request resolves and Maya sees the acknowledgement.
+7. Open **Messages**: the Front Office channel, a direct line to every colleague, and a pinned urgent announcement. Post as Maya, switch to Luis, and the channel shows it translated with the acknowledgement still outstanding.
 
 If the approved offer was **partial**, the shift is never shown as fully covered: `coverage_gaps/2` computes the uncovered remainder and a follow-up request opens automatically for each gap, so the workflow starts again on what's left.
 
@@ -100,12 +101,15 @@ lib/
 │   ├── demo.ex                    # fixtures + the persona switcher standing in for auth
 │   ├── coordination/
 │   │   ├── tasks.ex               # the shift task board
+│   │   ├── messages.ex            # department channels and direct messages
 │   │   ├── events.ex              # the activity feed and the sentences in it
 │   │   ├── notifier.ex            # the PubSub contract clients subscribe to
 │   │   ├── staff_member.ex
 │   │   ├── coverage_request.ex
 │   │   ├── coverage_response.ex   # includes "pending" = viewed but not answered
 │   │   ├── activity_event.ex
+│   │   ├── message.ex             # addressed to a department or one person, never both
+│   │   ├── message_read.ex        # who saw it, who acknowledged it
 │   │   └── shift_task.ex
 │   ├── translation.ex             # cache in front of a pluggable provider
 │   └── translation/
@@ -135,6 +139,8 @@ All writes go through `Sona.Coordination` or `Sona.Coordination.Tasks`, which va
 - **`CoverageResponse`** — one row per staff member per request (unique index), typed `pending | accepted | partial | declined`, with separate `viewed_at` and `acknowledged_at` so *seen*, *responded* and *acknowledged* stay three distinct facts. Partial offers carry a structured covered window validated against the shift.
 - **`ActivityEvent`** — kind, actor, body: the incident's audit trail.
 - **`ShiftTask`** — the department's work for the day, owned by one person at a time and claimable by anyone in the department.
+- **`Message`** — a department channel post or a direct message, never both: a check constraint enforces that exactly one of `department` and `recipient_id` is set. `urgent` is open to anyone, `pinned` is supervisor-only.
+- **`MessageRead`** — one row per person per message, with the same `viewed_at` / `acknowledged_at` split as `CoverageResponse`. Opening a conversation writes the first; only an urgent message asks for the second.
 
 ### The state machine
 
@@ -195,7 +201,6 @@ A focused conceptual prototype, not a hospitality-management platform. No payrol
 
 Worth naming directly:
 
-- **Messages is a static preview.** It is on the MVP surface and deliberately deferred so it wouldn't compete with the coverage story — the most genuine gap here.
 - **No authentication.** The persona switcher is the one intentionally fake thing; the guards behind it are real.
 - **Times are UTC-naive and same-day.** A 22:00–06:00 shift crossing midnight would fail the `end_time > start_time` validation. The real fix is UTC datetimes plus the property's time zone.
 - **The Today shift window is illustrative.** There is no Shift entity — complete workforce scheduling is out of scope per the brief.

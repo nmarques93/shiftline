@@ -59,6 +59,7 @@ defmodule SonaWeb.HomeLive do
      |> assign(
        view: view,
        role: role,
+       conversation_id: params["conversation"],
        partial_open: false,
        notifications_open: false,
        new_request_open: false,
@@ -68,7 +69,8 @@ defmodule SonaWeb.HomeLive do
        show_original: params["original"] == "1"
      )
      |> refresh_data()
-     |> maybe_mark_viewed()}
+     |> maybe_mark_viewed()
+     |> maybe_mark_read()}
   end
 
   @impl true
@@ -77,6 +79,10 @@ defmodule SonaWeb.HomeLive do
   end
 
   def handle_info(:tasks_updated, socket) do
+    {:noreply, refresh_data(socket)}
+  end
+
+  def handle_info(:messages_updated, socket) do
     {:noreply, refresh_data(socket)}
   end
 
@@ -331,6 +337,40 @@ defmodule SonaWeb.HomeLive do
     end
   end
 
+  ## Messages
+
+  def handle_event("send_message", params, socket) do
+    case Coordination.Messages.send_message(
+           socket.assigns.current_staff.id,
+           params["conversation"],
+           params["body"] || "",
+           urgent: params["urgent"] == "true",
+           pinned: params["pinned"] == "true"
+         ) do
+      {:ok, _message} ->
+        {:noreply, refresh_data(socket)}
+
+      {:error, %Ecto.Changeset{}} ->
+        {:noreply, put_flash(socket, :error, gettext("That message could not be sent."))}
+
+      {:error, reason} ->
+        {:noreply, domain_error_flash(socket, reason)}
+    end
+  end
+
+  def handle_event("acknowledge_message", %{"message-id" => id}, socket) do
+    case Coordination.Messages.acknowledge(
+           String.to_integer(id),
+           socket.assigns.current_staff.id
+         ) do
+      {:ok, _read} ->
+        {:noreply, socket |> put_flash(:info, gettext("Acknowledged")) |> refresh_data()}
+
+      {:error, reason} ->
+        {:noreply, domain_error_flash(socket, reason)}
+    end
+  end
+
   def handle_event("toggle_notifications", _params, socket) do
     {:noreply, assign(socket, :notifications_open, !socket.assigns.notifications_open)}
   end
@@ -461,7 +501,9 @@ defmodule SonaWeb.HomeLive do
             target="messages"
             icon="chat"
             label={gettext("Messages")}
-          />
+          >
+            <span :if={@unread_messages > 0} class="nav-count">{@unread_messages}</span>
+          </.nav_link>
           <.nav_link
             view={@view}
             role={@role}
@@ -581,9 +623,13 @@ defmodule SonaWeb.HomeLive do
               />
             <% "messages" -> %>
               <Messages.messages_view
-                request={@request}
-                responses={@responses}
-                eligible_staff={@eligible_staff}
+                role={@role}
+                current_staff={@current_staff}
+                conversations={@conversations}
+                conversation={@conversation}
+                thread={@thread}
+                pinned={@pinned_messages}
+                channel_audience={@channel_audience}
               />
             <% "profile" -> %>
               <Profile.profile_view current_staff={@current_staff} />
@@ -614,7 +660,9 @@ defmodule SonaWeb.HomeLive do
             target="messages"
             icon="chat"
             label={gettext("Messages")}
-          />
+          >
+            <span :if={@unread_messages > 0} class="mobile-count">{@unread_messages}</span>
+          </.mobile_link>
           <.mobile_link
             view={@view}
             role={@role}
@@ -692,6 +740,15 @@ defmodule SonaWeb.HomeLive do
         to: DateTime.add(now, 7, :day)
       )
 
+    conversations = Coordination.Messages.conversations(current_staff)
+    conversation = Enum.find(conversations, &(&1.id == socket.assigns[:conversation_id]))
+
+    thread =
+      case conversation && Coordination.Messages.thread(current_staff, conversation.id) do
+        {:ok, messages} -> messages
+        _none -> []
+      end
+
     eligible_map =
       Map.new([focused | incidents], fn request ->
         {request.id, Coordination.eligible_staff(request)}
@@ -716,6 +773,12 @@ defmodule SonaWeb.HomeLive do
       notifications_muted: not current_staff.notify_in_app,
       departments: Coordination.departments(),
       staff_names: Coordination.staff_names(),
+      conversations: conversations,
+      conversation: conversation,
+      thread: thread,
+      pinned_messages: Coordination.Messages.pinned_for(current_staff),
+      unread_messages: Coordination.Messages.unread_count(current_staff),
+      channel_audience: hd(conversations).audience_size,
       tasks: Tasks.list(current_staff),
       assignable_staff: Tasks.assignable_staff(current_staff),
       shifts: shifts,
@@ -749,6 +812,7 @@ defmodule SonaWeb.HomeLive do
 
     query = [view: view, role: role]
     query = if id = socket.assigns[:focused_request_id], do: query ++ [request: id], else: query
+    query = if id = socket.assigns[:conversation_id], do: query ++ [conversation: id], else: query
     query = if socket.assigns[:show_original], do: query ++ [original: "1"], else: query
 
     ~p"/?#{query}"
@@ -768,6 +832,19 @@ defmodule SonaWeb.HomeLive do
   end
 
   defp maybe_mark_viewed(socket), do: socket
+
+  # Opening a conversation is what "seen" means here, so the read receipt is
+  # written on arrival rather than by a control the reader has to find.
+  defp maybe_mark_read(%{assigns: %{view: "messages", conversation_id: id}} = socket)
+       when is_binary(id) do
+    case Coordination.Messages.mark_read(socket.assigns.current_staff, id) do
+      {:ok, 0} -> socket
+      {:ok, _marked} -> refresh_data(socket)
+      {:error, _reason} -> socket
+    end
+  end
+
+  defp maybe_mark_read(socket), do: socket
 
   defp response_sent_flash(socket) do
     put_flash(
@@ -811,6 +888,20 @@ defmodule SonaWeb.HomeLive do
 
   defp domain_error_message(:not_replacement),
     do: gettext("Only the approved replacement can acknowledge this handoff.")
+
+  defp domain_error_message(:empty_message), do: gettext("Write something first.")
+
+  defp domain_error_message(:not_addressed),
+    do: gettext("This message was not sent to you.")
+
+  defp domain_error_message(:not_urgent),
+    do: gettext("Only urgent messages ask to be acknowledged.")
+
+  defp domain_error_message(:cannot_pin_direct),
+    do: gettext("Only a department channel can have a pinned announcement.")
+
+  defp domain_error_message(:unknown_conversation),
+    do: gettext("That conversation does not exist.")
 
   # Notes are user content; the demo stores them in canonical English and
   # `translate_content/1` localizes known strings at render time.

@@ -24,6 +24,8 @@ defmodule Sona.Demo do
     CoverageRequest,
     CoverageResponse,
     Events,
+    Message,
+    MessageRead,
     Notifier,
     Shift,
     ShiftAssignment,
@@ -99,6 +101,8 @@ defmodule Sona.Demo do
   end
 
   defp delete_demo_data do
+    Repo.delete_all(MessageRead)
+    Repo.delete_all(Message)
     Repo.delete_all(ShiftAssignment)
     Repo.delete_all(Shift)
     Repo.delete_all(ShiftTask)
@@ -123,7 +127,7 @@ defmodule Sona.Demo do
     # A second department, so that department-scoped eligibility is visible
     # rather than theoretical: a Housekeeping request never reaches the front
     # desk, and vice versa.
-    _rosa =
+    rosa =
       insert_staff!("Rosa Iglesias", "Housekeeping Supervisor", "Spanish",
         department: "Housekeeping",
         is_supervisor: true
@@ -194,10 +198,68 @@ defmodule Sona.Demo do
     Events.record(request.id, priya.id, "response", Events.response_body(priya, priya_offer))
     Events.record(request.id, sofia.id, "team", "Sofia completed the 15:00 room release update.")
 
+    seed_messages(%{maya: maya, luis: luis, priya: priya, rosa: rosa})
     seed_tasks(maya, luis, priya)
     seed_shifts(%{maya: maya, luis: luis, priya: priya, theo: theo, dana: dana, sofia: sofia})
 
     request
+  end
+
+  # Enough conversation to show what the tab is for on first load: a pinned
+  # announcement waiting to be acknowledged, an ordinary channel exchange, and
+  # one direct line already in progress.
+  defp seed_messages(staff) do
+    announcement =
+      insert_message!(staff.maya,
+        department: "Front Office",
+        urgent: true,
+        pinned: true,
+        body:
+          "Welcome Ana, our new night auditor. Please introduce yourself at the 17:45 handoff."
+      )
+
+    # Priya has seen the pin and said so; Luis has not, so the demo opens with
+    # an acknowledgement still outstanding.
+    Repo.insert!(%MessageRead{
+      message_id: announcement.id,
+      staff_member_id: staff.priya.id,
+      viewed_at: now(),
+      acknowledged_at: now()
+    })
+
+    insert_message!(staff.priya,
+      department: "Front Office",
+      body: "The ice machine on floor 3 is working again."
+    )
+
+    insert_message!(staff.maya,
+      recipient_id: staff.luis.id,
+      body: "Can you take the lobby handoff checklist before the evening rush?"
+    )
+
+    insert_message!(staff.luis,
+      recipient_id: staff.maya.id,
+      body: "Yes, I will start it at 17:30."
+    )
+
+    insert_message!(staff.rosa,
+      department: "Housekeeping",
+      body: "Floors 1 to 4 are clear. Linen delivery arrives at 16:00."
+    )
+  end
+
+  defp insert_message!(sender, opts) do
+    body = Keyword.fetch!(opts, :body)
+    Notifier.translate_message_content([body])
+
+    Repo.insert!(%Message{
+      body: body,
+      sender_id: sender.id,
+      department: Keyword.get(opts, :department),
+      recipient_id: Keyword.get(opts, :recipient_id),
+      urgent: Keyword.get(opts, :urgent, false),
+      pinned: Keyword.get(opts, :pinned, false)
+    })
   end
 
   # Three shifts, chosen to exercise the model rather than to look full: the

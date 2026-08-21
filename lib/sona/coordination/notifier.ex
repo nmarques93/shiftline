@@ -8,12 +8,13 @@ defmodule Sona.Coordination.Notifier do
   module's public API rather than something you discover by grepping for
   `broadcast`.
 
-  Four messages, deliberately distinct so a client can react narrowly:
+  Five messages, deliberately distinct so a client can react narrowly:
 
     * `{:coordination_updated, request_id}` — a coverage request changed
     * `{:settings_updated, staff_id}` — one person's language or alerts changed
     * `:tasks_updated` — the shift task board changed
     * `:shifts_updated` — the roster changed
+    * `:messages_updated` — a conversation changed
   """
 
   @topic "coordination"
@@ -36,6 +37,10 @@ defmodule Sona.Coordination.Notifier do
     Phoenix.PubSub.broadcast(Sona.PubSub, @topic, :shifts_updated)
   end
 
+  def broadcast_messages do
+    Phoenix.PubSub.broadcast(Sona.PubSub, @topic, :messages_updated)
+  end
+
   @doc """
   Queues user-entered text for translation and broadcasts once it lands, so
   other windows re-render in their own language without the writer ever
@@ -51,6 +56,15 @@ defmodule Sona.Coordination.Notifier do
   """
   def translate_task_content(texts) do
     schedule(texts, &broadcast_tasks/0)
+  end
+
+  @doc """
+  The same, for what people say to each other. This is the path the product's
+  central claim rests on: a Spanish speaker reads a note typed in English
+  without either of them choosing to translate anything.
+  """
+  def translate_message_content(texts) do
+    schedule(texts, &broadcast_messages/0)
   end
 
   defp schedule(texts, on_complete) do
