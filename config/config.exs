@@ -7,24 +7,24 @@
 # General application configuration
 import Config
 
-config :sona,
-  ecto_repos: [Sona.Repo],
+config :shiftline,
+  ecto_repos: [Shiftline.Repo],
   generators: [timestamp_type: :utc_datetime]
 
 # Translation of user-entered content. The default provider is offline and
 # deterministic (Gettext-catalog backed); `config/runtime.exs` swaps in the
-# Claude provider when an API key is present. See `Sona.Translation`.
-config :sona, Sona.Translation, adapter: Sona.Translation.Local
+# Claude provider when an API key is present. See `Shiftline.Translation`.
+config :shiftline, Shiftline.Translation, adapter: Shiftline.Translation.Local
 
 # Configure the endpoint
-config :sona, SonaWeb.Endpoint,
+config :shiftline, ShiftlineWeb.Endpoint,
   url: [host: "localhost"],
   adapter: Bandit.PhoenixAdapter,
   render_errors: [
-    formats: [html: SonaWeb.ErrorHTML, json: SonaWeb.ErrorJSON],
+    formats: [html: ShiftlineWeb.ErrorHTML, json: ShiftlineWeb.ErrorJSON],
     layout: false
   ],
-  pubsub_server: Sona.PubSub,
+  pubsub_server: Shiftline.PubSub,
   live_view: [signing_salt: "x/jk6yK5"]
 
 # Configure LiveView
@@ -39,12 +39,12 @@ config :phoenix_live_view,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :sona, Sona.Mailer, adapter: Swoosh.Adapters.Local
+config :shiftline, Shiftline.Mailer, adapter: Swoosh.Adapters.Local
 
 # Configure esbuild (the version is required)
 config :esbuild,
   version: "0.25.4",
-  sona: [
+  shiftline: [
     args:
       ~w(js/app.js --bundle --target=es2022 --outdir=../priv/static/assets/js --external:/fonts/* --external:/images/* --alias:@=.),
     cd: Path.expand("../assets", __DIR__),
@@ -54,7 +54,7 @@ config :esbuild,
 # Configure tailwind (the version is required)
 config :tailwind,
   version: "4.3.0",
-  sona: [
+  shiftline: [
     args: ~w(
       --input=assets/css/app.css
       --output=priv/static/assets/css/app.css

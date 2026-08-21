@@ -22,15 +22,15 @@ batching; there is no reason not to.
 
 | The change involves | Goes in |
 | --- | --- |
-| A coverage rule or transition | `Sona.Coordination` |
-| Task board behaviour | `Sona.Coordination.Tasks` |
-| Rosters and who is on a shift | `Sona.Coordination.Shifts` |
-| A channel post or direct message | `Sona.Coordination.Messages` |
-| A line in the activity feed | `Sona.Coordination.Events.record/4` |
-| Anything pushed to connected clients | `Sona.Coordination.Notifier` |
+| A coverage rule or transition | `Shiftline.Coordination` |
+| Task board behaviour | `Shiftline.Coordination.Tasks` |
+| Rosters and who is on a shift | `Shiftline.Coordination.Shifts` |
+| A channel post or direct message | `Shiftline.Coordination.Messages` |
+| A line in the activity feed | `Shiftline.Coordination.Events.record/4` |
+| Anything pushed to connected clients | `Shiftline.Coordination.Notifier` |
 | Text a person typed | `Notifier.translate_content/2` — i18n comes free |
-| Fixtures, personas, reset | `Sona.Demo` — **never** a context |
-| A screen | `lib/sona_web/live/home_live/*.ex` + assigns in `HomeLive` |
+| Fixtures, personas, reset | `Shiftline.Demo` — **never** a context |
+| A screen | `lib/shiftline_web/live/home_live/*.ex` + assigns in `HomeLive` |
 
 ## Rules that are easy to break
 
@@ -40,7 +40,7 @@ a button is not a permission model — LiveView events are forgeable. When you
 add a control, add the guard in the context and a test that the wrong persona
 is not offered it.
 
-**Seeding never goes in a context.** `Sona.Demo` is deliberately top-level: it
+**Seeding never goes in a context.** `Shiftline.Demo` is deliberately top-level: it
 holds everything a real deployment deletes. Putting fixtures back into the
 domain undoes the point of that split.
 

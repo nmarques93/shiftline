@@ -1,9 +1,9 @@
 @import "tailwindcss" source(none);
-@import "phoenix-colocated/sona/colocated.css";
+@import "phoenix-colocated/shiftline/colocated.css";
 @source "../css";
 @source "../js";
-@source "../../lib/sona_web";
-@source "../../_build/dev/phoenix-colocated/sona/*/";
+@source "../../lib/shiftline_web";
+@source "../../_build/dev/phoenix-colocated/shiftline/*/";
 
 @theme {
   --font-display: "DM Sans", ui-sans-serif, system-ui, sans-serif;

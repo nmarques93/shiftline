@@ -1,4 +1,4 @@
-defmodule Sona.Repo.Migrations.AddCoverWindowToCoverageResponses do
+defmodule Shiftline.Repo.Migrations.AddCoverWindowToCoverageResponses do
   use Ecto.Migration
 
   def change do

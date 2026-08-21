@@ -1,4 +1,4 @@
-# Visual Direction: Sona
+# Visual Direction: Shiftline
 
 > **Design-stage document.** The visual system as specified before the build. The
 > implementation follows it closely; the known drift is that the `blue-700` /
@@ -7,7 +7,7 @@
 
 ## Direction: The Operations Signal
 
-Sona should feel like the calm, well-marked service corridor behind a hotel: immediate when something needs action, legible at a glance, and full of useful evidence after the handoff. It is not a social feed and it should not look like a corporate chat tool.
+Shiftline should feel like the calm, well-marked service corridor behind a hotel: immediate when something needs action, legible at a glance, and full of useful evidence after the handoff. It is not a social feed and it should not look like a corporate chat tool.
 
 The visual system is built around three ideas:
 
@@ -239,4 +239,4 @@ Show at least one unresolved request, one clear response, one translated message
 - Keep status values data-driven so the same case can render consistently in Today, Messages, and Coverage.
 - Use CSS logical properties and flexible layouts for right-to-left languages.
 - Test at 320 px, 375 px, 768 px, 1024 px, and 1440 px widths, plus a large-text browser setting.
-- Prototype the unresolved-to-resolved coverage path first. It is the clearest proof that Sona turns communication into coordinated action.
+- Prototype the unresolved-to-resolved coverage path first. It is the clearest proof that Shiftline turns communication into coordinated action.

@@ -5,23 +5,23 @@ import Config
 # The MIX_TEST_PARTITION environment variable can be used
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
-config :sona, Sona.Repo,
+config :shiftline, Shiftline.Repo,
   username: "postgres",
   password: "postgres",
   hostname: "localhost",
-  database: "sona_test#{System.get_env("MIX_TEST_PARTITION")}",
+  database: "shiftline_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: System.schedulers_online() * 2
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
-config :sona, SonaWeb.Endpoint,
+config :shiftline, ShiftlineWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
   secret_key_base: "advjJ1rEyh4PEQWkqAbQKaVKAz1c0VquFI4PmJavJ38+wvf0XxsbIIZFJeLaS497",
   server: false
 
 # In test we don't send emails
-config :sona, Sona.Mailer, adapter: Swoosh.Adapters.Test
+config :shiftline, Shiftline.Mailer, adapter: Swoosh.Adapters.Test
 
 # Disable swoosh api client as it is only required for production adapters
 config :swoosh, :api_client, false
@@ -41,4 +41,4 @@ config :phoenix,
   sort_verified_routes_query_params: true
 
 # Deterministic, offline translation provider for tests.
-config :sona, Sona.Translation, adapter: Sona.Translation.Stub, async: false
+config :shiftline, Shiftline.Translation, adapter: Shiftline.Translation.Stub, async: false

@@ -1,4 +1,4 @@
-defmodule Sona.Repo.Migrations.AddNotificationPreferenceToStaffMembers do
+defmodule Shiftline.Repo.Migrations.AddNotificationPreferenceToStaffMembers do
   use Ecto.Migration
 
   def change do

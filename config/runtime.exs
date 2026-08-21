@@ -12,19 +12,20 @@ import Config
 # If you use `mix release`, you need to explicitly enable the server
 # by passing the PHX_SERVER=true when you start it:
 #
-#     PHX_SERVER=true bin/sona start
+#     PHX_SERVER=true bin/shiftline start
 #
 # Alternatively, you can use `mix phx.gen.release` to generate a `bin/server`
 # script that automatically sets the env var above.
 if System.get_env("PHX_SERVER") do
-  config :sona, SonaWeb.Endpoint, server: true
+  config :shiftline, ShiftlineWeb.Endpoint, server: true
 end
 
-config :sona, SonaWeb.Endpoint, http: [port: String.to_integer(System.get_env("PORT", "4000"))]
+config :shiftline, ShiftlineWeb.Endpoint,
+  http: [port: String.to_integer(System.get_env("PORT", "4000"))]
 
 if config_env() == :dev do
   # Reload browser tabs when matching files change.
-  config :sona, SonaWeb.Endpoint,
+  config :shiftline, ShiftlineWeb.Endpoint,
     live_reload: [
       web_console_logger: true,
       patterns: [
@@ -33,8 +34,8 @@ if config_env() == :dev do
         # Gettext translations
         ~r"priv/gettext/.*\.po$"E,
         # Router, Controllers, LiveViews and LiveComponents
-        ~r"lib/sona_web/router\.ex$"E,
-        ~r"lib/sona_web/(controllers|live|components)/.*\.(ex|heex)$"E
+        ~r"lib/shiftline_web/router\.ex$"E,
+        ~r"lib/shiftline_web/(controllers|live|components)/.*\.(ex|heex)$"E
       ]
     ]
 end
@@ -49,7 +50,7 @@ if config_env() == :prod do
 
   maybe_ipv6 = if System.get_env("ECTO_IPV6") in ~w(true 1), do: [:inet6], else: []
 
-  config :sona, Sona.Repo,
+  config :shiftline, Shiftline.Repo,
     # ssl: true,
     url: database_url,
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
@@ -71,9 +72,9 @@ if config_env() == :prod do
 
   host = System.get_env("PHX_HOST") || "example.com"
 
-  config :sona, :dns_cluster_query, System.get_env("DNS_CLUSTER_QUERY")
+  config :shiftline, :dns_cluster_query, System.get_env("DNS_CLUSTER_QUERY")
 
-  config :sona, SonaWeb.Endpoint,
+  config :shiftline, ShiftlineWeb.Endpoint,
     url: [host: host, port: 443, scheme: "https"],
     http: [
       # Enable IPv6 and bind on all interfaces.
@@ -89,7 +90,7 @@ if config_env() == :prod do
   # To get SSL working, you will need to add the `https` key
   # to your endpoint configuration:
   #
-  #     config :sona, SonaWeb.Endpoint,
+  #     config :shiftline, ShiftlineWeb.Endpoint,
   #       https: [
   #         ...,
   #         port: 443,
@@ -111,7 +112,7 @@ if config_env() == :prod do
   # We also recommend setting `force_ssl` in your config/prod.exs,
   # ensuring no data is ever sent via http, always redirecting to https:
   #
-  #     config :sona, SonaWeb.Endpoint,
+  #     config :shiftline, ShiftlineWeb.Endpoint,
   #       force_ssl: [hsts: true]
   #
   # Check `Plug.SSL` for all available options in `force_ssl`.
@@ -121,7 +122,7 @@ if config_env() == :prod do
   # In production you need to configure the mailer to use a different adapter.
   # Here is an example configuration for Mailgun:
   #
-  #     config :sona, Sona.Mailer,
+  #     config :shiftline, Shiftline.Mailer,
   #       adapter: Swoosh.Adapters.Mailgun,
   #       api_key: System.get_env("MAILGUN_API_KEY"),
   #       domain: System.get_env("MAILGUN_DOMAIN")
@@ -139,7 +140,7 @@ end
 # the provider; with neither, the app falls back to the offline catalog
 # provider and the demo runs unchanged.
 #
-# Both adapters send the same prompt (`Sona.Translation.Prompt`) and satisfy
+# Both adapters send the same prompt (`Shiftline.Translation.Prompt`) and satisfy
 # the same behaviour, so this is the whole of the switch — which is the point
 # of putting a behaviour in front of a provider in the first place.
 #
@@ -152,14 +153,14 @@ end
 translation_provider =
   cond do
     config_env() == :test -> nil
-    key = System.get_env("DEEPSEEK_API_KEY") -> {Sona.Translation.DeepSeek, key}
-    key = System.get_env("ANTHROPIC_API_KEY") -> {Sona.Translation.Claude, key}
+    key = System.get_env("DEEPSEEK_API_KEY") -> {Shiftline.Translation.DeepSeek, key}
+    key = System.get_env("ANTHROPIC_API_KEY") -> {Shiftline.Translation.Claude, key}
     true -> nil
   end
 
 case translation_provider do
   {adapter, api_key} ->
-    config :sona, Sona.Translation,
+    config :shiftline, Shiftline.Translation,
       adapter: adapter,
       api_key: api_key,
       model: System.get_env("TRANSLATION_MODEL")

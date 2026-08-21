@@ -1,9 +1,9 @@
-defmodule Sona.MixProject do
+defmodule Shiftline.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :sona,
+      app: :shiftline,
       version: "0.1.0",
       elixir: "~> 1.17",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -20,7 +20,7 @@ defmodule Sona.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {Sona.Application, []},
+      mod: {Shiftline.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end
@@ -89,10 +89,10 @@ defmodule Sona.MixProject do
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
-      "assets.build": ["compile", "tailwind sona", "esbuild sona"],
+      "assets.build": ["compile", "tailwind shiftline", "esbuild shiftline"],
       "assets.deploy": [
-        "tailwind sona --minify",
-        "esbuild sona --minify",
+        "tailwind shiftline --minify",
+        "esbuild shiftline --minify",
         "phx.digest"
       ],
       precommit: ["compile --warnings-as-errors", "deps.unlock --unused", "format", "test"]

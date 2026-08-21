@@ -1,4 +1,4 @@
-defmodule Sona.Repo.Migrations.CreateShifts do
+defmodule Shiftline.Repo.Migrations.CreateShifts do
   use Ecto.Migration
 
   def change do
@@ -18,7 +18,7 @@ defmodule Sona.Repo.Migrations.CreateShifts do
 
       add :location, :string
 
-      # Sona reads rotas rather than authoring them: shifts are expected to
+      # Shiftline reads rotas rather than authoring them: shifts are expected to
       # arrive from a workforce system, with manual entry as the fallback for
       # customers who have none.
       add :source, :string, null: false, default: "manual"

@@ -1,4 +1,4 @@
-defmodule SonaWeb.ConnCase do
+defmodule ShiftlineWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -11,7 +11,7 @@ defmodule SonaWeb.ConnCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use SonaWeb.ConnCase, async: true`, although
+  by setting `use ShiftlineWeb.ConnCase, async: true`, although
   this option is not recommended for other databases.
   """
 
@@ -20,19 +20,19 @@ defmodule SonaWeb.ConnCase do
   using do
     quote do
       # The default endpoint for testing
-      @endpoint SonaWeb.Endpoint
+      @endpoint ShiftlineWeb.Endpoint
 
-      use SonaWeb, :verified_routes
+      use ShiftlineWeb, :verified_routes
 
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
-      import SonaWeb.ConnCase
+      import ShiftlineWeb.ConnCase
     end
   end
 
   setup tags do
-    Sona.DataCase.setup_sandbox(tags)
+    Shiftline.DataCase.setup_sandbox(tags)
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end

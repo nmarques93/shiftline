@@ -1,1135 +1,1136 @@
-## French translations for the Sona prototype workflow.
+## French translations for the Shiftline prototype workflow.
 ##
 ## Uses the formal "vous" register, standard for French workplace software.
 ## The seeded user content at the end is resolved at render time by
-## `SonaWeb.HomeLive.UI.translate_content/1`.
+## `ShiftlineWeb.HomeLive.UI.translate_content/1`.
 msgid ""
 msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: lib/sona_web/live/home_live/ui.ex:501
+#: lib/shiftline_web/live/home_live/ui.ex:505
 #, elixir-autogen, elixir-format
 msgid "%{count} d ago"
 msgstr "il y a %{count} j"
 
-#: lib/sona_web/live/home_live/ui.ex:500
+#: lib/shiftline_web/live/home_live/ui.ex:504
 #, elixir-autogen, elixir-format
 msgid "%{count} h ago"
 msgstr "il y a %{count} h"
 
-#: lib/sona_web/live/home_live/ui.ex:499
+#: lib/shiftline_web/live/home_live/ui.ex:503
 #, elixir-autogen, elixir-format
 msgid "%{count} min ago"
 msgstr "il y a %{count} min"
 
-#: lib/sona_web/live/home_live/ui.ex:334
-#: lib/sona_web/live/home_live/ui.ex:343
+#: lib/shiftline_web/live/home_live/ui.ex:338
+#: lib/shiftline_web/live/home_live/ui.ex:347
 #, elixir-autogen, elixir-format
 msgid "%{name} is covering the shift"
 msgstr "%{name} couvre le service"
 
-#: lib/sona_web/live/home_live/coverage.ex:323
+#: lib/shiftline_web/live/home_live/coverage.ex:323
 #, elixir-autogen, elixir-format
 msgid "%{viewed} of %{total} viewed"
 msgstr "%{viewed} sur %{total} ont vu"
 
-#: lib/sona_web/live/home_live/ui.ex:353
+#: lib/shiftline_web/live/home_live/ui.ex:357
 #, elixir-autogen, elixir-format
 msgid "%{viewed} of %{total} viewed · %{answers} responses"
 msgstr "%{viewed} sur %{total} ont vu · %{answers} réponses"
 
-#: lib/sona_web/live/home_live/today.ex:65
+#: lib/shiftline_web/live/home_live/today.ex:69
 #, elixir-autogen, elixir-format
 msgid "A team member needs help"
 msgstr "Un collègue a besoin d'aide"
 
-#: lib/sona_web/live/home_live/coverage.ex:61
+#: lib/shiftline_web/live/home_live/coverage.ex:61
 #, elixir-autogen, elixir-format
 msgid "ACTIVE INCIDENT"
 msgstr "INCIDENT EN COURS"
 
-#: lib/sona_web/live/home_live/today.ex:97
-#: lib/sona_web/live/home_live/ui.ex:131
+#: lib/shiftline_web/live/home_live/today.ex:101
+#: lib/shiftline_web/live/home_live/ui.ex:135
 #, elixir-autogen, elixir-format
 msgid "APPROVED"
 msgstr "APPROUVÉ"
 
-#: lib/sona_web/live/home_live/ui.ex:155
+#: lib/shiftline_web/live/home_live/ui.ex:159
 #, elixir-autogen, elixir-format
 msgid "Acknowledge handoff"
 msgstr "Confirmer la passation"
 
-#: lib/sona_web/live/home_live.ex:367
-#: lib/sona_web/live/home_live/messages.ex:193
-#: lib/sona_web/live/home_live/ui.ex:305
+#: lib/shiftline_web/live/home_live.ex:367
+#: lib/shiftline_web/live/home_live/messages.ex:203
+#: lib/shiftline_web/live/home_live/ui.ex:309
 #, elixir-autogen, elixir-format
 msgid "Acknowledged"
 msgstr "Confirmé"
 
-#: lib/sona_web/components/core_components.ex:375
+#: lib/shiftline_web/components/core_components.ex:375
 #, elixir-autogen, elixir-format
 msgid "Actions"
 msgstr "Actions"
 
-#: lib/sona_web/live/home_live/coverage.ex:347
+#: lib/shiftline_web/live/home_live/coverage.ex:347
 #, elixir-autogen, elixir-format
 msgid "Approve"
 msgstr "Approuver"
 
-#: lib/sona_web/live/home_live/ui.ex:263
-#: lib/sona_web/live/home_live/ui.ex:288
+#: lib/shiftline_web/live/home_live/ui.ex:267
+#: lib/shiftline_web/live/home_live/ui.ex:292
 #, elixir-autogen, elixir-format
 msgid "Approved"
 msgstr "Approuvé"
 
-#: lib/sona_web/live/home_live/coverage.ex:293
+#: lib/shiftline_web/live/home_live/coverage.ex:293
 #, elixir-autogen, elixir-format
 msgid "Ask a question"
 msgstr "Poser une question"
 
-#: lib/sona_web/live/home_live/coverage.ex:292
+#: lib/shiftline_web/live/home_live/coverage.ex:292
 #, elixir-autogen, elixir-format
 msgid "Ask a question about the shift..."
 msgstr "Posez une question sur le service..."
 
-#: lib/sona_web/components/layouts.ex:103
-#: lib/sona_web/components/layouts.ex:118
+#: lib/shiftline_web/components/layouts.ex:103
+#: lib/shiftline_web/components/layouts.ex:118
 #, elixir-autogen, elixir-format
 msgid "Attempting to reconnect"
 msgstr "Tentative de reconnexion"
 
-#: lib/sona_web/live/home_live/coverage.ex:218
+#: lib/shiftline_web/live/home_live/coverage.ex:218
 #, elixir-autogen, elixir-format
 msgid "COVERAGE REQUEST"
 msgstr "DEMANDE DE REMPLACEMENT"
 
-#: lib/sona_web/live/home_live.ex:473
-#: lib/sona_web/live/home_live/profile.ex:45
+#: lib/shiftline_web/live/home_live.ex:473
+#: lib/shiftline_web/live/home_live/profile.ex:45
 #, elixir-autogen, elixir-format
 msgid "CURRENT PROPERTY"
 msgstr "ÉTABLISSEMENT ACTUEL"
 
-#: lib/sona_web/live/home_live/ui.ex:262
-#: lib/sona_web/live/home_live/ui.ex:287
+#: lib/shiftline_web/live/home_live/ui.ex:266
+#: lib/shiftline_web/live/home_live/ui.ex:291
 #, elixir-autogen, elixir-format
 msgid "Claimed"
 msgstr "Pris en charge"
 
-#: lib/sona_web/live/home_live/ui.ex:261
-#: lib/sona_web/live/home_live/ui.ex:286
+#: lib/shiftline_web/live/home_live/ui.ex:265
+#: lib/shiftline_web/live/home_live/ui.ex:290
 #, elixir-autogen, elixir-format
 msgid "Contacting"
 msgstr "Prise de contact"
 
-#: lib/sona_web/live/home_live/messages.ex:30
+#: lib/shiftline_web/live/home_live/messages.ex:30
 #, elixir-autogen, elixir-format
 msgid "Conversations stay attached to the work they change."
 msgstr "Les conversations restent rattachées au travail qu'elles modifient."
 
-#: lib/sona_web/live/home_live.ex:487
-#: lib/sona_web/live/home_live.ex:646
-#: lib/sona_web/live/home_live/coverage.ex:36
+#: lib/shiftline_web/live/home_live.ex:487
+#: lib/shiftline_web/live/home_live.ex:646
+#: lib/shiftline_web/live/home_live/coverage.ex:36
 #, elixir-autogen, elixir-format
 msgid "Coverage"
 msgstr "Remplacements"
 
-#: lib/sona_web/live/home_live/today.ex:105
-#: lib/sona_web/live/home_live/ui.ex:327
+#: lib/shiftline_web/live/home_live/today.ex:109
+#: lib/shiftline_web/live/home_live/ui.ex:331
 #, elixir-autogen, elixir-format
 msgid "Coverage is confirmed"
 msgstr "La couverture est confirmée"
 
-#: lib/sona_web/live/home_live/today.ex:125
+#: lib/shiftline_web/live/home_live/today.ex:129
 #, elixir-autogen, elixir-format
 msgid "Current work"
 msgstr "Travail en cours"
 
-#: lib/sona_web/live/home_live/ui.ex:302
-#: lib/sona_web/live/home_live/ui.ex:308
+#: lib/shiftline_web/live/home_live/ui.ex:306
+#: lib/shiftline_web/live/home_live/ui.ex:312
 #, elixir-autogen, elixir-format
 msgid "Declined"
 msgstr "Refusé"
 
-#: lib/sona_web/live/home_live.ex:454
+#: lib/shiftline_web/live/home_live.ex:454
 #, elixir-autogen, elixir-format
 msgid "Demo reset"
 msgstr "Démo réinitialisée"
 
-#: lib/sona_web/live/home_live/ui.ex:439
+#: lib/shiftline_web/live/home_live/ui.ex:443
 #, elixir-autogen, elixir-format
 msgid "Done"
 msgstr "Terminé"
 
-#: lib/sona_web/live/home_live/coverage.ex:219
+#: lib/shiftline_web/live/home_live/coverage.ex:219
 #, elixir-autogen, elixir-format
 msgid "Front desk coverage"
 msgstr "Remplacement à la réception"
 
-#: lib/sona_web/live/home_live/ui.ex:300
+#: lib/shiftline_web/live/home_live/ui.ex:304
 #, elixir-autogen, elixir-format
 msgid "Full shift"
 msgstr "Service complet"
 
-#: lib/sona_web/live/home_live/today.ex:30
+#: lib/shiftline_web/live/home_live/today.ex:34
 #, elixir-autogen, elixir-format
 msgid "Good afternoon, %{name}"
 msgstr "Bon après-midi, %{name}"
 
-#: lib/sona_web/live/home_live/ui.ex:268
+#: lib/shiftline_web/live/home_live/ui.ex:272
 #, elixir-autogen, elixir-format
 msgid "HIGH"
 msgstr "ÉLEVÉE"
 
-#: lib/sona_web/live/home_live.ex:442
-#: lib/sona_web/live/home_live/ui.ex:163
+#: lib/shiftline_web/live/home_live.ex:442
+#: lib/shiftline_web/live/home_live/ui.ex:167
 #, elixir-autogen, elixir-format
 msgid "Handoff acknowledged"
 msgstr "Passation confirmée"
 
-#: lib/sona_web/live/home_live/today.ex:103
+#: lib/shiftline_web/live/home_live/today.ex:107
 #, elixir-autogen, elixir-format
 msgid "Handoff needs acknowledgement"
 msgstr "La passation doit être confirmée"
 
-#: lib/sona_web/live/home_live/ui.ex:148
+#: lib/shiftline_web/live/home_live/ui.ex:152
 #, elixir-autogen, elixir-format
 msgid "Handoff note"
 msgstr "Note de passation"
 
-#: lib/sona_web/live/home_live/today.ex:31
+#: lib/shiftline_web/live/home_live/today.ex:35
 #, elixir-autogen, elixir-format
 msgid "Here is what needs your attention today."
 msgstr "Voici ce qui requiert votre attention aujourd'hui."
 
-#: lib/sona_web/live/home_live/coverage.ex:237
+#: lib/shiftline_web/live/home_live/coverage.ex:237
 #, elixir-autogen, elixir-format
 msgid "I can cover all of it"
 msgstr "Je peux tout couvrir"
 
-#: lib/sona_web/live/home_live/coverage.ex:240
+#: lib/shiftline_web/live/home_live/coverage.ex:240
 #, elixir-autogen, elixir-format
 msgid "I can cover part of it"
 msgstr "Je peux couvrir une partie"
 
-#: lib/sona_web/live/home_live/coverage.ex:243
+#: lib/shiftline_web/live/home_live/coverage.ex:243
 #, elixir-autogen, elixir-format
 msgid "I can't cover it"
 msgstr "Je ne peux pas couvrir"
 
-#: lib/sona_web/live/home_live/ui.ex:498
+#: lib/shiftline_web/live/home_live/ui.ex:502
 #, elixir-autogen, elixir-format
 msgid "Just now"
 msgstr "À l'instant"
 
-#: lib/sona_web/live/home_live/profile.ex:21
+#: lib/shiftline_web/live/home_live/profile.ex:21
 #, elixir-autogen, elixir-format
 msgid "Keep your role and language ready for every handoff."
 msgstr "Gardez votre poste et votre langue prêts pour chaque passation."
 
-#: lib/sona_web/live/home_live/today.ex:28
+#: lib/shiftline_web/live/home_live/today.ex:32
 #, elixir-autogen, elixir-format
 msgid "Live"
 msgstr "En direct"
 
-#: lib/sona_web/live/home_live.ex:475
+#: lib/shiftline_web/live/home_live.ex:475
 #, elixir-autogen, elixir-format
 msgid "Live operations"
 msgstr "Opérations en direct"
 
-#: lib/sona_web/live/home_live/today.ex:50
+#: lib/shiftline_web/live/home_live/today.ex:54
 #, elixir-autogen, elixir-format
 msgid "Lobby"
 msgstr "Lobby"
 
-#: lib/sona_web/live/home_live.ex:503
-#: lib/sona_web/live/home_live.ex:662
-#: lib/sona_web/live/home_live/messages.ex:28
+#: lib/shiftline_web/live/home_live.ex:503
+#: lib/shiftline_web/live/home_live.ex:662
+#: lib/shiftline_web/live/home_live/messages.ex:28
 #, elixir-autogen, elixir-format
 msgid "Messages"
 msgstr "Messages"
 
-#: lib/sona_web/live/home_live/today.ex:62
+#: lib/shiftline_web/live/home_live/today.ex:66
 #, elixir-autogen, elixir-format
 msgid "NEEDS A RESPONSE"
 msgstr "RÉPONSE ATTENDUE"
 
-#: lib/sona_web/live/home_live/ui.ex:437
+#: lib/shiftline_web/live/home_live/ui.ex:441
 #, elixir-autogen, elixir-format
 msgid "Not started"
 msgstr "Non commencé"
 
-#: lib/sona_web/live/home_live/ui.ex:306
+#: lib/shiftline_web/live/home_live/ui.ex:310
 #, elixir-autogen, elixir-format
 msgid "Not viewed"
 msgstr "Non vu"
 
-#: lib/sona_web/live/home_live/today.ex:124
+#: lib/shiftline_web/live/home_live/today.ex:128
 #, elixir-autogen, elixir-format
 msgid "ON YOUR SHIFT"
 msgstr "PENDANT VOTRE SERVICE"
 
-#: lib/sona_web/live/home_live/today.ex:66
+#: lib/shiftline_web/live/home_live/today.ex:70
 #, elixir-autogen, elixir-format
 msgid "One open coverage request"
 msgstr "Une demande de remplacement ouverte"
 
-#: lib/sona_web/live/home_live/ui.ex:260
-#: lib/sona_web/live/home_live/ui.ex:265
-#: lib/sona_web/live/home_live/ui.ex:285
+#: lib/shiftline_web/live/home_live/ui.ex:264
+#: lib/shiftline_web/live/home_live/ui.ex:269
+#: lib/shiftline_web/live/home_live/ui.ex:289
 #, elixir-autogen, elixir-format
 msgid "Open"
 msgstr "Ouverte"
 
-#: lib/sona_web/live/home_live/coverage.ex:101
-#: lib/sona_web/live/home_live/ui.ex:105
+#: lib/shiftline_web/live/home_live/coverage.ex:101
+#: lib/shiftline_web/live/home_live/ui.ex:105
 #, elixir-autogen, elixir-format
 msgid "Open request"
 msgstr "Ouvrir la demande"
 
-#: lib/sona_web/live/home_live/today.ex:53
+#: lib/shiftline_web/live/home_live/today.ex:57
 #, elixir-autogen, elixir-format
 msgid "Open tasks"
 msgstr "Tâches ouvertes"
 
-#: lib/sona_web/live/home_live/coverage.ex:35
+#: lib/shiftline_web/live/home_live/coverage.ex:35
 #, elixir-autogen, elixir-format
 msgid "Operations board"
 msgstr "Tableau des opérations"
 
-#: lib/sona_web/live/home_live/messages.ex:64
+#: lib/shiftline_web/live/home_live/messages.ex:64
 #, elixir-autogen, elixir-format
 msgid "PINNED FOR YOUR TEAM"
 msgstr "ÉPINGLÉ POUR VOTRE ÉQUIPE"
 
-#: lib/sona_web/live/home_live/ui.ex:301
+#: lib/shiftline_web/live/home_live/ui.ex:305
 #, elixir-autogen, elixir-format
 msgid "Partial coverage"
 msgstr "Couverture partielle"
 
-#: lib/sona_web/live/home_live.ex:512
-#: lib/sona_web/live/home_live.ex:671
-#: lib/sona_web/live/home_live/profile.ex:19
+#: lib/shiftline_web/live/home_live.ex:512
+#: lib/shiftline_web/live/home_live.ex:671
+#: lib/shiftline_web/live/home_live/profile.ex:19
 #, elixir-autogen, elixir-format
 msgid "Profile"
 msgstr "Profil"
 
-#: lib/sona_web/live/home_live.ex:164
+#: lib/shiftline_web/live/home_live.ex:164
 #, elixir-autogen, elixir-format
 msgid "Question sent to %{name}"
 msgstr "Question envoyée à %{name}"
 
-#: lib/sona_web/live/home_live/today.ex:98
-#: lib/sona_web/live/home_live/ui.ex:132
+#: lib/shiftline_web/live/home_live/today.ex:102
+#: lib/shiftline_web/live/home_live/ui.ex:136
 #, elixir-autogen, elixir-format
 msgid "RESOLVED"
 msgstr "RÉSOLU"
 
-#: lib/sona_web/live/home_live.ex:428
+#: lib/shiftline_web/live/home_live.ex:428
 #, elixir-autogen, elixir-format
 msgid "Replacement approved and the team has been updated"
 msgstr "Remplacement approuvé et l'équipe a été informée"
 
-#: lib/sona_web/live/home_live.ex:518
+#: lib/shiftline_web/live/home_live.ex:518
 #, elixir-autogen, elixir-format
 msgid "Reset demo"
 msgstr "Réinitialiser la démo"
 
-#: lib/sona_web/live/home_live/ui.ex:264
-#: lib/sona_web/live/home_live/ui.ex:289
+#: lib/shiftline_web/live/home_live/ui.ex:268
+#: lib/shiftline_web/live/home_live/ui.ex:293
 #, elixir-autogen, elixir-format
 msgid "Resolved"
 msgstr "Résolue"
 
-#: lib/sona_web/live/home_live/ui.ex:97
+#: lib/shiftline_web/live/home_live/ui.ex:97
 #, elixir-autogen, elixir-format
 msgid "Respond to request"
 msgstr "Répondre à la demande"
 
-#: lib/sona_web/live/home_live/ui.ex:309
+#: lib/shiftline_web/live/home_live/ui.ex:313
 #, elixir-autogen, elixir-format
 msgid "Responded"
 msgstr "A répondu"
 
-#: lib/sona_web/live/home_live/ui.ex:299
+#: lib/shiftline_web/live/home_live/ui.ex:303
 #, elixir-autogen, elixir-format
 msgid "Response needed"
 msgstr "Réponse attendue"
 
-#: lib/sona_web/live/home_live/coverage.ex:38
+#: lib/shiftline_web/live/home_live/coverage.ex:38
 #, elixir-autogen, elixir-format
 msgid "See the open gap, responses, and handoff in one place."
 msgstr "Voyez le créneau à couvrir, les réponses et la passation au même endroit."
 
-#: lib/sona_web/live/home_live/coverage.ex:295
+#: lib/shiftline_web/live/home_live/coverage.ex:295
 #, elixir-autogen, elixir-format
 msgid "Send question"
 msgstr "Envoyer la question"
 
-#: lib/sona_web/live/home_live/ui.ex:510
+#: lib/shiftline_web/live/home_live/ui.ex:514
 #, elixir-autogen, elixir-format
 msgid "Shift in progress"
 msgstr "Service en cours"
 
-#: lib/sona_web/components/layouts.ex:110
+#: lib/shiftline_web/components/layouts.ex:110
 #, elixir-autogen, elixir-format
 msgid "Something went wrong!"
 msgstr "Une erreur est survenue !"
 
-#: lib/sona_web/live/home_live/ui.ex:512
+#: lib/shiftline_web/live/home_live/ui.ex:516
 #, elixir-autogen, elixir-format
 msgid "Starts in %{count} h"
 msgstr "Commence dans %{count} h"
 
-#: lib/sona_web/live/home_live/ui.ex:511
+#: lib/shiftline_web/live/home_live/ui.ex:515
 #, elixir-autogen, elixir-format
 msgid "Starts in %{count} min"
 msgstr "Commence dans %{count} min"
 
-#: lib/sona_web/live/home_live/today.ex:212
+#: lib/shiftline_web/live/home_live/today.ex:216
 #, elixir-autogen, elixir-format
 msgid "TEAM HANDOFFS"
 msgstr "PASSATIONS DE L'ÉQUIPE"
 
-#: lib/sona_web/live/home_live/coverage.ex:319
+#: lib/shiftline_web/live/home_live/coverage.ex:319
 #, elixir-autogen, elixir-format
 msgid "TEAM RESPONSES"
 msgstr "RÉPONSES DE L'ÉQUIPE"
 
-#: lib/sona_web/live/home_live.ex:887
+#: lib/shiftline_web/live/home_live.ex:887
 #, elixir-autogen, elixir-format
 msgid "This handoff is not ready to acknowledge yet."
 msgstr "Cette passation n'est pas encore prête à être confirmée."
 
-#: lib/sona_web/live/home_live.ex:875
+#: lib/shiftline_web/live/home_live.ex:875
 #, elixir-autogen, elixir-format
 msgid "This request is already closed."
 msgstr "Cette demande est déjà clôturée."
 
-#: lib/sona_web/live/home_live.ex:884
+#: lib/shiftline_web/live/home_live.ex:884
 #, elixir-autogen, elixir-format
 msgid "This team member has not offered to cover the shift."
 msgstr "Ce collègue ne s'est pas proposé pour couvrir le service."
 
-#: lib/sona_web/live/home_live.ex:479
-#: lib/sona_web/live/home_live.ex:640
-#: lib/sona_web/live/home_live/coverage.ex:94
-#: lib/sona_web/live/home_live/messages.ex:27
-#: lib/sona_web/live/home_live/ui.ex:49
-#: lib/sona_web/live/home_live/ui.ex:136
+#: lib/shiftline_web/live/home_live.ex:479
+#: lib/shiftline_web/live/home_live.ex:640
+#: lib/shiftline_web/live/home_live/coverage.ex:94
+#: lib/shiftline_web/live/home_live/messages.ex:27
+#: lib/shiftline_web/live/home_live/ui.ex:49
+#: lib/shiftline_web/live/home_live/ui.ex:140
 #, elixir-autogen, elixir-format
 msgid "Today"
 msgstr "Aujourd'hui"
 
-#: lib/sona_web/live/home_live/messages.ex:235
-#: lib/sona_web/live/home_live/ui.ex:56
+#: lib/shiftline_web/live/home_live/messages.ex:253
+#: lib/shiftline_web/live/home_live/ui.ex:56
 #, elixir-autogen, elixir-format
 msgid "Translated automatically"
 msgstr "Traduit automatiquement"
 
-#: lib/sona_web/live/home_live/ui.ex:269
+#: lib/shiftline_web/live/home_live/ui.ex:273
 #, elixir-autogen, elixir-format
 msgid "UPDATE"
 msgstr "INFO"
 
-#: lib/sona_web/live/home_live/messages.ex:68
-#: lib/sona_web/live/home_live/messages.ex:123
-#: lib/sona_web/live/home_live/messages.ex:163
-#: lib/sona_web/live/home_live/ui.ex:267
+#: lib/shiftline_web/live/home_live/messages.ex:68
+#: lib/shiftline_web/live/home_live/messages.ex:126
+#: lib/shiftline_web/live/home_live/messages.ex:174
+#: lib/shiftline_web/live/home_live/ui.ex:271
 #, elixir-autogen, elixir-format
 msgid "URGENT"
 msgstr "URGENT"
 
-#: lib/sona_web/live/home_live/ui.ex:46
+#: lib/shiftline_web/live/home_live/ui.ex:46
 #, elixir-autogen, elixir-format
 msgid "Urgent coverage needed"
 msgstr "Remplacement urgent nécessaire"
 
-#: lib/sona_web/live/home_live/ui.ex:307
+#: lib/shiftline_web/live/home_live/ui.ex:311
 #, elixir-autogen, elixir-format
 msgid "Viewed"
 msgstr "Vu"
 
-#: lib/sona_web/live/home_live/ui.ex:303
+#: lib/shiftline_web/live/home_live/ui.ex:307
 #, elixir-autogen, elixir-format
 msgid "Viewed, no response yet"
 msgstr "Vu, pas encore de réponse"
 
-#: lib/sona_web/live/home_live.ex:541
+#: lib/shiftline_web/live/home_live.ex:541
 #, elixir-autogen, elixir-format
 msgid "Viewing as"
 msgstr "Vue en tant que"
 
-#: lib/sona_web/live/home_live/ui.ex:159
+#: lib/shiftline_web/live/home_live/ui.ex:163
 #, elixir-autogen, elixir-format
 msgid "Waiting for handoff acknowledgement"
 msgstr "En attente de la confirmation de passation"
 
-#: lib/sona_web/components/layouts.ex:95
+#: lib/shiftline_web/components/layouts.ex:95
 #, elixir-autogen, elixir-format
 msgid "We can't find the internet"
 msgstr "Connexion Internet introuvable"
 
-#: lib/sona_web/live/home_live/today.ex:213
+#: lib/shiftline_web/live/home_live/today.ex:217
 #, elixir-autogen, elixir-format
 msgid "What changed"
 msgstr "Ce qui a changé"
 
-#: lib/sona_web/live/home_live/coverage.ex:320
+#: lib/shiftline_web/live/home_live/coverage.ex:320
 #, elixir-autogen, elixir-format
 msgid "Who has seen this?"
 msgstr "Qui a vu ce message ?"
 
-#: lib/sona_web/live/home_live/coverage.ex:231
+#: lib/shiftline_web/live/home_live/coverage.ex:231
 #, elixir-autogen, elixir-format
 msgid "YOUR RESPONSE"
 msgstr "VOTRE RÉPONSE"
 
-#: lib/sona_web/live/home_live/today.ex:47
+#: lib/shiftline_web/live/home_live/today.ex:51
 #, elixir-autogen, elixir-format
 msgid "YOUR SHIFT"
 msgstr "VOTRE SERVICE"
 
-#: lib/sona_web/live/home_live.ex:853
+#: lib/shiftline_web/live/home_live.ex:853
 #, elixir-autogen, elixir-format
 msgid "Your response was sent to %{name}"
 msgstr "Votre réponse a été envoyée à %{name}"
 
-#: lib/sona_web/live/home_live/profile.ex:18
+#: lib/shiftline_web/live/home_live/profile.ex:18
 #, elixir-autogen, elixir-format
 msgid "Your workspace"
 msgstr "Votre espace de travail"
 
-#: lib/sona_web/components/core_components.ex:81
+#: lib/shiftline_web/components/core_components.ex:81
 #, elixir-autogen, elixir-format
 msgid "close"
 msgstr "Fermer"
 
-#: lib/sona_web/live/home_live/today.ex:67
+#: lib/shiftline_web/live/home_live/today.ex:71
 #, elixir-autogen, elixir-format
 msgid "%{count} open coverage requests"
 msgstr "%{count} demandes de remplacement ouvertes"
 
-#: lib/sona_web/live/home_live/ui.ex:337
+#: lib/shiftline_web/live/home_live/ui.ex:341
 #, elixir-autogen, elixir-format
 msgid "%{name} is covering %{window}"
 msgstr "%{name} couvre le créneau %{window}"
 
-#: lib/sona_web/live/home_live/ui.ex:140
+#: lib/shiftline_web/live/home_live/ui.ex:144
 #, elixir-autogen, elixir-format
 msgid "%{window} still needs coverage"
 msgstr "%{window} reste à couvrir"
 
-#: lib/sona_web/live/home_live/coverage.ex:88
+#: lib/shiftline_web/live/home_live/coverage.ex:88
 #, elixir-autogen, elixir-format
 msgid "Also needs coverage"
 msgstr "À couvrir également"
 
-#: lib/sona_web/live/home_live/profile.ex:66
+#: lib/shiftline_web/live/home_live/profile.ex:66
 #, elixir-autogen, elixir-format
 msgid "Changes updates, tasks and responses across the whole app."
 msgstr "Modifie les mises à jour, les tâches et les réponses dans toute l'application."
 
-#: lib/sona_web/live/home_live.ex:147
+#: lib/shiftline_web/live/home_live.ex:147
 #, elixir-autogen, elixir-format
 msgid "Choose a window inside the shift times."
 msgstr "Choisissez un créneau compris dans les horaires du service."
 
-#: lib/sona_web/live/home_live.ex:558
+#: lib/shiftline_web/live/home_live.ex:558
 #, elixir-autogen, elixir-format
 msgid "Close"
 msgstr "Fermer"
 
-#: lib/sona_web/live/home_live/coverage.ex:285
+#: lib/shiftline_web/live/home_live/coverage.ex:285
 #, elixir-autogen, elixir-format
 msgid "Confirm partial coverage"
 msgstr "Confirmer la couverture partielle"
 
-#: lib/sona_web/live/home_live/ui.ex:140
+#: lib/shiftline_web/live/home_live/ui.ex:144
 #, elixir-autogen, elixir-format
 msgid "Coverage gap"
 msgstr "Créneau non couvert"
 
-#: lib/sona_web/live/home_live/today.ex:104
+#: lib/shiftline_web/live/home_live/today.ex:108
 #, elixir-autogen, elixir-format
 msgid "Coverage partially confirmed"
 msgstr "Couverture partiellement confirmée"
 
-#: lib/sona_web/live/home_live/profile.ex:41
+#: lib/shiftline_web/live/home_live/profile.ex:41
 #, elixir-autogen, elixir-format
 msgid "DEPARTMENT"
 msgstr "DÉPARTEMENT"
 
-#: lib/sona_web/live/home_live/coverage.ex:163
-#: lib/sona_web/live/home_live/coverage.ex:262
-#: lib/sona_web/live/home_live/shifts.ex:153
+#: lib/shiftline_web/live/home_live/coverage.ex:163
+#: lib/shiftline_web/live/home_live/coverage.ex:262
+#: lib/shiftline_web/live/home_live/shifts.ex:153
 #, elixir-autogen, elixir-format
 msgid "From"
 msgstr "De"
 
-#: lib/sona_web/live/home_live/profile.ex:58
+#: lib/shiftline_web/live/home_live/profile.ex:58
 #, elixir-autogen, elixir-format
-msgid "How you use Sona"
-msgstr "Votre utilisation de Sona"
+msgid "How you use Shiftline"
+msgstr "Votre utilisation de Shiftline"
 
-#: lib/sona_web/live/home_live/profile.ex:90
+#: lib/shiftline_web/live/home_live/profile.ex:90
 #, elixir-autogen, elixir-format
 msgid "In-app alerts"
 msgstr "Alertes dans l'application"
 
-#: lib/sona_web/live/home_live.ex:563
+#: lib/shiftline_web/live/home_live.ex:563
 #, elixir-autogen, elixir-format
 msgid "In-app alerts are off. You can turn them back on in Profile."
 msgstr "Les alertes dans l'application sont désactivées. Vous pouvez les réactiver dans Profil."
 
-#: lib/sona_web/live/home_live/profile.ex:98
+#: lib/shiftline_web/live/home_live/profile.ex:98
 #, elixir-autogen, elixir-format
 msgid "Not available in this prototype — no messages are sent."
 msgstr "Indisponible dans ce prototype — aucun message n'est envoyé."
 
-#: lib/sona_web/live/home_live.ex:566
+#: lib/shiftline_web/live/home_live.ex:566
 #, elixir-autogen, elixir-format
 msgid "Nothing new right now."
 msgstr "Rien de nouveau pour le moment."
 
-#: lib/sona_web/live/home_live.ex:549
-#: lib/sona_web/live/home_live/profile.ex:80
+#: lib/shiftline_web/live/home_live.ex:549
+#: lib/shiftline_web/live/home_live/profile.ex:80
 #, elixir-autogen, elixir-format
 msgid "Notifications"
 msgstr "Notifications"
 
-#: lib/sona_web/live/home_live/coverage.ex:302
+#: lib/shiftline_web/live/home_live/coverage.ex:302
 #, elixir-autogen, elixir-format
 msgid "OPEN QUESTIONS"
 msgstr "QUESTIONS EN ATTENTE"
 
-#: lib/sona_web/live/home_live/coverage.ex:87
+#: lib/shiftline_web/live/home_live/coverage.ex:87
 #, elixir-autogen, elixir-format
 msgid "OTHER OPEN REQUESTS"
 msgstr "AUTRES DEMANDES OUVERTES"
 
-#: lib/sona_web/live/home_live.ex:881
+#: lib/shiftline_web/live/home_live.ex:881
 #, elixir-autogen, elixir-format
 msgid "Only a supervisor can approve a replacement."
 msgstr "Seul un superviseur peut approuver un remplacement."
 
-#: lib/sona_web/live/home_live.ex:890
+#: lib/shiftline_web/live/home_live.ex:890
 #, elixir-autogen, elixir-format
 msgid "Only the approved replacement can acknowledge this handoff."
 msgstr "Seul le remplaçant approuvé peut confirmer cette passation."
 
-#: lib/sona_web/live/home_live/today.ex:96
-#: lib/sona_web/live/home_live/ui.ex:130
+#: lib/shiftline_web/live/home_live/today.ex:100
+#: lib/shiftline_web/live/home_live/ui.ex:134
 #, elixir-autogen, elixir-format
 msgid "PARTIALLY COVERED"
 msgstr "PARTIELLEMENT COUVERT"
 
-#: lib/sona_web/live/home_live/profile.ex:64
+#: lib/shiftline_web/live/home_live/profile.ex:64
 #, elixir-autogen, elixir-format
 msgid "Preferred language"
 msgstr "Langue préférée"
 
-#: lib/sona_web/live/home_live/profile.ex:97
+#: lib/shiftline_web/live/home_live/profile.ex:97
 #, elixir-autogen, elixir-format
 msgid "Push and SMS"
 msgstr "Push et SMS"
 
-#: lib/sona_web/live/home_live/profile.ex:37
+#: lib/shiftline_web/live/home_live/profile.ex:37
 #, elixir-autogen, elixir-format
 msgid "ROLE"
 msgstr "POSTE"
 
-#: lib/sona_web/live/home_live.ex:557
+#: lib/shiftline_web/live/home_live.ex:557
 #, elixir-autogen, elixir-format
 msgid "Recent activity"
 msgstr "Activité récente"
 
-#: lib/sona_web/live/home_live/profile.ex:104
+#: lib/shiftline_web/live/home_live/profile.ex:104
 #, elixir-autogen, elixir-format
 msgid "Save settings"
 msgstr "Enregistrer les paramètres"
 
-#: lib/sona_web/live/home_live.ex:408
+#: lib/shiftline_web/live/home_live.ex:408
 #, elixir-autogen, elixir-format
 msgid "Settings saved"
 msgstr "Paramètres enregistrés"
 
-#: lib/sona_web/live/home_live/coverage.ex:303
+#: lib/shiftline_web/live/home_live/coverage.ex:303
 #, elixir-autogen, elixir-format
 msgid "The team asked"
 msgstr "L'équipe a demandé"
 
-#: lib/sona_web/live/home_live.ex:414
+#: lib/shiftline_web/live/home_live.ex:414
 #, elixir-autogen, elixir-format
 msgid "Those settings could not be saved."
 msgstr "Ces paramètres n'ont pas pu être enregistrés."
 
-#: lib/sona_web/live/home_live/coverage.ex:171
-#: lib/sona_web/live/home_live/coverage.ex:274
-#: lib/sona_web/live/home_live/shifts.ex:165
+#: lib/shiftline_web/live/home_live/coverage.ex:171
+#: lib/shiftline_web/live/home_live/coverage.ex:274
+#: lib/shiftline_web/live/home_live/shifts.ex:165
 #, elixir-autogen, elixir-format
 msgid "Until"
 msgstr "Jusqu'à"
 
-#: lib/sona_web/live/home_live/profile.ex:91
+#: lib/shiftline_web/live/home_live/profile.ex:91
 #, elixir-autogen, elixir-format
 msgid "Urgent updates and replies appear in your activity feed."
 msgstr "Les mises à jour urgentes et les réponses apparaissent dans votre fil d'activité."
 
-#: lib/sona_web/live/home_live/profile.ex:57
+#: lib/shiftline_web/live/home_live/profile.ex:57
 #, elixir-autogen, elixir-format
 msgid "YOUR SETTINGS"
 msgstr "VOS PARAMÈTRES"
 
-#: lib/sona_web/live/home_live.ex:878
+#: lib/shiftline_web/live/home_live.ex:878
 #, elixir-autogen, elixir-format
 msgid "You are not eligible to respond to this request."
 msgstr "Vous n'êtes pas éligible pour répondre à cette demande."
 
-#: lib/sona_web/live/home_live/profile.ex:50
+#: lib/shiftline_web/live/home_live/profile.ex:50
 #, elixir-autogen, elixir-format
 msgid "Your role, department and property are managed by your hotel's operations team."
 msgstr "Votre poste, votre département et votre établissement sont gérés par l'équipe des opérations de votre hôtel."
 
-#: lib/sona_web/live/home_live/today.ex:153
+#: lib/shiftline_web/live/home_live/today.ex:157
 #, elixir-autogen, elixir-format
 msgid "Add task"
 msgstr "Ajouter la tâche"
 
-#: lib/sona_web/live/home_live/today.ex:146
+#: lib/shiftline_web/live/home_live/today.ex:150
 #, elixir-autogen, elixir-format
 msgid "Anyone on the team"
 msgstr "N'importe qui dans l'équipe"
 
-#: lib/sona_web/live/home_live/today.ex:173
+#: lib/shiftline_web/live/home_live/today.ex:177
 #, elixir-autogen, elixir-format
 msgid "Assign this task"
 msgstr "Attribuer cette tâche"
 
-#: lib/sona_web/live/home_live/today.ex:134
+#: lib/shiftline_web/live/home_live/today.ex:138
 #, elixir-autogen, elixir-format
 msgid "Assign work"
 msgstr "Attribuer une tâche"
 
-#: lib/sona_web/live/home_live/coverage.ex:48
-#: lib/sona_web/live/home_live/shifts.ex:40
-#: lib/sona_web/live/home_live/today.ex:134
+#: lib/shiftline_web/live/home_live/coverage.ex:48
+#: lib/shiftline_web/live/home_live/shifts.ex:40
+#: lib/shiftline_web/live/home_live/today.ex:138
 #, elixir-autogen, elixir-format
 msgid "Cancel"
 msgstr "Annuler"
 
-#: lib/sona_web/live/home_live/today.ex:36
+#: lib/shiftline_web/live/home_live/today.ex:40
 #, elixir-autogen, elixir-format
 msgid "Change your language in Profile"
 msgstr "Changez votre langue dans Profil"
 
-#: lib/sona_web/live/home_live/today.ex:192
+#: lib/shiftline_web/live/home_live/today.ex:196
 #, elixir-autogen, elixir-format
 msgid "Claim"
 msgstr "Prendre en charge"
 
-#: lib/sona_web/live/home_live.ex:189
+#: lib/shiftline_web/live/home_live.ex:189
 #, elixir-autogen, elixir-format
 msgid "Coverage request sent to the team"
 msgstr "Demande de remplacement envoyée à l'équipe"
 
-#: lib/sona_web/live/home_live/coverage.ex:159
-#: lib/sona_web/live/home_live/shifts.ex:149
+#: lib/shiftline_web/live/home_live/coverage.ex:159
+#: lib/shiftline_web/live/home_live/shifts.ex:149
 #, elixir-autogen, elixir-format
 msgid "Date"
 msgstr "Date"
 
-#: lib/sona_web/live/home_live/coverage.ex:149
+#: lib/shiftline_web/live/home_live/coverage.ex:149
 #, elixir-autogen, elixir-format
 msgid "Department"
 msgstr "Département"
 
-#: lib/sona_web/live/home_live/today.ex:149
+#: lib/shiftline_web/live/home_live/today.ex:153
 #, elixir-autogen, elixir-format
 msgid "Due"
 msgstr "Pour"
 
-#: lib/sona_web/live/home_live/ui.ex:454
+#: lib/shiftline_web/live/home_live/ui.ex:458
 #, elixir-autogen, elixir-format
 msgid "Due %{time}"
 msgstr "Pour %{time}"
 
-#: lib/sona_web/live/home_live/ui.ex:420
+#: lib/shiftline_web/live/home_live/ui.ex:424
 #, elixir-autogen, elixir-format
 msgid "First half"
 msgstr "Première moitié"
 
-#: lib/sona_web/live/home_live.ex:217
+#: lib/shiftline_web/live/home_live.ex:217
 #, elixir-autogen, elixir-format
 msgid "Give the task a title first."
 msgstr "Donnez d'abord un titre à la tâche."
 
-#: lib/sona_web/live/home_live/coverage.ex:193
+#: lib/shiftline_web/live/home_live/coverage.ex:193
 #, elixir-autogen, elixir-format
 msgid "Handoff note (optional)"
 msgstr "Note de passation (facultative)"
 
-#: lib/sona_web/live/home_live/coverage.ex:248
+#: lib/shiftline_web/live/home_live/coverage.ex:248
 #, elixir-autogen, elixir-format
 msgid "How much can you cover?"
 msgstr "Quelle partie pouvez-vous couvrir ?"
 
-#: lib/sona_web/live/home_live/ui.ex:438
+#: lib/shiftline_web/live/home_live/ui.ex:442
 #, elixir-autogen, elixir-format
 msgid "In progress"
 msgstr "En cours"
 
-#: lib/sona_web/live/home_live/coverage.ex:179
-#: lib/sona_web/live/home_live/shifts.ex:177
+#: lib/shiftline_web/live/home_live/coverage.ex:179
+#: lib/shiftline_web/live/home_live/shifts.ex:177
 #, elixir-autogen, elixir-format
 msgid "Location"
 msgstr "Lieu"
 
-#: lib/sona_web/live/home_live/ui.ex:479
+#: lib/shiftline_web/live/home_live/ui.ex:483
 #, elixir-autogen, elixir-format
 msgid "Mark done"
 msgstr "Marquer comme terminée"
 
-#: lib/sona_web/live/home_live/coverage.ex:122
+#: lib/shiftline_web/live/home_live/coverage.ex:122
 #, elixir-autogen, elixir-format
 msgid "NEW COVERAGE REQUEST"
 msgstr "NOUVELLE DEMANDE DE REMPLACEMENT"
 
-#: lib/sona_web/live/home_live/coverage.ex:48
+#: lib/shiftline_web/live/home_live/coverage.ex:48
 #, elixir-autogen, elixir-format
 msgid "New coverage request"
 msgstr "Nouvelle demande de remplacement"
 
-#: lib/sona_web/live/home_live/today.ex:150
+#: lib/shiftline_web/live/home_live/today.ex:154
 #, elixir-autogen, elixir-format
 msgid "No due time"
 msgstr "Sans heure limite"
 
-#: lib/sona_web/live/home_live/today.ex:156
+#: lib/shiftline_web/live/home_live/today.ex:160
 #, elixir-autogen, elixir-format
 msgid "No work assigned for today."
 msgstr "Aucune tâche prévue aujourd'hui."
 
-#: lib/sona_web/live/home_live/coverage.ex:128
-#: lib/sona_web/live/home_live/shifts.ex:136
+#: lib/shiftline_web/live/home_live/coverage.ex:128
+#: lib/shiftline_web/live/home_live/shifts.ex:136
 #, elixir-autogen, elixir-format
 msgid "Please check this form"
 msgstr "Veuillez vérifier ce formulaire"
 
-#: lib/sona_web/live/home_live/coverage.ex:123
+#: lib/shiftline_web/live/home_live/coverage.ex:123
 #, elixir-autogen, elixir-format
 msgid "Report an absence"
 msgstr "Signaler une absence"
 
-#: lib/sona_web/live/home_live/coverage.ex:155
-#: lib/sona_web/live/home_live/shifts.ex:145
+#: lib/shiftline_web/live/home_live/coverage.ex:155
+#: lib/shiftline_web/live/home_live/shifts.ex:145
 #, elixir-autogen, elixir-format
 msgid "Role needed"
 msgstr "Poste requis"
 
-#: lib/sona_web/live/home_live/ui.ex:421
+#: lib/shiftline_web/live/home_live/ui.ex:425
 #, elixir-autogen, elixir-format
 msgid "Second half"
 msgstr "Seconde moitié"
 
-#: lib/sona_web/live/home_live/coverage.ex:197
+#: lib/shiftline_web/live/home_live/coverage.ex:197
 #, elixir-autogen, elixir-format
 msgid "Send to eligible team members"
 msgstr "Envoyer aux collègues éligibles"
 
-#: lib/sona_web/live/home_live/messages.ex:238
-#: lib/sona_web/live/home_live/ui.ex:61
+#: lib/shiftline_web/live/home_live/messages.ex:256
+#: lib/shiftline_web/live/home_live/ui.ex:61
 #, elixir-autogen, elixir-format
 msgid "Show original"
 msgstr "Voir l'original"
 
-#: lib/sona_web/live/home_live/messages.ex:238
-#: lib/sona_web/live/home_live/ui.ex:60
+#: lib/shiftline_web/live/home_live/messages.ex:256
+#: lib/shiftline_web/live/home_live/ui.ex:60
 #, elixir-autogen, elixir-format
 msgid "Show translation"
 msgstr "Voir la traduction"
 
-#: lib/sona_web/live/home_live/ui.ex:69
+#: lib/shiftline_web/live/home_live/messages.ex:263
+#: lib/shiftline_web/live/home_live/ui.ex:69
 #, elixir-autogen, elixir-format
 msgid "Shown in its original language"
 msgstr "Affiché dans sa langue d'origine"
 
-#: lib/sona_web/live/home_live/ui.ex:478
+#: lib/shiftline_web/live/home_live/ui.ex:482
 #, elixir-autogen, elixir-format
 msgid "Start"
 msgstr "Commencer"
 
-#: lib/sona_web/live/home_live.ex:212
+#: lib/shiftline_web/live/home_live.ex:212
 #, elixir-autogen, elixir-format
 msgid "Task added"
 msgstr "Tâche ajoutée"
 
-#: lib/sona_web/live/home_live/coverage.ex:142
+#: lib/shiftline_web/live/home_live/coverage.ex:142
 #, elixir-autogen, elixir-format
 msgid "Team member's name"
 msgstr "Nom du collègue"
 
-#: lib/sona_web/live/home_live.ex:240
+#: lib/shiftline_web/live/home_live.ex:240
 #, elixir-autogen, elixir-format
 msgid "That one is yours now"
 msgstr "Cette tâche est maintenant la vôtre"
 
-#: lib/sona_web/live/home_live/today.ex:175
-#: lib/sona_web/live/home_live/ui.ex:450
+#: lib/shiftline_web/live/home_live/today.ex:179
+#: lib/shiftline_web/live/home_live/ui.ex:454
 #, elixir-autogen, elixir-format
 msgid "Unassigned"
 msgstr "Non attribuée"
 
-#: lib/sona_web/live/home_live/coverage.ex:183
+#: lib/shiftline_web/live/home_live/coverage.ex:183
 #, elixir-autogen, elixir-format
 msgid "Urgency"
 msgstr "Urgence"
 
-#: lib/sona_web/live/home_live/today.ex:144
+#: lib/shiftline_web/live/home_live/today.ex:148
 #, elixir-autogen, elixir-format
 msgid "What needs doing?"
 msgstr "Que faut-il faire ?"
 
-#: lib/sona_web/live/home_live/coverage.ex:189
+#: lib/shiftline_web/live/home_live/coverage.ex:189
 #, elixir-autogen, elixir-format
 msgid "What the team needs to know"
 msgstr "Ce que l'équipe doit savoir"
 
-#: lib/sona_web/live/home_live/coverage.ex:136
+#: lib/shiftline_web/live/home_live/coverage.ex:136
 #, elixir-autogen, elixir-format
 msgid "Who is unavailable"
 msgstr "Qui est indisponible"
 
-#: lib/sona_web/live/home_live/ui.ex:85
+#: lib/shiftline_web/live/home_live/ui.ex:85
 #, elixir-autogen, elixir-format
 msgid "Another department's shift"
 msgstr "Poste d'un autre service"
 
-#: lib/sona_web/live/home_live/shifts.ex:220
+#: lib/shiftline_web/live/home_live/shifts.ex:220
 #, elixir-autogen, elixir-format
 msgid "Absent"
 msgstr "Absent"
 
-#: lib/sona_web/live/home_live/shifts.ex:40
-#: lib/sona_web/live/home_live/shifts.ex:185
+#: lib/shiftline_web/live/home_live/shifts.ex:40
+#: lib/shiftline_web/live/home_live/shifts.ex:185
 #, elixir-autogen, elixir-format
 msgid "Add shift"
 msgstr "Ajouter un poste"
 
-#: lib/sona_web/live/home_live/shifts.ex:95
+#: lib/shiftline_web/live/home_live/shifts.ex:95
 #, elixir-autogen, elixir-format
 msgid "Add someone to this shift"
 msgstr "Ajouter quelqu'un à ce poste"
 
-#: lib/sona_web/live/home_live/shifts.ex:96
+#: lib/shiftline_web/live/home_live/shifts.ex:96
 #, elixir-autogen, elixir-format
 msgid "Add someone…"
 msgstr "Ajouter quelqu'un…"
 
-#: lib/sona_web/live/home_live/shifts.ex:131
+#: lib/shiftline_web/live/home_live/shifts.ex:131
 #, elixir-autogen, elixir-format
 msgid "Add to the roster"
 msgstr "Ajouter au planning"
 
-#: lib/sona_web/live/home_live/shifts.ex:181
+#: lib/shiftline_web/live/home_live/shifts.ex:181
 #, elixir-autogen, elixir-format
 msgid "An end time at or before the start means the shift runs overnight."
 msgstr "Une heure de fin égale ou antérieure au début signifie que le poste se poursuit la nuit."
 
-#: lib/sona_web/live/home_live/shifts.ex:131
+#: lib/shiftline_web/live/home_live/shifts.ex:131
 #, elixir-autogen, elixir-format
 msgid "Change this shift"
 msgstr "Modifier ce poste"
 
-#: lib/sona_web/live/home_live/shifts.ex:221
+#: lib/shiftline_web/live/home_live/shifts.ex:221
 #, elixir-autogen, elixir-format
 msgid "Covering"
 msgstr "Remplacement"
 
-#: lib/sona_web/live/home_live/shifts.ex:112
+#: lib/shiftline_web/live/home_live/shifts.ex:112
 #, elixir-autogen, elixir-format
 msgid "Delete"
 msgstr "Supprimer"
 
-#: lib/sona_web/live/home_live/shifts.ex:110
+#: lib/shiftline_web/live/home_live/shifts.ex:110
 #, elixir-autogen, elixir-format
 msgid "Delete this shift and its assignments?"
 msgstr "Supprimer ce poste et ses affectations ?"
 
-#: lib/sona_web/live/home_live/shifts.ex:129
+#: lib/shiftline_web/live/home_live/shifts.ex:129
 #, elixir-autogen, elixir-format
 msgid "EDIT SHIFT"
 msgstr "MODIFIER LE POSTE"
 
-#: lib/sona_web/live/home_live/shifts.ex:104
+#: lib/shiftline_web/live/home_live/shifts.ex:104
 #, elixir-autogen, elixir-format
 msgid "Edit"
 msgstr "Modifier"
 
-#: lib/sona_web/live/home_live.ex:803
+#: lib/shiftline_web/live/home_live.ex:803
 #, elixir-autogen, elixir-format
 msgid "Enter a valid date and times."
 msgstr "Saisissez une date et des heures valides."
 
-#: lib/sona_web/live/home_live/shifts.ex:129
+#: lib/shiftline_web/live/home_live/shifts.ex:129
 #, elixir-autogen, elixir-format
 msgid "NEW SHIFT"
 msgstr "NOUVEAU POSTE"
 
-#: lib/sona_web/live/home_live/shifts.ex:50
+#: lib/shiftline_web/live/home_live/shifts.ex:50
 #, elixir-autogen, elixir-format
 msgid "No shifts on the roster yet."
 msgstr "Aucun poste au planning pour l'instant."
 
-#: lib/sona_web/live/home_live/shifts.ex:68
+#: lib/shiftline_web/live/home_live/shifts.ex:68
 #, elixir-autogen, elixir-format
 msgid "Nobody is on this shift"
 msgstr "Personne n'est sur ce poste"
 
-#: lib/sona_web/live/home_live/shifts.ex:63
+#: lib/shiftline_web/live/home_live/shifts.ex:63
 #, elixir-autogen, elixir-format
 msgid "Overnight"
 msgstr "Nuit"
 
-#: lib/sona_web/live/home_live/shifts.ex:85
+#: lib/shiftline_web/live/home_live/shifts.ex:85
 #, elixir-autogen, elixir-format
 msgid "Remove from shift"
 msgstr "Retirer du poste"
 
-#: lib/sona_web/live/home_live/shifts.ex:27
+#: lib/shiftline_web/live/home_live/shifts.ex:27
 #, elixir-autogen, elixir-format
 msgid "Roster"
 msgstr "Planning"
 
-#: lib/sona_web/live/home_live/shifts.ex:185
+#: lib/shiftline_web/live/home_live/shifts.ex:185
 #, elixir-autogen, elixir-format
 msgid "Save shift"
 msgstr "Enregistrer le poste"
 
-#: lib/sona_web/live/home_live.ex:496
-#: lib/sona_web/live/home_live.ex:655
-#: lib/sona_web/live/home_live/shifts.ex:28
+#: lib/shiftline_web/live/home_live.ex:496
+#: lib/shiftline_web/live/home_live.ex:655
+#: lib/shiftline_web/live/home_live/shifts.ex:28
 #, elixir-autogen, elixir-format
 msgid "Shifts"
 msgstr "Postes"
 
-#: lib/sona_web/live/home_live/shifts.ex:30
+#: lib/shiftline_web/live/home_live/shifts.ex:30
 #, elixir-autogen, elixir-format
 msgid "Who is on, when, and where the gaps are."
 msgstr "Qui travaille, quand, et où sont les manques."
 
-#: lib/sona_web/live/home_live/messages.ex:87
-#: lib/sona_web/live/home_live/messages.ex:187
+#: lib/shiftline_web/live/home_live/messages.ex:90
+#: lib/shiftline_web/live/home_live/messages.ex:197
 #, elixir-autogen, elixir-format
 msgid "Acknowledge"
 msgstr "Confirmer"
 
-#: lib/sona_web/live/home_live/messages.ex:142
+#: lib/shiftline_web/live/home_live/messages.ex:145
 #, elixir-autogen, elixir-format
 msgid "All conversations"
 msgstr "Toutes les conversations"
 
-#: lib/sona_web/live/home_live/messages.ex:107
+#: lib/shiftline_web/live/home_live/messages.ex:110
 #, elixir-autogen, elixir-format
 msgid "CONVERSATIONS"
 msgstr "CONVERSATIONS"
 
-#: lib/sona_web/live/home_live/messages.ex:249
+#: lib/shiftline_web/live/home_live/messages.ex:273
 #, elixir-autogen, elixir-format
 msgid "DEPARTMENT CHANNEL"
 msgstr "CANAL DU SERVICE"
 
-#: lib/sona_web/live/home_live/messages.ex:210
+#: lib/shiftline_web/live/home_live/messages.ex:220
 #, elixir-autogen, elixir-format
 msgid "Mark urgent"
 msgstr "Marquer comme urgent"
 
-#: lib/sona_web/live/home_live/messages.ex:256
+#: lib/shiftline_web/live/home_live/messages.ex:280
 #, elixir-autogen, elixir-format
 msgid "No messages in this channel yet"
 msgstr "Aucun message dans ce canal pour l'instant"
 
-#: lib/sona_web/live/home_live/messages.ex:151
+#: lib/shiftline_web/live/home_live/messages.ex:154
 #, elixir-autogen, elixir-format
 msgid "Nothing here yet. Say the first thing."
 msgstr "Rien ici pour l'instant. Lancez la conversation."
 
-#: lib/sona_web/live/home_live.ex:901
+#: lib/shiftline_web/live/home_live.ex:901
 #, elixir-autogen, elixir-format
 msgid "Only a department channel can have a pinned announcement."
 msgstr "Seul un canal de service peut avoir une annonce épinglée."
 
-#: lib/sona_web/live/home_live.ex:898
+#: lib/shiftline_web/live/home_live.ex:898
 #, elixir-autogen, elixir-format
 msgid "Only urgent messages ask to be acknowledged."
 msgstr "Seuls les messages urgents demandent une confirmation."
 
-#: lib/sona_web/live/home_live/messages.ex:214
+#: lib/shiftline_web/live/home_live/messages.ex:224
 #, elixir-autogen, elixir-format
 msgid "Pin for the team"
 msgstr "Épingler pour l'équipe"
 
-#: lib/sona_web/live/home_live/messages.ex:170
+#: lib/shiftline_web/live/home_live/messages.ex:180
 #, elixir-autogen, elixir-format
 msgid "Seen by %{seen} of %{total}"
 msgstr "Vu par %{seen} sur %{total}"
 
-#: lib/sona_web/live/home_live/messages.ex:75
+#: lib/shiftline_web/live/home_live/messages.ex:75
 #, elixir-autogen, elixir-format
 msgid "Seen by %{seen} of %{total} · acknowledged by %{acknowledged}"
 msgstr "Vu par %{seen} sur %{total} · confirmé par %{acknowledged}"
 
-#: lib/sona_web/live/home_live/messages.ex:217
+#: lib/shiftline_web/live/home_live/messages.ex:227
 #, elixir-autogen, elixir-format
 msgid "Send"
 msgstr "Envoyer"
 
-#: lib/sona_web/live/home_live/messages.ex:259
+#: lib/shiftline_web/live/home_live/messages.ex:283
 #, elixir-autogen, elixir-format
 msgid "Start a conversation with %{name}"
 msgstr "Démarrer une conversation avec %{name}"
 
-#: lib/sona_web/live/home_live.ex:904
+#: lib/shiftline_web/live/home_live.ex:904
 #, elixir-autogen, elixir-format
 msgid "That conversation does not exist."
 msgstr "Cette conversation n'existe pas."
 
-#: lib/sona_web/live/home_live.ex:354
+#: lib/shiftline_web/live/home_live.ex:354
 #, elixir-autogen, elixir-format
 msgid "That message could not be sent."
 msgstr "Ce message n'a pas pu être envoyé."
 
-#: lib/sona_web/live/home_live.ex:895
+#: lib/shiftline_web/live/home_live.ex:895
 #, elixir-autogen, elixir-format
 msgid "This message was not sent to you."
 msgstr "Ce message ne vous était pas destiné."
 
-#: lib/sona_web/live/home_live/messages.ex:205
+#: lib/shiftline_web/live/home_live/messages.ex:215
 #, elixir-autogen, elixir-format
 msgid "Write a message"
 msgstr "Écrire un message"
 
-#: lib/sona_web/live/home_live/messages.ex:204
+#: lib/shiftline_web/live/home_live/messages.ex:214
 #, elixir-autogen, elixir-format
 msgid "Write a message…"
 msgstr "Écrivez un message…"
 
-#: lib/sona_web/live/home_live.ex:892
+#: lib/shiftline_web/live/home_live.ex:892
 #, elixir-autogen, elixir-format
 msgid "Write something first."
 msgstr "Écrivez d'abord quelque chose."
 
-#: lib/sona_web/live/home_live/messages.ex:90
+#: lib/shiftline_web/live/home_live/messages.ex:93
 #, elixir-autogen, elixir-format
 msgid "You acknowledged this"
 msgstr "Vous avez confirmé ce message"
 
-#: lib/sona_web/live/home_live/messages.ex:108
+#: lib/shiftline_web/live/home_live/messages.ex:111
 #, elixir-autogen, elixir-format
 msgid "Your channels and people"
 msgstr "Vos canaux et vos collègues"
 
-#: lib/sona_web/live/home_live/messages.ex:176
+#: lib/shiftline_web/live/home_live/messages.ex:186
 #, elixir-autogen, elixir-format
 msgid "· acknowledged by %{count}"
 msgstr "· confirmé par %{count}"

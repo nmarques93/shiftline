@@ -1,4 +1,4 @@
-# Sona
+# Shiftline
 
 A Phoenix LiveView prototype for hospitality team communication: how a hotel team can replace fragmented WhatsApp coordination with a visible, localized, two-way workspace.
 
@@ -62,7 +62,7 @@ Language follows each person's own preference, set in **Profile**, and applies t
 Localization splits in two, because Gettext can only cover strings that exist at compile time and cannot cover the sentence a supervisor types at 06:00:
 
 - **UI copy** → Gettext, resolved per staff member's language.
-- **User-entered content** → `Sona.Translation`, a cache in front of a provider behind a behaviour.
+- **User-entered content** → `Shiftline.Translation`, a cache in front of a provider behind a behaviour.
 
 The shape matters more than the provider:
 
@@ -78,7 +78,7 @@ The default provider is offline and only covers seeded phrases. To translate arb
 export DEEPSEEK_API_KEY=...   # or ANTHROPIC_API_KEY=...
 ```
 
-`Sona.Translation.DeepSeek` and `Sona.Translation.Claude` sit behind the same behaviour and send the same prompt from `Sona.Translation.Prompt`, so the key you export is the whole of the switch and swapping providers cannot quietly change what the model was asked to do. DeepSeek defaults to the cheaper `deepseek-v4-flash`: this path runs once per locale per piece of text, so it is the cost that scales with usage. `TRANSLATION_MODEL` overrides the model.
+`Shiftline.Translation.DeepSeek` and `Shiftline.Translation.Claude` sit behind the same behaviour and send the same prompt from `Shiftline.Translation.Prompt`, so the key you export is the whole of the switch and swapping providers cannot quietly change what the model was asked to do. DeepSeek defaults to the cheaper `deepseek-v4-flash`: this path runs once per locale per piece of text, so it is the cost that scales with usage. `TRANSLATION_MODEL` overrides the model.
 
 ## Architecture
 
@@ -96,7 +96,7 @@ The cost is needing Postgres locally instead of `npm run dev`, which is acceptab
 
 ```text
 lib/
-├── sona/
+├── shiftline/
 │   ├── coordination.ex            # context: the coverage state machine, and only that
 │   ├── demo.ex                    # fixtures + the persona switcher standing in for auth
 │   ├── coordination/
@@ -117,7 +117,7 @@ lib/
 │       ├── local.ex               # offline default
 │       ├── deepseek.ex
 │       └── claude.ex
-└── sona_web/
+└── shiftline_web/
     └── live/
         ├── home_live.ex           # shell, URL state, event handlers, PubSub subscribe
         └── home_live/
@@ -128,9 +128,9 @@ lib/
             └── profile.ex
 ```
 
-All writes go through `Sona.Coordination` or `Sona.Coordination.Tasks`, which validate the transition, record an activity event naming the real actor, and broadcast through `Sona.Coordination.Notifier`. The LiveView only renders state and dispatches actions.
+All writes go through `Shiftline.Coordination` or `Shiftline.Coordination.Tasks`, which validate the transition, record an activity event naming the real actor, and broadcast through `Shiftline.Coordination.Notifier`. The LiveView only renders state and dispatches actions.
 
-`Sona.Demo` sits outside the domain on purpose. Everything a real deployment would delete — seeded fixtures, the reset button, and a persona switcher that hands out an identity with no proof of who is asking — lives there, so the line between what is real and what is scaffolding is visible in the module tree rather than in a comment. **Authentication replaces `Sona.Demo.personas/0` and nothing else:** every write function already takes an actor id and already checks department, role and ownership against it.
+`Shiftline.Demo` sits outside the domain on purpose. Everything a real deployment would delete — seeded fixtures, the reset button, and a persona switcher that hands out an identity with no proof of who is asking — lives there, so the line between what is real and what is scaffolding is visible in the module tree rather than in a comment. **Authentication replaces `Shiftline.Demo.personas/0` and nothing else:** every write function already takes an actor id and already checks department, role and ownership against it.
 
 ### Data model
 
@@ -187,13 +187,13 @@ The suite makes no network calls, and does not depend on your shell to keep it t
 
 User-typed text is sent to a third-party model for translation, which makes this the one place in the app where attacker-influenced content reaches an LLM. What that does and does not buy an attacker:
 
-**Structural protections.** Text is sent as the **user turn**, never concatenated into the system prompt, so instruction and data stay in separate roles. The result is inert — it is stored as a string and rendered, and never becomes code, a query, a tool call, or a permission decision. Rendering is HEEx with no `raw/1` anywhere in `lib/sona_web/`, so markup in a translation is escaped rather than executed. Input is capped at 2,000 characters and cached by content hash, which bounds both cost and repeat traffic.
+**Structural protections.** Text is sent as the **user turn**, never concatenated into the system prompt, so instruction and data stay in separate roles. The result is inert — it is stored as a string and rendered, and never becomes code, a query, a tool call, or a permission decision. Rendering is HEEx with no `raw/1` anywhere in `lib/shiftline_web/`, so markup in a translation is escaped rather than executed. Input is capped at 2,000 characters and cached by content hash, which bounds both cost and repeat traffic.
 
 **The residual risk is content spoofing, not compromise.** A crafted note could try to talk the provider into emitting something other than a translation. The attacker already controls the source text, so what injection actually buys is the ability to make one message *say different things to different audiences* — an English-reading supervisor sees an innocuous note while Spanish-reading staff see something else.
 
 The mitigation is to make translations checkable rather than authoritative: any machine-translated text carries a **"Show original"** control that switches the view back to what the author actually wrote. The mode lives in the URL (`?original=1`), so it survives a refresh and can be shared. A filter guessing at malicious output would be weaker — this makes a discrepancy visible to anyone who looks, without having to out-guess a model.
 
-**Data residency is the bigger production question.** Staff names, shift patterns and reasons for absence leave the deployment for a third-party API. For an EU operator that is a GDPR matter — lawful basis, processor agreement, transfer mechanism — and it bears on provider choice, since DeepSeek is under Chinese jurisdiction. The behaviour in `Sona.Translation` means a self-hosted or EU-resident model is a config change, and the shared `Sona.Translation.Prompt` means swapping providers cannot alter what is asked.
+**Data residency is the bigger production question.** Staff names, shift patterns and reasons for absence leave the deployment for a third-party API. For an EU operator that is a GDPR matter — lawful basis, processor agreement, transfer mechanism — and it bears on provider choice, since DeepSeek is under Chinese jurisdiction. The behaviour in `Shiftline.Translation` means a self-hosted or EU-resident model is a config change, and the shared `Shiftline.Translation.Prompt` means swapping providers cannot alter what is asked.
 
 ## Scope and known gaps
 

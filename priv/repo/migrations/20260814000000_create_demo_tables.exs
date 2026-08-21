@@ -1,4 +1,4 @@
-defmodule Sona.Repo.Migrations.CreateDemoTables do
+defmodule Shiftline.Repo.Migrations.CreateDemoTables do
   use Ecto.Migration
 
   def change do

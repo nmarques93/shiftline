@@ -7,10 +7,10 @@ between tasks and shifts, plus a calendar view of both.
 
 ## 0. The decision that comes first
 
-**Does Sona author shifts, or consume them?**
+**Does Shiftline author shifts, or consume them?**
 
 Nothing else in this plan can be settled until this is. The market analysis this
-product was built on positions Sona as a *frontline response layer that sits on
+product was built on positions Shiftline as a *frontline response layer that sits on
 top of existing systems*, explicitly not "another hotel management system". Every
 serious customer already has a rota somewhere — Actabl, Deputy, 7shifts, Fourth,
 or a spreadsheet. If we let people build rotas here we acquire availability
@@ -105,7 +105,7 @@ Add `shift_id` to `shift_tasks`, **nullable**.
 
 Keep `department` denormalised on the task even when `shift_id` is set. It is the
 column every authorization check reads (`Tasks.list/2`, `assignable_staff/1`,
-every guard in `Sona.Coordination.Tasks`), and making those joins-through-shift
+every guard in `Shiftline.Coordination.Tasks`), and making those joins-through-shift
 would spread the department rule across two tables for no benefit.
 
 `due_time` becomes `due_at` (utc_datetime) in the same pass, validated to fall
@@ -180,12 +180,12 @@ Each phase is shippable on its own.
 | # | Phase | Notes | Est. |
 | --- | --- | --- | --- |
 | 0 | Decide sync vs author | Blocks the schema. Product call, not engineering. | — |
-| 1 | `Shift` + `ShiftAssignment`, seeds, `Sona.Coordination.Shifts` context | UTC datetimes from the start | ~1d |
+| 1 | `Shift` + `ShiftAssignment`, seeds, `Shiftline.Coordination.Shifts` context | UTC datetimes from the start | ~1d |
 | 2 | Couple tasks; Today strip reads a real shift | Nullable FK, no behaviour lost | ~0.5d |
 | 3 | Couple coverage; assignment replaces `absent_name` | Touches the state machine and follow-ups — most care needed | ~1d |
 | 4 | Convert `coverage_requests` to UTC datetimes | Overnight support; touches every time helper and its tests | ~1.5d |
 | 5 | Schedule page + department PubSub topics + localized dates | | ~2d |
-| 6 | First import adapter behind a behaviour | Mirrors `Sona.Translation`'s adapter pattern | ~1.5d |
+| 6 | First import adapter behind a behaviour | Mirrors `Shiftline.Translation`'s adapter pattern | ~1.5d |
 
 Roughly **1.5–2 weeks** for one engineer. Phases 1–3 alone deliver the coupling
 customers asked for; 5 delivers the calendar.

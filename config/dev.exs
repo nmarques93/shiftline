@@ -1,11 +1,11 @@
 import Config
 
 # Configure your database
-config :sona, Sona.Repo,
+config :shiftline, Shiftline.Repo,
   username: "postgres",
   password: "postgres",
   hostname: "localhost",
-  database: "sona_dev",
+  database: "shiftline_dev",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
@@ -16,7 +16,7 @@ config :sona, Sona.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we can use it
 # to bundle .js and .css sources.
-config :sona, SonaWeb.Endpoint,
+config :shiftline, ShiftlineWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
   http: [ip: {127, 0, 0, 1}],
@@ -25,8 +25,8 @@ config :sona, SonaWeb.Endpoint,
   debug_errors: true,
   secret_key_base: "CElKhu9WYYTG+y6OW6gWW1f3J6ADbmP9BWLvvm9WMJTPGlfyrPBamc+63EWHo1ar",
   watchers: [
-    esbuild: {Esbuild, :install_and_run, [:sona, ~w(--sourcemap=inline --watch)]},
-    tailwind: {Tailwind, :install_and_run, [:sona, ~w(--watch)]}
+    esbuild: {Esbuild, :install_and_run, [:shiftline, ~w(--sourcemap=inline --watch)]},
+    tailwind: {Tailwind, :install_and_run, [:shiftline, ~w(--watch)]}
   ]
 
 # ## SSL Support
@@ -53,7 +53,7 @@ config :sona, SonaWeb.Endpoint,
 # different ports.
 
 # Enable dev routes for dashboard and mailbox
-config :sona, dev_routes: true
+config :shiftline, dev_routes: true
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :default_formatter, format: "[$level] $message\n"

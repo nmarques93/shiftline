@@ -1,4 +1,4 @@
-defmodule Sona.Translation.Stub do
+defmodule Shiftline.Translation.Stub do
   @moduledoc """
   Deterministic translation provider for tests.
 
@@ -7,7 +7,7 @@ defmodule Sona.Translation.Stub do
   fallback behaviour can be tested.
   """
 
-  @behaviour Sona.Translation
+  @behaviour Shiftline.Translation
 
   @impl true
   def translate(text, _locale) when is_binary(text) do

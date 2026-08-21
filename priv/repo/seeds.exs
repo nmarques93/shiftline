@@ -1,1 +1,1 @@
-Sona.Demo.reset_demo()
+Shiftline.Demo.reset_demo()

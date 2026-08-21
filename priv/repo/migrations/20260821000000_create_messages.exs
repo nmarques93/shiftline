@@ -1,4 +1,4 @@
-defmodule Sona.Repo.Migrations.CreateMessages do
+defmodule Shiftline.Repo.Migrations.CreateMessages do
   use Ecto.Migration
 
   def change do

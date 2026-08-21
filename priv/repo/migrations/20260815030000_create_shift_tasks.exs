@@ -1,4 +1,4 @@
-defmodule Sona.Repo.Migrations.CreateShiftTasks do
+defmodule Shiftline.Repo.Migrations.CreateShiftTasks do
   use Ecto.Migration
 
   def change do
