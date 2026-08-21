@@ -41,3 +41,7 @@ npm-debug.log
 
 # Local editor/agent tooling, not part of the project
 /.claude/
+
+# Working notes, not part of the deliverable
+/HANDOFF.md
+/brief-check-report.md
